@@ -1,107 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>Hexo部署报错Spawn failed及解决方案</title>
-    <url>/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn%20failed%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
-    <content><![CDATA[<p>原文链接:<a href="https://perry96.com/archives/882898e3.html">https://perry96.com/archives/882898e3.html</a></p>
-<p>许可协议:署名-非商业性使用-禁止演绎 4.0 国际 转载请保留原文链接及作者。</p>
-<h2 id="Hexo部署报错Spawn-failed及解决方案"><a href="#Hexo部署报错Spawn-failed及解决方案" class="headerlink" title="Hexo部署报错Spawn failed及解决方案"></a>Hexo部署报错Spawn failed及解决方案</h2><h2 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1.问题描述"></a>1.问题描述</h2><p>今天下午在使用<code>hexo d -g</code>命令进行博客部署时遇到了名为<code>Spawn failed</code>的报错，具体信息见下图。</p>
-<h2 id="2-问题分析和解决"><a href="#2-问题分析和解决" class="headerlink" title="2.问题分析和解决"></a>2.问题分析和解决</h2><span id="more"></span>
-
-<h3 id="2-1-问题原因"><a href="#2-1-问题原因" class="headerlink" title="2.1 问题原因"></a>2.1 问题原因</h3><p>在网上通过简单的查询之后发现问题出在<code>.deploy_git</code>文件夹中，这个文件夹是<code>hexo</code>框架渲染生成的所有文件的一个本地<code>git</code>仓库，<code>hexo d</code>命令就是将整个<code>.deploy_git</code>文件夹的内容push到GitHub上的。</p>
-<p>网上的一个解决方案是将GitHub上的xxx.github.io仓库克隆下来并改名成<code>.deploy_git</code>来替换原来的，这种改名方式在Windows系统中是无法完成的。简单分析这种方法的原理无非就是将<code>.deploy_git</code>的内容回滚到和GitHub上同步的状态。</p>
-<p>结合刚刚的分析，不妨打开<code>.deploy_git\.git\logs</code>路径下的HEAD查看一下仓库的状态历史(红线范围内的记录是我在第一次报错之后的多次无脑尝试，可以忽视)。</p>
-<p>再打开GitHub上的提交记录可以发现最近的时间点是12:51:46。</p>
-<p>所以可以知道是那些多余本地提交导致了报错。</p>
-<h3 id="2-2-问题解决"><a href="#2-2-问题解决" class="headerlink" title="2.2 问题解决"></a>2.2 问题解决</h3><p>现在的解决思路就是将本地仓库的状态进行回滚，对应的git命令如下。</p>
-<p>git reset –hard commitId<br>–hard强制将缓存区和工作目录都同步到你指定的<code>commitId</code>所对应的提交。<br>执行之后HEAD多了下面的一条记录（圈出的那一串数字就是我自己仓库中12:51:46时间对应的commit的ID号）。</p>
-<p>重新执行hexo d -g部署博客，发现问题成功解决。</p>
-]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Hexo部署报错Spawn failed及解决方案</title>
+      <link href="/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn%20failed%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+      <url>/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn%20failed%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+      
+        <content type="html"><![CDATA[<p>原文链接:<a href="https://perry96.com/archives/882898e3.html">https://perry96.com/archives/882898e3.html</a></p><p>许可协议:署名-非商业性使用-禁止演绎 4.0 国际 转载请保留原文链接及作者。</p><h2 id="Hexo部署报错Spawn-failed及解决方案"><a href="#Hexo部署报错Spawn-failed及解决方案" class="headerlink" title="Hexo部署报错Spawn failed及解决方案"></a>Hexo部署报错Spawn failed及解决方案</h2><h2 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1.问题描述"></a>1.问题描述</h2><p>今天下午在使用<code>hexo d -g</code>命令进行博客部署时遇到了名为<code>Spawn failed</code>的报错，具体信息见下图。</p><h2 id="2-问题分析和解决"><a href="#2-问题分析和解决" class="headerlink" title="2.问题分析和解决"></a>2.问题分析和解决</h2><span id="more"></span><h3 id="2-1-问题原因"><a href="#2-1-问题原因" class="headerlink" title="2.1 问题原因"></a>2.1 问题原因</h3><p>在网上通过简单的查询之后发现问题出在<code>.deploy_git</code>文件夹中，这个文件夹是<code>hexo</code>框架渲染生成的所有文件的一个本地<code>git</code>仓库，<code>hexo d</code>命令就是将整个<code>.deploy_git</code>文件夹的内容push到GitHub上的。</p><p>网上的一个解决方案是将GitHub上的xxx.github.io仓库克隆下来并改名成<code>.deploy_git</code>来替换原来的，这种改名方式在Windows系统中是无法完成的。简单分析这种方法的原理无非就是将<code>.deploy_git</code>的内容回滚到和GitHub上同步的状态。</p><p>结合刚刚的分析，不妨打开<code>.deploy_git\.git\logs</code>路径下的HEAD查看一下仓库的状态历史(红线范围内的记录是我在第一次报错之后的多次无脑尝试，可以忽视)。</p><p>再打开GitHub上的提交记录可以发现最近的时间点是12:51:46。</p><p>所以可以知道是那些多余本地提交导致了报错。</p><h3 id="2-2-问题解决"><a href="#2-2-问题解决" class="headerlink" title="2.2 问题解决"></a>2.2 问题解决</h3><p>现在的解决思路就是将本地仓库的状态进行回滚，对应的git命令如下。</p><p>git reset –hard commitId<br>–hard强制将缓存区和工作目录都同步到你指定的<code>commitId</code>所对应的提交。<br>执行之后HEAD多了下面的一条记录（圈出的那一串数字就是我自己仓库中12:51:46时间对应的commit的ID号）。</p><p>重新执行hexo d -g部署博客，发现问题成功解决。</p>]]></content>
+      
+      
       <categories>
-        <category>测试功能</category>
+          
+          <category> 测试功能 </category>
+          
       </categories>
-      <tags>
-        <tag>报错解决方案</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>致家长的一封信</title>
-    <url>/2021/08/09/test/</url>
-    <content><![CDATA[<p>致家长的一封信</p>
-<p>尊敬的家长、亲爱的同学们：</p>
-<p>  当前，电信网络新型犯罪活动猖獗、诈骗案件呈高发趋势，受害人被骗案值大。为了您的财产安全，请认真阅读此信，以增强防范意识和能力，有效保护您的宝贵财产。同时，希望您将此信的内容转告您的家人、亲友和同事、邻居，以此形成坚实的社会防范基石，切实杜绝受害，有效遏制此类犯罪发生。</p>
-<p>目前，电信诈骗犯罪的作案形式和手段主要包括:</p>
-<span id="more"></span>
-
-<p>1、犯罪嫌疑人采用拨打电话的形式，冒充电信、税务、公检法机关工作人员进行诈骗。</p>
-<p>2、冒充QQ好友、微信好友进行诈骗。</p>
-<p>3、冒充消防、武警给受害人打电话，以购买帐篷、床等物品的方式诈骗定金。</p>
-<p>4、通过打电话或发送短信以“你猜我是谁”等语言骗取事主信任、谎称出差办事、嫖娼或赌博被抓、家人住院等理由冒充熟人进行诈骗。</p>
-<p>5、虚构绑架事实诈骗。嫌疑人给事主打电话，谎称事主孩子等亲属被其绑架进行诈骗。</p>
-<p>6、开设虚假网站、网上钓鱼诈骗。通过开设网址与真实网站极为相似的虚假网上银行、网络交易平台、手机充值网址等进行诈骗。等等……</p>
-<p>在此提醒广大家长朋友：</p>
-<p>1.保持清醒头脑，遇到可疑的人或事要冷静分析,不轻信，不盲动，以免财物损失。</p>
-<p>2.做好个人和家庭信息资料的保密工作,不要随便泄露自己和家中的电话号码。</p>
-<p>3.不管遇到任何原因、理由要求为家人、亲友寄钱、寄物的短信或电话，一定要提高警惕，通过各种途径调查证实是否属实,以防受骗。</p>
-<p>4.目前网上商务环境复杂,以及网上安全法律法规的不完善,使得犯罪分子可以低成本地进行各种网络违法犯罪活动为财物安全计，建议尽量不要到网上订机票、火车票等，特别是需预先付款的购物，一定要特别谨慎,三思而行。</p>
-<p>5.不贪。要坚信:“没有免费的午餐”，“天上不会掉馅饼”。这样无论诱惑多大，都不会为其所动。</p>
-<p>温馨提示：在做好自身防范的同时，积极向周围的亲人、朋友做好宣传，特别是易受骗群体要注意提醒。切勿上当受骗! 诈骗手段多种多样,变化多端。谨记不转账、不汇款、多核实,防骗反诈,保护好自身和家庭的和谐平安。</p>
-<p>学生签字：         家长签字：</p>
-<p>2021年6月28日</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/06/20/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>图片测试</title>
-    <url>/2021/08/06/post-title-with-whitespace/</url>
-    <content><![CDATA[<p><img src="/2021/08/06/post-title-with-whitespace/%E5%A4%AA%E9%98%B3.jpg"></p>
-<span id="more"></span>
-
-<p><img src="/2021/08/06/post-title-with-whitespace/us2021_main-1.jpg"></p>
-<p><img src="/2021/08/06/post-title-with-whitespace/%E7%89%B9%E7%A9%BA%E6%9C%BA.jpg"></p>
-<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E5%A5%A5%E7%89%B9%E6%9B%BC,%E6%8D%B7%E5%BE%B7%E5%A5%A5%E7%89%B9%E6%9B%BC,%E8%B5%9B%E7%BD%97%E5%A5%A5%E7%89%B9%E6%9B%BC.png"></p>
-<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B0%8F%E9%98%9F.png"></p>
-]]></content>
-      <tags>
-        <tag>测试功能</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>阅读全文测试</title>
-    <url>/2021/08/08/%E9%98%85%E8%AF%BB%E5%85%A8%E6%96%87%E6%B5%8B%E8%AF%95/</url>
-    <content><![CDATA[<h3 id="广播剧"><a href="#广播剧" class="headerlink" title="广播剧"></a>广播剧</h3><p>泽塔还未进入宇宙警备队，十分崇拜赛罗奥特曼，请求赛罗收他为徒，虽然赛罗 [2] 认为泽塔的能力不够，但赛罗还是非常认可泽塔的热血精神和求知欲望，教给泽塔许多知识，其中<a href="https://baike.baidu.com/item/%E5%88%A9%E5%B8%83%E7%89%B9%E5%A5%A5%E7%89%B9%E6%9B%BC/19814809">利布特奥特曼</a>、<a href="https://baike.baidu.com/item/%E7%88%B1%E8%BF%AA%E5%A5%A5%E7%89%B9%E6%9B%BC/285184">爱迪奥特曼</a>、<a href="https://baike.baidu.com/item/%E6%A2%A6%E6%AF%94%E4%BC%98%E6%96%AF%E5%A5%A5%E7%89%B9%E6%9B%BC/2684129">梦比优斯奥特曼</a>等奥特战士也给了泽塔不少的学习帮助。</p>
-<p>在<a href="https://baike.baidu.com/item/%E5%B8%8C%E5%8D%A1%E5%88%A9%E5%A5%A5%E7%89%B9%E6%9B%BC/6527825">希卡利奥特曼</a>研制新的升华器时，泽塔被赛罗推荐成为升华器的实验者。</p>
-<p>泽塔在通过宇宙警备队的录取考试时，赛罗亲自担任实战部分的测试考官，泽塔不是赛罗的对手，但他勇往直前、坚持不懈的精神折服了各个考官，于是<a href="https://baike.baidu.com/item/%E4%BD%90%E8%8F%B2/8772827">佐菲</a>批准泽塔通过考试，泽塔从此正式成为宇宙警备队的队员。</p>
-<span id="more"></span>
-
-<h3 id="巨大的阴谋"><a href="#巨大的阴谋" class="headerlink" title="巨大的阴谋"></a>巨大的阴谋</h3><p>泽塔为了磨炼战斗技巧而在奥特竞技场里接受<a href="https://baike.baidu.com/item/%E6%A2%A6%E6%AF%94%E4%BC%98%E6%96%AF/3802272">梦比优斯</a>的训练，并首次遇到<a href="https://baike.baidu.com/item/%E6%B3%B0%E8%BF%A6/55625133">泰迦</a>。</p>
-<p>在<a href="https://baike.baidu.com/item/%E5%B0%A4%E8%8E%89%E5%AE%89/4646716">尤莉安</a>和爱迪遭到杰顿军团的袭击时，参与救援行动。但由于泽塔急躁冒进，缺乏战友的配合，被<a href="https://baike.baidu.com/item/%E6%9D%B0%E9%A1%BF/1682096">杰顿</a>军团痛击，被赛罗训斥后在一旁观战，由此领悟了团队精神的重要性。在前辈泰迦的指导下，泽塔与三人小队合作成功将<a href="https://baike.baidu.com/item/%E5%AE%87%E5%AE%99%E6%81%90%E9%AD%94%E4%BA%BA%E6%9D%B0%E7%89%B9/24414695">宇宙恐魔人杰特</a>和杰顿军团消灭。</p>
-<p>后收到了希卡利的消息：<a href="https://baike.baidu.com/item/%E7%9B%96%E5%86%85%E4%BC%BD%E5%8F%A4/50838802">盖内伽古</a>侵入光之国，将备用的奥特泽塔升华器和奥特勋章抢走。泽塔独自追了上去，赛罗紧随而来。</p>
-<h3 id="泽塔奥特曼TV"><a href="#泽塔奥特曼TV" class="headerlink" title="泽塔奥特曼TV"></a>泽塔奥特曼TV</h3><p>泽塔和赛罗一同对盖内伽古展开追击。泽塔接收到赛罗持有的泽塔升华器和变身成阿尔法装甲需要的奥特勋章后，赛罗被盖内伽古吐出的四次元怪兽布鲁顿卷进四次元空间。泽塔一路追击到地球，和驾驶赛文加的防卫军“军械库”的成员<a href="https://baike.baidu.com/item/%E5%A4%8F%E5%B7%9D%E9%81%A5%E8%BE%89/50127636">夏川遥辉</a>对战盖内伽古。泽塔战败，遥辉也因此死去。为了能继续战斗，泽塔和遥辉提合为一体，遥辉变身为阿尔法装甲形态，击杀了盖内伽古。</p>
-<p>虽然和遥辉一起战斗，击退了众多怪兽和宇宙人，保护了人们。但他们却不知道这一切都是寄宿在盖内伽古的<a href="https://baike.baidu.com/item/%E8%B5%9B%E9%9B%B7%E5%B8%83%E6%B4%9B/50839628">赛雷布洛</a>的文明自灭游戏计划的范围内。在他的附体的军械库高官栗山长官的引导下，地球人为了超越奥特战士而不断开发出特空机，而其杰作是装载D4的4号机：奥特人造机甲赛罗。赛雷布洛操控奥特人造机甲赛罗吸收地球上的怪兽、贝利亚勋章和怪兽勋章，异变进化成的机甲歼灭兽<a href="https://baike.baidu.com/item/%E5%BE%B7%E6%96%AF%E7%89%B9%E9%B2%81%E5%A4%9A%E6%96%AF/55478720">德斯特鲁多斯</a>，泽塔前去迎战，但战败，后泽塔使用德尔塔天爪和贝利亚黄昏再次迎战，但无法将其彻底击败。最后在军械库的各位的鼓励下，以原始形态打败了德斯特鲁多斯，挫败了赛雷布洛的计划。</p>
-<p>泽塔和遥辉离开地球，前往宇宙旅行，寻找恶魔碎片，帮助人们。</p>
-<h3 id="赛文加格斗"><a href="#赛文加格斗" class="headerlink" title="赛文加格斗"></a>赛文加格斗</h3><p>赛文加陷入了困境。泽塔出现，打败了怪兽。</p>
-<h3 id="特利迦"><a href="#特利迦" class="headerlink" title="特利迦"></a>特利迦</h3><p>与遥辉一起见到了变身特利迦奥特曼的真中剑悟。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 报错解决方案 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>致家长的一封信</title>
+      <link href="/2021/08/09/test/"/>
+      <url>/2021/08/09/test/</url>
+      
+        <content type="html"><![CDATA[<p>致家长的一封信</p><p>尊敬的家长、亲爱的同学们：</p><p>  当前，电信网络新型犯罪活动猖獗、诈骗案件呈高发趋势，受害人被骗案值大。为了您的财产安全，请认真阅读此信，以增强防范意识和能力，有效保护您的宝贵财产。同时，希望您将此信的内容转告您的家人、亲友和同事、邻居，以此形成坚实的社会防范基石，切实杜绝受害，有效遏制此类犯罪发生。</p><p>目前，电信诈骗犯罪的作案形式和手段主要包括:</p><span id="more"></span><p>1、犯罪嫌疑人采用拨打电话的形式，冒充电信、税务、公检法机关工作人员进行诈骗。</p><p>2、冒充QQ好友、微信好友进行诈骗。</p><p>3、冒充消防、武警给受害人打电话，以购买帐篷、床等物品的方式诈骗定金。</p><p>4、通过打电话或发送短信以“你猜我是谁”等语言骗取事主信任、谎称出差办事、嫖娼或赌博被抓、家人住院等理由冒充熟人进行诈骗。</p><p>5、虚构绑架事实诈骗。嫌疑人给事主打电话，谎称事主孩子等亲属被其绑架进行诈骗。</p><p>6、开设虚假网站、网上钓鱼诈骗。通过开设网址与真实网站极为相似的虚假网上银行、网络交易平台、手机充值网址等进行诈骗。等等……</p><p>在此提醒广大家长朋友：</p><p>1.保持清醒头脑，遇到可疑的人或事要冷静分析,不轻信，不盲动，以免财物损失。</p><p>2.做好个人和家庭信息资料的保密工作,不要随便泄露自己和家中的电话号码。</p><p>3.不管遇到任何原因、理由要求为家人、亲友寄钱、寄物的短信或电话，一定要提高警惕，通过各种途径调查证实是否属实,以防受骗。</p><p>4.目前网上商务环境复杂,以及网上安全法律法规的不完善,使得犯罪分子可以低成本地进行各种网络违法犯罪活动为财物安全计，建议尽量不要到网上订机票、火车票等，特别是需预先付款的购物，一定要特别谨慎,三思而行。</p><p>5.不贪。要坚信:“没有免费的午餐”，“天上不会掉馅饼”。这样无论诱惑多大，都不会为其所动。</p><p>温馨提示：在做好自身防范的同时，积极向周围的亲人、朋友做好宣传，特别是易受骗群体要注意提醒。切勿上当受骗! 诈骗手段多种多样,变化多端。谨记不转账、不汇款、多核实,防骗反诈,保护好自身和家庭的和谐平安。</p><p>学生签字：         家长签字：</p><p>2021年6月28日</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>阅读全文测试</title>
+      <link href="/2021/08/08/%E9%98%85%E8%AF%BB%E5%85%A8%E6%96%87%E6%B5%8B%E8%AF%95/"/>
+      <url>/2021/08/08/%E9%98%85%E8%AF%BB%E5%85%A8%E6%96%87%E6%B5%8B%E8%AF%95/</url>
+      
+        <content type="html"><![CDATA[<h3 id="广播剧"><a href="#广播剧" class="headerlink" title="广播剧"></a>广播剧</h3><p>泽塔还未进入宇宙警备队，十分崇拜赛罗奥特曼，请求赛罗收他为徒，虽然赛罗 [2] 认为泽塔的能力不够，但赛罗还是非常认可泽塔的热血精神和求知欲望，教给泽塔许多知识，其中<a href="https://baike.baidu.com/item/%E5%88%A9%E5%B8%83%E7%89%B9%E5%A5%A5%E7%89%B9%E6%9B%BC/19814809">利布特奥特曼</a>、<a href="https://baike.baidu.com/item/%E7%88%B1%E8%BF%AA%E5%A5%A5%E7%89%B9%E6%9B%BC/285184">爱迪奥特曼</a>、<a href="https://baike.baidu.com/item/%E6%A2%A6%E6%AF%94%E4%BC%98%E6%96%AF%E5%A5%A5%E7%89%B9%E6%9B%BC/2684129">梦比优斯奥特曼</a>等奥特战士也给了泽塔不少的学习帮助。</p><p>在<a href="https://baike.baidu.com/item/%E5%B8%8C%E5%8D%A1%E5%88%A9%E5%A5%A5%E7%89%B9%E6%9B%BC/6527825">希卡利奥特曼</a>研制新的升华器时，泽塔被赛罗推荐成为升华器的实验者。</p><p>泽塔在通过宇宙警备队的录取考试时，赛罗亲自担任实战部分的测试考官，泽塔不是赛罗的对手，但他勇往直前、坚持不懈的精神折服了各个考官，于是<a href="https://baike.baidu.com/item/%E4%BD%90%E8%8F%B2/8772827">佐菲</a>批准泽塔通过考试，泽塔从此正式成为宇宙警备队的队员。</p><span id="more"></span><h3 id="巨大的阴谋"><a href="#巨大的阴谋" class="headerlink" title="巨大的阴谋"></a>巨大的阴谋</h3><p>泽塔为了磨炼战斗技巧而在奥特竞技场里接受<a href="https://baike.baidu.com/item/%E6%A2%A6%E6%AF%94%E4%BC%98%E6%96%AF/3802272">梦比优斯</a>的训练，并首次遇到<a href="https://baike.baidu.com/item/%E6%B3%B0%E8%BF%A6/55625133">泰迦</a>。</p><p>在<a href="https://baike.baidu.com/item/%E5%B0%A4%E8%8E%89%E5%AE%89/4646716">尤莉安</a>和爱迪遭到杰顿军团的袭击时，参与救援行动。但由于泽塔急躁冒进，缺乏战友的配合，被<a href="https://baike.baidu.com/item/%E6%9D%B0%E9%A1%BF/1682096">杰顿</a>军团痛击，被赛罗训斥后在一旁观战，由此领悟了团队精神的重要性。在前辈泰迦的指导下，泽塔与三人小队合作成功将<a href="https://baike.baidu.com/item/%E5%AE%87%E5%AE%99%E6%81%90%E9%AD%94%E4%BA%BA%E6%9D%B0%E7%89%B9/24414695">宇宙恐魔人杰特</a>和杰顿军团消灭。</p><p>后收到了希卡利的消息：<a href="https://baike.baidu.com/item/%E7%9B%96%E5%86%85%E4%BC%BD%E5%8F%A4/50838802">盖内伽古</a>侵入光之国，将备用的奥特泽塔升华器和奥特勋章抢走。泽塔独自追了上去，赛罗紧随而来。</p><h3 id="泽塔奥特曼TV"><a href="#泽塔奥特曼TV" class="headerlink" title="泽塔奥特曼TV"></a>泽塔奥特曼TV</h3><p>泽塔和赛罗一同对盖内伽古展开追击。泽塔接收到赛罗持有的泽塔升华器和变身成阿尔法装甲需要的奥特勋章后，赛罗被盖内伽古吐出的四次元怪兽布鲁顿卷进四次元空间。泽塔一路追击到地球，和驾驶赛文加的防卫军“军械库”的成员<a href="https://baike.baidu.com/item/%E5%A4%8F%E5%B7%9D%E9%81%A5%E8%BE%89/50127636">夏川遥辉</a>对战盖内伽古。泽塔战败，遥辉也因此死去。为了能继续战斗，泽塔和遥辉提合为一体，遥辉变身为阿尔法装甲形态，击杀了盖内伽古。</p><p>虽然和遥辉一起战斗，击退了众多怪兽和宇宙人，保护了人们。但他们却不知道这一切都是寄宿在盖内伽古的<a href="https://baike.baidu.com/item/%E8%B5%9B%E9%9B%B7%E5%B8%83%E6%B4%9B/50839628">赛雷布洛</a>的文明自灭游戏计划的范围内。在他的附体的军械库高官栗山长官的引导下，地球人为了超越奥特战士而不断开发出特空机，而其杰作是装载D4的4号机：奥特人造机甲赛罗。赛雷布洛操控奥特人造机甲赛罗吸收地球上的怪兽、贝利亚勋章和怪兽勋章，异变进化成的机甲歼灭兽<a href="https://baike.baidu.com/item/%E5%BE%B7%E6%96%AF%E7%89%B9%E9%B2%81%E5%A4%9A%E6%96%AF/55478720">德斯特鲁多斯</a>，泽塔前去迎战，但战败，后泽塔使用德尔塔天爪和贝利亚黄昏再次迎战，但无法将其彻底击败。最后在军械库的各位的鼓励下，以原始形态打败了德斯特鲁多斯，挫败了赛雷布洛的计划。</p><p>泽塔和遥辉离开地球，前往宇宙旅行，寻找恶魔碎片，帮助人们。</p><h3 id="赛文加格斗"><a href="#赛文加格斗" class="headerlink" title="赛文加格斗"></a>赛文加格斗</h3><p>赛文加陷入了困境。泽塔出现，打败了怪兽。</p><h3 id="特利迦"><a href="#特利迦" class="headerlink" title="特利迦"></a>特利迦</h3><p>与遥辉一起见到了变身特利迦奥特曼的真中剑悟。</p>]]></content>
+      
+      
       <categories>
-        <category>测试功能</category>
+          
+          <category> 测试功能 </category>
+          
       </categories>
-  </entry>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>图片测试</title>
+      <link href="/2021/08/06/post-title-with-whitespace/"/>
+      <url>/2021/08/06/post-title-with-whitespace/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/2021/08/06/post-title-with-whitespace/%E5%A4%AA%E9%98%B3.jpg"></p><span id="more"></span><p><img src="/2021/08/06/post-title-with-whitespace/us2021_main-1.jpg"></p><p><img src="/2021/08/06/post-title-with-whitespace/%E7%89%B9%E7%A9%BA%E6%9C%BA.jpg"></p><p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E5%A5%A5%E7%89%B9%E6%9B%BC,%E6%8D%B7%E5%BE%B7%E5%A5%A5%E7%89%B9%E6%9B%BC,%E8%B5%9B%E7%BD%97%E5%A5%A5%E7%89%B9%E6%9B%BC.png"></p><p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B0%8F%E9%98%9F.png"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 测试功能 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2021/06/20/hello-world/"/>
+      <url>/2021/06/20/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
 </search>
