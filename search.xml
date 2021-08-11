@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hexo部署报错Spawn failed及解决方案</title>
-    <url>/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn%20failed%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
-    <content><![CDATA[<p>原文链接:<a href="https://perry96.com/archives/882898e3.html">https://perry96.com/archives/882898e3.html</a></p>
-<p>许可协议:署名-非商业性使用-禁止演绎 4.0 国际 转载请保留原文链接及作者。</p>
-<h2 id="Hexo部署报错Spawn-failed及解决方案"><a href="#Hexo部署报错Spawn-failed及解决方案" class="headerlink" title="Hexo部署报错Spawn failed及解决方案"></a>Hexo部署报错Spawn failed及解决方案</h2><h2 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1.问题描述"></a>1.问题描述</h2><p>今天下午在使用<code>hexo d -g</code>命令进行博客部署时遇到了名为<code>Spawn failed</code>的报错，具体信息见下图。</p>
-<h2 id="2-问题分析和解决"><a href="#2-问题分析和解决" class="headerlink" title="2.问题分析和解决"></a>2.问题分析和解决</h2><span id="more"></span>
-
-<h3 id="2-1-问题原因"><a href="#2-1-问题原因" class="headerlink" title="2.1 问题原因"></a>2.1 问题原因</h3><p>在网上通过简单的查询之后发现问题出在<code>.deploy_git</code>文件夹中，这个文件夹是<code>hexo</code>框架渲染生成的所有文件的一个本地<code>git</code>仓库，<code>hexo d</code>命令就是将整个<code>.deploy_git</code>文件夹的内容push到GitHub上的。</p>
-<p>网上的一个解决方案是将GitHub上的xxx.github.io仓库克隆下来并改名成<code>.deploy_git</code>来替换原来的，这种改名方式在Windows系统中是无法完成的。简单分析这种方法的原理无非就是将<code>.deploy_git</code>的内容回滚到和GitHub上同步的状态。</p>
-<p>结合刚刚的分析，不妨打开<code>.deploy_git\.git\logs</code>路径下的HEAD查看一下仓库的状态历史(红线范围内的记录是我在第一次报错之后的多次无脑尝试，可以忽视)。</p>
-<p>再打开GitHub上的提交记录可以发现最近的时间点是12:51:46。</p>
-<p>所以可以知道是那些多余本地提交导致了报错。</p>
-<h3 id="2-2-问题解决"><a href="#2-2-问题解决" class="headerlink" title="2.2 问题解决"></a>2.2 问题解决</h3><p>现在的解决思路就是将本地仓库的状态进行回滚，对应的git命令如下。</p>
-<p>git reset –hard commitId<br>–hard强制将缓存区和工作目录都同步到你指定的<code>commitId</code>所对应的提交。<br>执行之后HEAD多了下面的一条记录（圈出的那一串数字就是我自己仓库中12:51:46时间对应的commit的ID号）。</p>
-<p>重新执行hexo d -g部署博客，发现问题成功解决。</p>
-]]></content>
-      <categories>
-        <category>测试功能</category>
-      </categories>
-      <tags>
-        <tag>报错解决方案</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>如何在 ASP.NET Core 中 使用 cookies</title>
     <url>/2021/08/11/cookies/</url>
     <content><![CDATA[<p>.net core下可以使用普通的cookie也可以使用加密的cookie，普通的cookie的使用</p>
@@ -46,6 +22,30 @@
       </categories>
       <tags>
         <tag>ASP.NET Core</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo部署报错Spawn failed及解决方案</title>
+    <url>/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn%20failed%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<p>原文链接:<a href="https://perry96.com/archives/882898e3.html">https://perry96.com/archives/882898e3.html</a></p>
+<p>许可协议:署名-非商业性使用-禁止演绎 4.0 国际 转载请保留原文链接及作者。</p>
+<h2 id="Hexo部署报错Spawn-failed及解决方案"><a href="#Hexo部署报错Spawn-failed及解决方案" class="headerlink" title="Hexo部署报错Spawn failed及解决方案"></a>Hexo部署报错Spawn failed及解决方案</h2><h2 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1.问题描述"></a>1.问题描述</h2><p>今天下午在使用<code>hexo d -g</code>命令进行博客部署时遇到了名为<code>Spawn failed</code>的报错，具体信息见下图。</p>
+<h2 id="2-问题分析和解决"><a href="#2-问题分析和解决" class="headerlink" title="2.问题分析和解决"></a>2.问题分析和解决</h2><span id="more"></span>
+
+<h3 id="2-1-问题原因"><a href="#2-1-问题原因" class="headerlink" title="2.1 问题原因"></a>2.1 问题原因</h3><p>在网上通过简单的查询之后发现问题出在<code>.deploy_git</code>文件夹中，这个文件夹是<code>hexo</code>框架渲染生成的所有文件的一个本地<code>git</code>仓库，<code>hexo d</code>命令就是将整个<code>.deploy_git</code>文件夹的内容push到GitHub上的。</p>
+<p>网上的一个解决方案是将GitHub上的xxx.github.io仓库克隆下来并改名成<code>.deploy_git</code>来替换原来的，这种改名方式在Windows系统中是无法完成的。简单分析这种方法的原理无非就是将<code>.deploy_git</code>的内容回滚到和GitHub上同步的状态。</p>
+<p>结合刚刚的分析，不妨打开<code>.deploy_git\.git\logs</code>路径下的HEAD查看一下仓库的状态历史(红线范围内的记录是我在第一次报错之后的多次无脑尝试，可以忽视)。</p>
+<p>再打开GitHub上的提交记录可以发现最近的时间点是12:51:46。</p>
+<p>所以可以知道是那些多余本地提交导致了报错。</p>
+<h3 id="2-2-问题解决"><a href="#2-2-问题解决" class="headerlink" title="2.2 问题解决"></a>2.2 问题解决</h3><p>现在的解决思路就是将本地仓库的状态进行回滚，对应的git命令如下。</p>
+<p>git reset –hard commitId<br>–hard强制将缓存区和工作目录都同步到你指定的<code>commitId</code>所对应的提交。<br>执行之后HEAD多了下面的一条记录（圈出的那一串数字就是我自己仓库中12:51:46时间对应的commit的ID号）。</p>
+<p>重新执行hexo d -g部署博客，发现问题成功解决。</p>
+]]></content>
+      <categories>
+        <category>测试功能</category>
+      </categories>
+      <tags>
+        <tag>报错解决方案</tag>
       </tags>
   </entry>
   <entry>
