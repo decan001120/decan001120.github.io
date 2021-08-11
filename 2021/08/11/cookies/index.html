@@ -21,32 +21,28 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content=".net core下可以使用普通的cookie也可以使用加密的cookie，普通的cookie的使用 需要继承Controller里使用 写入Cookie  Response.Cookies.Append(“password”, “123456”); 读取Cookie">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图片测试">
-<meta property="og:url" content="http://example.com/2021/08/06/post-title-with-whitespace/index.html">
+<meta property="og:title" content="如何在 ASP.NET Core 中 使用 cookies">
+<meta property="og:url" content="http://example.com/2021/08/11/cookies/index.html">
 <meta property="og:site_name" content="那只猫的憨雄">
+<meta property="og:description" content=".net core下可以使用普通的cookie也可以使用加密的cookie，普通的cookie的使用 需要继承Controller里使用 写入Cookie  Response.Cookies.Append(“password”, “123456”); 读取Cookie">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2021/08/06/post-title-with-whitespace/%E5%A4%AA%E9%98%B3.jpg">
-<meta property="og:image" content="http://example.com/2021/08/06/post-title-with-whitespace/us2021_main-1.jpg">
-<meta property="og:image" content="http://example.com/2021/08/06/post-title-with-whitespace/%E7%89%B9%E7%A9%BA%E6%9C%BA.jpg">
-<meta property="og:image" content="http://example.com/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E5%A5%A5%E7%89%B9%E6%9B%BC,%E6%8D%B7%E5%BE%B7%E5%A5%A5%E7%89%B9%E6%9B%BC,%E8%B5%9B%E7%BD%97%E5%A5%A5%E7%89%B9%E6%9B%BC.png">
-<meta property="og:image" content="http://example.com/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B0%8F%E9%98%9F.png">
-<meta property="article:published_time" content="2021-08-06T13:40:40.000Z">
-<meta property="article:modified_time" content="2021-08-10T12:17:30.620Z">
+<meta property="article:published_time" content="2021-08-11T11:54:39.000Z">
+<meta property="article:modified_time" content="2021-08-11T11:57:50.931Z">
 <meta property="article:author" content="Decan Tang">
-<meta property="article:tag" content="测试功能">
+<meta property="article:tag" content="ASP.NET Core">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/08/06/post-title-with-whitespace/%E5%A4%AA%E9%98%B3.jpg">
 
 
-<link rel="canonical" href="http://example.com/2021/08/06/post-title-with-whitespace/">
+<link rel="canonical" href="http://example.com/2021/08/11/cookies/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/08/06/post-title-with-whitespace/","path":"2021/08/06/post-title-with-whitespace/","title":"图片测试"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/08/11/cookies/","path":"2021/08/11/cookies/","title":"如何在 ASP.NET Core 中 使用 cookies"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>图片测试 | 那只猫的憨雄</title>
+<title>如何在 ASP.NET Core 中 使用 cookies | 那只猫的憨雄</title>
   
 
   <script src="/js/third-party/analytics/baidu-analytics.js"></script>
@@ -237,7 +233,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/06/post-title-with-whitespace/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/11/cookies/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/blogLogo.png">
@@ -250,7 +246,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          图片测试
+          如何在 ASP.NET Core 中 使用 cookies
         </h1>
 
         <div class="post-meta-container">
@@ -260,16 +256,19 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-08-06 21:40:40" itemprop="dateCreated datePublished" datetime="2021-08-06T21:40:40+08:00">2021-08-06</time>
+      <time title="创建时间：2021-08-11 19:54:39 / 修改时间：19:57:50" itemprop="dateCreated datePublished" datetime="2021-08-11T19:54:39+08:00">2021-08-11</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-08-10 20:17:30" itemprop="dateModified" datetime="2021-08-10T20:17:30+08:00">2021-08-10</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
       </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94/" itemprop="url" rel="index"><span itemprop="name">问题解答</span></a>
+        </span>
+    </span>
 
   
     <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
@@ -288,13 +287,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><img src="/2021/08/06/post-title-with-whitespace/%E5%A4%AA%E9%98%B3.jpg"></p>
+        <p>.net core下可以使用普通的cookie也可以使用加密的cookie，普通的cookie的使用</p>
+<p>需要继承Controller里使用</p>
+<p>写入Cookie </p>
+<p>Response.Cookies.Append(“password”, “123456”);</p>
+<p>读取Cookie</p>
 <span id="more"></span>
 
-<p><img src="/2021/08/06/post-title-with-whitespace/us2021_main-1.jpg"></p>
-<p><img src="/2021/08/06/post-title-with-whitespace/%E7%89%B9%E7%A9%BA%E6%9C%BA.jpg"></p>
-<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E5%A5%A5%E7%89%B9%E6%9B%BC,%E6%8D%B7%E5%BE%B7%E5%A5%A5%E7%89%B9%E6%9B%BC,%E8%B5%9B%E7%BD%97%E5%A5%A5%E7%89%B9%E6%9B%BC.png"></p>
-<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B0%8F%E9%98%9F.png"></p>
+<p>string s;<br>Request.Cookies.TryGetValue(“password”, out s);</p>
+<p>删除Cookie</p>
+<p>Response.Cookies.Delete(key)</p>
+<p>这里注意下，写人和删除操作是Response，读取和删除是Request</p>
+<p>还有需要注意点是，如果要单独写个类的话一定需要继承Controller才可以使用不然操作不了Cookie,并不像.net framework那样可以通过httpcontext.current来操作cookie,这点要注意我刚开始自定义了一个cookie操作类就碰到这个问题了。</p>
+<p>这条路也挺不错 vue.js + node.js</p>
 
     </div>
 
@@ -339,21 +344,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E6%B5%8B%E8%AF%95%E5%8A%9F%E8%83%BD/" rel="tag"># 测试功能</a>
+              <a href="/tags/ASP-NET-Core/" rel="tag"># ASP.NET Core</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/06/20/hello-world/" rel="prev" title="Hello World">
-                  <i class="fa fa-chevron-left"></i> Hello World
+                <a href="/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn%20failed%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" rel="prev" title="Hexo部署报错Spawn failed及解决方案">
+                  <i class="fa fa-chevron-left"></i> Hexo部署报错Spawn failed及解决方案
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/08/08/%E9%98%85%E8%AF%BB%E5%85%A8%E6%96%87%E6%B5%8B%E8%AF%95/" rel="next" title="阅读全文测试">
-                  阅读全文测试 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
