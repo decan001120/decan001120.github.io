@@ -25,6 +25,36 @@
       </tags>
   </entry>
   <entry>
+    <title>如何在 ASP.NET Core 中 使用 cookies</title>
+    <url>/2021/08/11/cookies/</url>
+    <content><![CDATA[<p>.net core下可以使用普通的cookie也可以使用加密的cookie，普通的cookie的使用</p>
+<p>需要继承Controller里使用</p>
+<p>写入Cookie </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Response.Cookies.Append(&quot;password&quot;, &quot;123456&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>读取Cookie</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string s;</span><br><span class="line"></span><br><span class="line">Request.Cookies.TryGetValue(&quot;password&quot;, out s);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>删除Cookie</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Response.Cookies.Delete(key)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里注意下，写人和删除操作是Response，读取和删除是Request</p>
+<p>还有需要注意点是，如果要单独写个类的话一定需要继承Controller才可以使用不然操作不了Cookie,并不像.net framework那样可以通过httpcontext.current来操作cookie,这点要注意我刚开始自定义了一个cookie操作类就碰到这个问题了。</p>
+]]></content>
+      <categories>
+        <category>问题解答</category>
+      </categories>
+      <tags>
+        <tag>ASP.NET Core</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2021/06/20/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -41,30 +71,6 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>如何在 ASP.NET Core 中 使用 cookies</title>
-    <url>/2021/08/11/cookies/</url>
-    <content><![CDATA[<p>.net core下可以使用普通的cookie也可以使用加密的cookie，普通的cookie的使用</p>
-<p>需要继承Controller里使用</p>
-<p>写入Cookie </p>
-<p>Response.Cookies.Append(“password”, “123456”);</p>
-<p>读取Cookie</p>
-<span id="more"></span>
-
-<p>string s;<br>Request.Cookies.TryGetValue(“password”, out s);</p>
-<p>删除Cookie</p>
-<p>Response.Cookies.Delete(key)</p>
-<p>这里注意下，写人和删除操作是Response，读取和删除是Request</p>
-<p>还有需要注意点是，如果要单独写个类的话一定需要继承Controller才可以使用不然操作不了Cookie,并不像.net framework那样可以通过httpcontext.current来操作cookie,这点要注意我刚开始自定义了一个cookie操作类就碰到这个问题了。</p>
-<p>这条路也挺不错 vue.js + node.js</p>
-]]></content>
-      <categories>
-        <category>问题解答</category>
-      </categories>
-      <tags>
-        <tag>ASP.NET Core</tag>
-      </tags>
   </entry>
   <entry>
     <title>图片测试</title>
@@ -106,6 +112,38 @@
 <p>学生签字：         家长签字：</p>
 <p>2021年6月28日</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>基本操作</title>
+    <url>/2021/08/13/%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h2 id="Git-基本操作"><a href="#Git-基本操作" class="headerlink" title="Git 基本操作"></a>Git 基本操作</h2><h3 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h3><p>添加文件到暂存区</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加某个文件到暂存区，后面可以跟多个文件，以空格区分</span></span><br><span class="line">git add xxx</span><br><span class="line"><span class="comment"># 添加当前更改的所有文件到暂存区。</span></span><br><span class="line">git add .</span><br></pre></td></tr></table></figure>
+
+
+
+<span id="more"></span>
+
+
+
+<h3 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 提交暂存的更改，会新开编辑器进行编辑</span></span><br><span class="line">git commit </span><br><span class="line"><span class="comment"># 提交暂存的更改，并记录下备注</span></span><br><span class="line">git commit -m <span class="string">&quot;you message&quot;</span></span><br><span class="line"><span class="comment"># 等同于 git add . &amp;&amp; git commit -m</span></span><br><span class="line">git commit -am</span><br><span class="line"><span class="comment"># 对最近一次的提交的信息进行修改,此操作会修改commit的hash值</span></span><br><span class="line">git commit --amend</span><br></pre></td></tr></table></figure>
+
+<h3 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 从远程仓库拉取代码并合并到本地，可简写为 git pull 等同于 git fetch &amp;&amp; git merge </span></span><br><span class="line">git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</span><br><span class="line"><span class="comment"># 使用rebase的模式进行合并</span></span><br><span class="line">git pull --rebase &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h3 id="git-fetch"><a href="#git-fetch" class="headerlink" title="git fetch"></a>git fetch</h3><p>与 <code>git pull</code> 不同的是 <code>git fetch</code> 操作仅仅只会拉取远程的更改，不会自动进行 merge 操作。对你当前的代码没有影响</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 获取远程仓库特定分支的更新</span></span><br><span class="line">git fetch &lt;远程主机名&gt; &lt;分支名&gt;</span><br><span class="line"><span class="comment"># 获取远程仓库所有分支的更新</span></span><br><span class="line">git fetch --all</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
+
+<h3 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 新建本地分支，但不切换</span></span><br><span class="line">git branch &lt;branch-name&gt; </span><br><span class="line"><span class="comment"># 查看本地分支</span></span><br><span class="line">git bran ch</span><br><span class="line"><span class="comment"># 查看远程分支</span></span><br><span class="line">git branch -r</span><br><span class="line"><span class="comment"># 查看本地和远程分支</span></span><br><span class="line">git branch -a</span><br><span class="line"><span class="comment"># 删除本地分支</span></span><br><span class="line">git branch -D &lt;branch-nane&gt;</span><br><span class="line"><span class="comment"># 重新命名分支</span></span><br><span class="line">git branch -m &lt;old-branch-name&gt; &lt;new-branch-name&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>作者：政采云前端团队<br>链接：<a href="https://juejin.cn/post/6974184935804534815">https://juejin.cn/post/6974184935804534815</a><br>来源：掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>git操作</tag>
+      </tags>
   </entry>
   <entry>
     <title>阅读全文测试</title>
