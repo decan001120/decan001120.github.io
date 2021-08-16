@@ -214,64 +214,6 @@
 </tbody></table>
 ]]></content>
       <categories>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git查看提交</title>
-    <url>/2021/08/16/Git%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4/</url>
-    <content><![CDATA[<h1 id="Git-查看提交历史"><a href="#Git-查看提交历史" class="headerlink" title="Git 查看提交历史"></a>Git 查看提交历史</h1><p>Git 提交历史一般常用两个命令：</p>
-<ul>
-<li><p><strong>git log</strong> - 查看历史提交记录。</p>
-</li>
-<li><p><strong>git blame <file></file></strong> - 以列表形式查看指定文件的历史修改记录。</p>
-</li>
-<li><h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h3><span id="more"></span></li>
-<li><p>在使用 Git 提交了若干更新之后，又或者克隆了某个项目，想回顾下提交历史，我们可以使用 <strong>git log</strong> 命令查看。</p>
-</li>
-<li><p>针对我们前一章节的操作，使用 <strong>git log</strong> 命令列出历史提交记录如下：</p>
-</li>
-<li><p>```bash<br>$ git log<br>commit d5e9fc2c811e0ca2b2d28506ef7dc14171a207d9 (HEAD -&gt; master)<br>Merge: c68142b 7774248<br>Author: runoob <a href="mailto:&#x74;&#x65;&#x73;&#x74;&#64;&#114;&#117;&#x6e;&#x6f;&#x6f;&#98;&#46;&#99;&#x6f;&#109;">&#x74;&#x65;&#x73;&#x74;&#64;&#114;&#117;&#x6e;&#x6f;&#x6f;&#98;&#46;&#99;&#x6f;&#109;</a><br>Date:   Fri May 3 15:55:58 2019 +0800</p>
-<pre><code>Merge branch &#39;change_site&#39;
-</code></pre>
-<p>commit c68142b562c260c3071754623b08e2657b4c6d5b<br>Author: runoob <a href="mailto:&#116;&#x65;&#115;&#116;&#64;&#114;&#117;&#x6e;&#x6f;&#111;&#x62;&#46;&#x63;&#111;&#x6d;">&#116;&#x65;&#115;&#116;&#64;&#114;&#117;&#x6e;&#x6f;&#111;&#x62;&#46;&#x63;&#111;&#x6d;</a><br>Date:   Fri May 3 15:52:12 2019 +0800</p>
-<pre><code>修改代码
-</code></pre>
-<p>commit 777424832e714cf65d3be79b50a4717aea51ab69 (change_site)<br>Author: runoob <a href="mailto:&#116;&#x65;&#x73;&#x74;&#x40;&#x72;&#x75;&#x6e;&#111;&#111;&#x62;&#46;&#99;&#x6f;&#x6d;">&#116;&#x65;&#x73;&#x74;&#x40;&#x72;&#x75;&#x6e;&#111;&#111;&#x62;&#46;&#99;&#x6f;&#x6d;</a><br>Date:   Fri May 3 15:49:26 2019 +0800</p>
-<pre><code>changed the runoob.php
-</code></pre>
-<p>commit c1501a244676ff55e7cccac1ecac0e18cbf6cb00<br>Author: runoob <a href="mailto:&#x74;&#x65;&#115;&#116;&#x40;&#x72;&#x75;&#110;&#x6f;&#x6f;&#x62;&#x2e;&#x63;&#x6f;&#109;">&#x74;&#x65;&#115;&#116;&#x40;&#x72;&#x75;&#110;&#x6f;&#x6f;&#x62;&#x2e;&#x63;&#x6f;&#109;</a><br>Date:   Fri May 3 15:35:32 2019 +0800</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- 我们可以用 --oneline 选项来查看历史记录的简洁的版本。</span><br><span class="line"></span><br><span class="line">- ```bash</span><br><span class="line">  $ git log --oneline</span><br><span class="line">  $ git log --oneline</span><br><span class="line">  d5e9fc2 (HEAD -&gt; master) Merge branch &#x27;change_site&#x27;</span><br><span class="line">  c68142b 修改代码</span><br><span class="line">  7774248 (change_site) changed the runoob.php</span><br><span class="line">  c1501a2 removed test.txt、add runoob.php</span><br><span class="line">  3e92c19 add test.txt</span><br><span class="line">  3b58100 第一次版本提交</span><br></pre></td></tr></table></figure></li>
-<li><p>这告诉我们的是，此项目的开发历史。</p>
-</li>
-<li><p>我们还可以用 –graph 选项，查看历史中什么时候出现了分支、合并。以下为相同的命令，开启了拓扑图选项：</p>
-</li>
-<li><p>```bash</p>
-<ul>
-<li>  d5e9fc2 (HEAD -&gt; master) Merge branch ‘change_site’<br>|\<br>| * 7774248 (change_site) changed the runoob.php</li>
-<li>| c68142b 修改代码<br>|/  </li>
-<li>c1501a2 removed test.txt、add runoob.php</li>
-<li>3e92c19 add test.txt</li>
-<li>3b58100 第一次版本提交<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- 现在我们可以更清楚明了地看到何时工作分叉、又何时归并。</span><br><span class="line"></span><br><span class="line">- 你也可以用 **--reverse** 参数来逆向显示所有日志。</span><br><span class="line"></span><br><span class="line">- ```bash</span><br><span class="line">  $ git log --reverse --oneline</span><br><span class="line">  3b58100 第一次版本提交</span><br><span class="line">  3e92c19 add test.txt</span><br><span class="line">  c1501a2 removed test.txt、add runoob.php</span><br><span class="line">  7774248 (change_site) changed the runoob.php</span><br><span class="line">  c68142b 修改代码</span><br><span class="line">  d5e9fc2 (HEAD -&gt; master) Merge branch &#x27;change_site&#x27;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>如果只想查找指定用户的提交日志可以使用命令：git log –author , 例如，比方说我们要找 Git 源码中 Linus 提交的部分：</p>
-</li>
-<li><p>```bash<br>$ git log –author=Linus –oneline -5<br>81b50f3 Move ‘builtin-*’ into a ‘builtin/‘ subdirectory<br>3bb7256 make “index-pack” a built-in<br>377d027 make “git pack-redundant” a built-in<br>b532581 make “git unpack-file” a built-in<br>112dd51 make “mktag” a built-in</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- 如果你要指定日期，可以执行几个选项：--since 和 --before，但是你也可以用 --until 和 --after。</span><br><span class="line"></span><br><span class="line">- 例如，如果我要看 Git 项目中三周前且在四月十八日之后的所有提交，我可以执行这个（我还用了 --no-merges 选项以隐藏合并提交）：</span><br><span class="line"></span><br><span class="line">- ```bash</span><br><span class="line">  $ git log --oneline --before=&#123;3.weeks.ago&#125; --after=&#123;2010-04-18&#125; --no-merges</span><br><span class="line">  5469e2d Git 1.7.1-rc2</span><br><span class="line">  d43427d Documentation/remote-helpers: Fix typos and improve language</span><br><span class="line">  272a36b Fixup: Second argument may be any arbitrary string</span><br><span class="line">  b6c8d2d Documentation/remote-helpers: Add invocation section</span><br><span class="line">  5ce4f4e Documentation/urls: Rewrite to accomodate transport::address</span><br><span class="line">  00b84e9 Documentation/remote-helpers: Rewrite description</span><br><span class="line">  03aa87e Documentation: Describe other situations where -z affects git diff</span><br><span class="line">  77bc694 rebase-interactive: silence warning when no commits rewritten</span><br><span class="line">  636db2c t3301: add tests to use --format=&quot;%N&quot;</span><br></pre></td></tr></table></figure></li>
-<li><p>更多 git log 命令可查看：<a href="http://git-scm.com/docs/git-log">http://git-scm.com/docs/git-log</a></p>
-</li>
-<li><h3 id="git-blame"><a href="#git-blame" class="headerlink" title="git blame"></a>git blame</h3></li>
-<li><p>如果要查看指定文件的修改记录可以使用 git blame 命令，格式如下：</p>
-</li>
-<li><p>```bash<br>git blame <file></file></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">- git blame 命令是以列表形式显示修改记录，如下实例：</span><br><span class="line"></span><br><span class="line">- ```bash</span><br><span class="line">  $ git blame README </span><br><span class="line">  ^d2097aa (tianqixin 2020-08-25 14:59:25 +0800 1) # Runoob Git 测试</span><br><span class="line">  db9315b0 (runoob    2020-08-25 16:00:23 +0800 2) # 菜鸟教程 </span><br></pre></td></tr></table></figure></li>
-</ul>
-]]></content>
-      <categories>
         <category>git</category>
       </categories>
       <tags>
@@ -493,10 +435,10 @@
 <p>终于舒了口气，从输出可知，<code>append GPL</code>的commit id是<code>1094adb</code>，现在，你又可以乘坐时光机回到未来了。</p>
 ]]></content>
       <categories>
-        <category>Git</category>
+        <category>git</category>
       </categories>
       <tags>
-        <tag>Git</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -519,5 +461,51 @@
       <categories>
         <category>测试功能</category>
       </categories>
+  </entry>
+  <entry>
+    <title>Git查看提交历史</title>
+    <url>/2021/08/16/Git%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2/</url>
+    <content><![CDATA[<h1 id="Git-查看提交历史"><a href="#Git-查看提交历史" class="headerlink" title="Git 查看提交历史"></a>Git 查看提交历史</h1><p>Git 提交历史一般常用两个命令：</p>
+<ul>
+<li><p><strong>git log</strong> - 查看历史提交记录。</p>
+</li>
+<li><p><strong>git blame <file></file></strong> - 以列表形式查看指定文件的历史修改记录。</p>
+</li>
+<li><h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h3><span id="more"></span></li>
+<li><p>在使用 Git 提交了若干更新之后，又或者克隆了某个项目，想回顾下提交历史，我们可以使用 <strong>git log</strong> 命令查看。</p>
+</li>
+<li><p>针对我们前一章节的操作，使用 <strong>git log</strong> 命令列出历史提交记录如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit d5e9fc2c811e0ca2b2d28506ef7dc14171a207d9 (HEAD -&gt; master)</span><br><span class="line">Merge: c68142b 7774248</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:55:58 2019 +0800</span><br><span class="line"></span><br><span class="line">    Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line"></span><br><span class="line">commit c68142b562c260c3071754623b08e2657b4c6d5b</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:52:12 2019 +0800</span><br><span class="line"></span><br><span class="line">    修改代码</span><br><span class="line"></span><br><span class="line">commit 777424832e714cf65d3be79b50a4717aea51ab69 (change_site)</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:49:26 2019 +0800</span><br><span class="line"></span><br><span class="line">    changed the runoob.php</span><br><span class="line"></span><br><span class="line">commit c1501a244676ff55e7cccac1ecac0e18cbf6cb00</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:35:32 2019 +0800</span><br></pre></td></tr></table></figure></li>
+<li><p>我们可以用 –oneline 选项来查看历史记录的简洁的版本。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">c68142b 修改代码</span><br><span class="line">7774248 (change_site) changed the runoob.php</span><br><span class="line">c1501a2 removed test.txt、add runoob.php</span><br><span class="line">3e92c19 add test.txt</span><br><span class="line">3b58100 第一次版本提交</span><br></pre></td></tr></table></figure></li>
+<li><p>这告诉我们的是，此项目的开发历史。</p>
+</li>
+<li><p>我们还可以用 –graph 选项，查看历史中什么时候出现了分支、合并。以下为相同的命令，开启了拓扑图选项：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*   d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">|\  </span><br><span class="line">| * 7774248 (change_site) changed the runoob.php</span><br><span class="line">* | c68142b 修改代码</span><br><span class="line">|/  </span><br><span class="line">* c1501a2 removed test.txt、add runoob.php</span><br><span class="line">* 3e92c19 add test.txt</span><br><span class="line">* 3b58100 第一次版本提交</span><br></pre></td></tr></table></figure></li>
+<li><p>现在我们可以更清楚明了地看到何时工作分叉、又何时归并。</p>
+</li>
+<li><p>你也可以用 <strong>–reverse</strong> 参数来逆向显示所有日志。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --reverse --oneline</span><br><span class="line">3b58100 第一次版本提交</span><br><span class="line">3e92c19 add test.txt</span><br><span class="line">c1501a2 removed test.txt、add runoob.php</span><br><span class="line">7774248 (change_site) changed the runoob.php</span><br><span class="line">c68142b 修改代码</span><br><span class="line">d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>如果只想查找指定用户的提交日志可以使用命令：git log –author , 例如，比方说我们要找 Git 源码中 Linus 提交的部分：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --author=Linus --oneline -5</span><br><span class="line">81b50f3 Move <span class="string">&#x27;builtin-*&#x27;</span> into a <span class="string">&#x27;builtin/&#x27;</span> subdirectory</span><br><span class="line">3bb7256 make <span class="string">&quot;index-pack&quot;</span> a built-in</span><br><span class="line">377d027 make <span class="string">&quot;git pack-redundant&quot;</span> a built-in</span><br><span class="line">b532581 make <span class="string">&quot;git unpack-file&quot;</span> a built-in</span><br><span class="line">112dd51 make <span class="string">&quot;mktag&quot;</span> a built-in</span><br></pre></td></tr></table></figure></li>
+<li><p>如果你要指定日期，可以执行几个选项：–since 和 –before，但是你也可以用 –until 和 –after。</p>
+</li>
+<li><p>例如，如果我要看 Git 项目中三周前且在四月十八日之后的所有提交，我可以执行这个（我还用了 –no-merges 选项以隐藏合并提交）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline --before=&#123;3.weeks.ago&#125; --after=&#123;2010-04-18&#125; --no-merges</span><br><span class="line">5469e2d Git 1.7.1-rc2</span><br><span class="line">d43427d Documentation/remote-helpers: Fix typos and improve language</span><br><span class="line">272a36b Fixup: Second argument may be any arbitrary string</span><br><span class="line">b6c8d2d Documentation/remote-helpers: Add invocation section</span><br><span class="line">5ce4f4e Documentation/urls: Rewrite to accomodate transport::address</span><br><span class="line">00b84e9 Documentation/remote-helpers: Rewrite description</span><br><span class="line">03aa87e Documentation: Describe other situations <span class="built_in">where</span> -z affects git diff</span><br><span class="line">77bc694 rebase-interactive: silence warning when no commits rewritten</span><br><span class="line">636db2c t3301: add tests to use --format=<span class="string">&quot;%N&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>更多 git log 命令可查看：<a href="http://git-scm.com/docs/git-log">http://git-scm.com/docs/git-log</a></p>
+</li>
+<li><h3 id="git-blame"><a href="#git-blame" class="headerlink" title="git blame"></a>git blame</h3></li>
+<li><p>如果要查看指定文件的修改记录可以使用 git blame 命令，格式如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git blame &lt;file&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>git blame 命令是以列表形式显示修改记录，如下实例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git blame README </span><br><span class="line">^d2097aa (tianqixin 2020-08-25 14:59:25 +0800 1) <span class="comment"># Runoob Git 测试</span></span><br><span class="line">db9315b0 (runoob    2020-08-25 16:00:23 +0800 2) <span class="comment"># 菜鸟教程 </span></span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
   </entry>
 </search>
