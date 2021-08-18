@@ -1,246 +1,523 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>Git查看提交历史</title>
-      <link href="/2021/08/16/Git%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2/"/>
-      <url>/2021/08/16/Git%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Git-查看提交历史"><a href="#Git-查看提交历史" class="headerlink" title="Git 查看提交历史"></a>Git 查看提交历史</h1><p>Git 提交历史一般常用两个命令：</p><p><strong>git log</strong> - 查看历史提交记录。</p><p><strong>git blame <file></file></strong> - 以列表形式查看指定文件的历史修改记录。</p><h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h3><span id="more"></span><p>在使用 Git 提交了若干更新之后，又或者克隆了某个项目，想回顾下提交历史，我们可以使用 <strong>git log</strong> 命令查看。</p><p>针对我们前一章节的操作，使用 <strong>git log</strong> 命令列出历史提交记录如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit d5e9fc2c811e0ca2b2d28506ef7dc14171a207d9 (HEAD -&gt; master)</span><br><span class="line">Merge: c68142b 7774248</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:55:58 2019 +0800</span><br><span class="line"></span><br><span class="line">    Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line"></span><br><span class="line">commit c68142b562c260c3071754623b08e2657b4c6d5b</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:52:12 2019 +0800</span><br><span class="line"></span><br><span class="line">    修改代码</span><br><span class="line"></span><br><span class="line">commit 777424832e714cf65d3be79b50a4717aea51ab69 (change_site)</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:49:26 2019 +0800</span><br><span class="line"></span><br><span class="line">    changed the runoob.php</span><br><span class="line"></span><br><span class="line">commit c1501a244676ff55e7cccac1ecac0e18cbf6cb00</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:35:32 2019 +0800</span><br></pre></td></tr></table></figure><p>我们可以用 –oneline 选项来查看历史记录的简洁的版本。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">c68142b 修改代码</span><br><span class="line">7774248 (change_site) changed the runoob.php</span><br><span class="line">c1501a2 removed test.txt、add runoob.php</span><br><span class="line">3e92c19 add test.txt</span><br><span class="line">3b58100 第一次版本提交</span><br></pre></td></tr></table></figure><p>这告诉我们的是，此项目的开发历史。</p><p>我们还可以用 –graph 选项，查看历史中什么时候出现了分支、合并。以下为相同的命令，开启了拓扑图选项：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">*   d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">|\  </span><br><span class="line">| * 7774248 (change_site) changed the runoob.php</span><br><span class="line">* | c68142b 修改代码</span><br><span class="line">|/  </span><br><span class="line">* c1501a2 removed test.txt、add runoob.php</span><br><span class="line">* 3e92c19 add test.txt</span><br><span class="line">* 3b58100 第一次版本提交</span><br></pre></td></tr></table></figure><p>现在我们可以更清楚明了地看到何时工作分叉、又何时归并。</p><p>你也可以用 <strong>–reverse</strong> 参数来逆向显示所有日志。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --reverse --oneline</span><br><span class="line">3b58100 第一次版本提交</span><br><span class="line">3e92c19 add test.txt</span><br><span class="line">c1501a2 removed test.txt、add runoob.php</span><br><span class="line">7774248 (change_site) changed the runoob.php</span><br><span class="line">c68142b 修改代码</span><br><span class="line">d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br></pre></td></tr></table></figure><p>如果只想查找指定用户的提交日志可以使用命令：git log –author , 例如，比方说我们要找 Git 源码中 Linus 提交的部分：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --author=Linus --oneline -5</span><br><span class="line">81b50f3 Move <span class="string">&#x27;builtin-*&#x27;</span> into a <span class="string">&#x27;builtin/&#x27;</span> subdirectory</span><br><span class="line">3bb7256 make <span class="string">&quot;index-pack&quot;</span> a built-in</span><br><span class="line">377d027 make <span class="string">&quot;git pack-redundant&quot;</span> a built-in</span><br><span class="line">b532581 make <span class="string">&quot;git unpack-file&quot;</span> a built-in</span><br><span class="line">112dd51 make <span class="string">&quot;mktag&quot;</span> a built-in</span><br></pre></td></tr></table></figure><p>如果你要指定日期，可以执行几个选项：–since 和 –before，但是你也可以用 –until 和 –after。</p><p>例如，如果我要看 Git 项目中三周前且在四月十八日之后的所有提交，我可以执行这个（我还用了 –no-merges 选项以隐藏合并提交）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline --before=&#123;3.weeks.ago&#125; --after=&#123;2010-04-18&#125; --no-merges</span><br><span class="line">5469e2d Git 1.7.1-rc2</span><br><span class="line">d43427d Documentation/remote-helpers: Fix typos and improve language</span><br><span class="line">272a36b Fixup: Second argument may be any arbitrary string</span><br><span class="line">b6c8d2d Documentation/remote-helpers: Add invocation section</span><br><span class="line">5ce4f4e Documentation/urls: Rewrite to accomodate transport::address</span><br><span class="line">00b84e9 Documentation/remote-helpers: Rewrite description</span><br><span class="line">03aa87e Documentation: Describe other situations <span class="built_in">where</span> -z affects git diff</span><br><span class="line">77bc694 rebase-interactive: silence warning when no commits rewritten</span><br><span class="line">636db2c t3301: add tests to use --format=<span class="string">&quot;%N&quot;</span></span><br></pre></td></tr></table></figure><p>更多 git log 命令可查看：<a href="http://git-scm.com/docs/git-log">http://git-scm.com/docs/git-log</a></p><h3 id="git-blame"><a href="#git-blame" class="headerlink" title="git blame"></a>git blame</h3><p>如果要查看指定文件的修改记录可以使用 git blame 命令，格式如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git blame &lt;file&gt;</span><br></pre></td></tr></table></figure><p>git blame 命令是以列表形式显示修改记录，如下实例：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git blame README </span><br><span class="line">^d2097aa (tianqixin 2020-08-25 14:59:25 +0800 1) <span class="comment"># Runoob Git 测试</span></span><br><span class="line">db9315b0 (runoob    2020-08-25 16:00:23 +0800 2) <span class="comment"># 菜鸟教程 </span></span><br></pre></td></tr></table></figure><p>hello <a href="http://example.com/2021/08/16/Git%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2/">http://example.com/2021/08/16/Git查看提交历史/</a> bye</p>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>Git分支管理</title>
+    <url>/2021/08/16/Git%20%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h1 id="Git-分支管理"><a href="#Git-分支管理" class="headerlink" title="Git 分支管理"></a>Git 分支管理</h1><p>几乎每一种版本控制系统都以某种形式支持分支。使用分支意味着你可以从开发主线上分离开来，然后在不影响主线的同时继续工作。</p>
+<p>有人把 Git 的分支模型称为<strong>必杀技特性</strong>，而正是因为它，将 <strong>Git</strong> 从版本控制系统家族里区分出来。</p>
+<p>创建分支命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch (branchname)</span><br></pre></td></tr></table></figure>
+
+<p>切换分支命令:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git checkout (branchname)</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>当你切换分支的时候，Git 会用该分支的最后提交的快照替换你的工作目录的内容， 所以多个分支不需要多个目录。</p>
+<p>合并分支命令:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git merge </span><br></pre></td></tr></table></figure>
+
+<p>你可以多次合并到统一分支， 也可以选择在合并之后直接删除被并入的分支。</p>
+<p>开始前我们先创建一个测试目录：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ mkdir gitdemo</span><br><span class="line">$ <span class="built_in">cd</span> gitdemo/</span><br><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository...</span><br><span class="line">$ touch README</span><br><span class="line">$ git add README</span><br><span class="line">$ git commit -m <span class="string">&#x27;第一次版本提交&#x27;</span></span><br><span class="line">[master (root-commit) 3b58100] 第一次版本提交</span><br><span class="line"> 1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line"> create mode 100644 README</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Git-分支管理-1"><a href="#Git-分支管理-1" class="headerlink" title="Git 分支管理"></a>Git 分支管理</h2><h3 id="列出分支"><a href="#列出分支" class="headerlink" title="列出分支"></a>列出分支</h3><p>列出分支基本命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
+
+<p>没有参数时，<strong>git branch</strong> 会列出你在本地的分支。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+
+<p>此例的意思就是，我们有一个叫做 <strong>master</strong> 的分支，并且该分支是当前分支。</p>
+<p>当你执行 <strong>git init</strong> 的时候，默认情况下 Git 就会为你创建 <strong>master</strong> 分支。</p>
+<p>如果我们要手动创建一个分支。执行 <strong>git branch (branchname)</strong> 即可。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch testing</span><br><span class="line">$ git branch</span><br><span class="line">* master</span><br><span class="line">  testing</span><br></pre></td></tr></table></figure>
+
+<p>现在我们可以看到，有了一个新分支 <strong>testing</strong>。</p>
+<p>当你以此方式在上次提交更新之后创建了新分支，如果后来又有更新提交， 然后又切换到了 <strong>testing</strong> 分支，Git 将还原你的工作目录到你创建分支时候的样子。</p>
+<p>接下来我们将演示如何切换分支，我们用 git checkout (branch) 切换到我们要修改的分支。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ls</span><br><span class="line">README</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;runoob.com&#x27;</span> &gt; test.txt</span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m <span class="string">&#x27;add test.txt&#x27;</span></span><br><span class="line">[master 3e92c19] add test.txt</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 test.txt</span><br><span class="line">$ ls</span><br><span class="line">README        test.txt</span><br><span class="line">$ git checkout testing</span><br><span class="line">Switched to branch <span class="string">&#x27;testing&#x27;</span></span><br><span class="line">$ ls</span><br><span class="line">README</span><br></pre></td></tr></table></figure>
+
+<p>当我们切换到 <strong>testing</strong> 分支的时候，我们添加的新文件 test.txt 被移除了。切换回 <strong>master</strong> 分支的时候，它们有重新出现了。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">$ ls</span><br><span class="line">README        test.txt</span><br></pre></td></tr></table></figure>
+
+<p>我们也可以使用 git checkout -b (branchname) 命令来创建新分支并立即切换到该分支下，从而在该分支中操作。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout -b newtest</span><br><span class="line">Switched to a new branch <span class="string">&#x27;newtest&#x27;</span></span><br><span class="line">$ git rm test.txt </span><br><span class="line">rm <span class="string">&#x27;test.txt&#x27;</span></span><br><span class="line">$ ls</span><br><span class="line">README</span><br><span class="line">$ touch runoob.php</span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -am <span class="string">&#x27;removed test.txt、add runoob.php&#x27;</span></span><br><span class="line">[newtest c1501a2] removed test.txt、add runoob.php</span><br><span class="line"> 2 files changed, 1 deletion(-)</span><br><span class="line"> create mode 100644 runoob.php</span><br><span class="line"> delete mode 100644 test.txt</span><br><span class="line">$ ls</span><br><span class="line">README        runoob.php</span><br><span class="line">$ git checkout master</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">$ ls</span><br><span class="line">README        test.txt</span><br></pre></td></tr></table></figure>
+
+<p>如你所见，我们创建了一个分支，在该分支的上移除了一些文件 test.txt，并添加了 runoob.php 文件，然后切换回我们的主分支，删除的 test.txt 文件又回来了，且新增加的 runoob.php 不存在主分支中。</p>
+<p>使用分支将工作切分开来，从而让我们能够在不同开发环境中做事，并来回切换。</p>
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>删除分支命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch -d (branchname)</span><br></pre></td></tr></table></figure>
+
+<p>例如我们要删除 testing 分支：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br><span class="line">  testing</span><br><span class="line">$ git branch -d testing</span><br><span class="line">Deleted branch testing (was 85fc7e7).</span><br><span class="line">$ git branch</span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+
+<h3 id="分支合并"><a href="#分支合并" class="headerlink" title="分支合并"></a>分支合并</h3><p>一旦某分支有了独立内容，你终究会希望将它合并回到你的主分支。 你可以使用以下命令将任何分支合并到当前分支中去：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git merge</span><br><span class="line">$ git branch</span><br><span class="line">* master</span><br><span class="line">  newtest</span><br><span class="line">$ ls</span><br><span class="line">README        test.txt</span><br><span class="line">$ git merge newtest</span><br><span class="line">Updating 3e92c19..c1501a2</span><br><span class="line">Fast-forward</span><br><span class="line"> runoob.php | 0</span><br><span class="line"> test.txt   | 1 -</span><br><span class="line"> 2 files changed, 1 deletion(-)</span><br><span class="line"> create mode 100644 runoob.php</span><br><span class="line"> delete mode 100644 test.txt</span><br><span class="line">$ ls</span><br><span class="line">README        runoob.php</span><br></pre></td></tr></table></figure>
+
+<p>以上实例中我们将 newtest 分支合并到主分支去，test.txt 文件被删除。</p>
+<p>合并完后就可以删除分支:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch -d newtest</span><br><span class="line">Deleted branch newtest (was c1501a2).</span><br></pre></td></tr></table></figure>
+
+<p>删除后， 就只剩下 master 分支了：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br></pre></td></tr></table></figure>
+
+<h3 id="合并冲突"><a href="#合并冲突" class="headerlink" title="合并冲突"></a>合并冲突</h3><p>合并并不仅仅是简单的文件添加、移除的操作，Git 也会合并修改。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br><span class="line">$ cat runoob.php</span><br></pre></td></tr></table></figure>
+
+<p>首先，我们创建一个叫做 change_site 的分支，切换过去，我们将 runoob.php 内容改为:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">echo &#x27;runoob&#x27;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>创建 change_site 分支：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout -b change_site</span><br><span class="line">Switched to a new branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">$ vim runoob.php</span><br><span class="line">$ head -3 runoob.php</span><br><span class="line">&lt;?php</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;runoob&#x27;</span>;</span><br><span class="line">?&gt;</span><br><span class="line">$ git commit -am <span class="string">&#x27;changed the runoob.php&#x27;</span></span><br><span class="line">[change_site 7774248] changed the runoob.php</span><br><span class="line"> 1 file changed, 3 insertions(+)</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<p>将修改的内容提交到 change_site 分支中。 现在，假如切换回 master 分支我们可以看内容恢复到我们修改前的(空文件，没有代码)，我们再次修改 runoob.php 文件。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">$ cat runoob.php</span><br><span class="line">$ vim runoob.php    <span class="comment"># 修改内容如下</span></span><br><span class="line">$ cat runoob.php</span><br><span class="line">&lt;?php</span><br><span class="line"><span class="built_in">echo</span> 1;</span><br><span class="line">?&gt;</span><br><span class="line">$ git diff</span><br><span class="line">diff --git a/runoob.php b/runoob.php</span><br><span class="line">index e69de29..ac60739 100644</span><br><span class="line">--- a/runoob.php</span><br><span class="line">+++ b/runoob.php</span><br><span class="line">@@ -0,0 +1,3 @@</span><br><span class="line">+&lt;?php</span><br><span class="line">+<span class="built_in">echo</span> 1;</span><br><span class="line">+?&gt;</span><br><span class="line">$ git commit -am <span class="string">&#x27;修改代码&#x27;</span></span><br><span class="line">[master c68142b] 修改代码</span><br><span class="line"> 1 file changed, 3 insertions(+)</span><br></pre></td></tr></table></figure>
+
+<p>现在这些改变已经记录到我的 “master” 分支了。接下来我们将 “change_site” 分支合并过来。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git merge change_site</span><br><span class="line">Auto-merging runoob.php</span><br><span class="line">CONFLICT (content): Merge conflict <span class="keyword">in</span> runoob.php</span><br><span class="line">Automatic merge failed; fix conflicts and <span class="keyword">then</span> commit the result.</span><br><span class="line"></span><br><span class="line">$ cat runoob.php     <span class="comment"># 代开文件，看到冲突内容</span></span><br><span class="line">&lt;?php</span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; <span class="string">HEAD</span></span><br><span class="line"><span class="string">echo 1;</span></span><br><span class="line"><span class="string">=======</span></span><br><span class="line"><span class="string">echo &#x27;runoob&#x27;;</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;&gt;&gt;&gt;&gt; change_site</span></span><br><span class="line"><span class="string">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们将前一个分支合并到 master 分支，一个合并冲突就出现了，接下来我们需要手动去修改它。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ vim runoob.php </span><br><span class="line">$ cat runoob.php</span><br><span class="line">&lt;?php</span><br><span class="line"><span class="built_in">echo</span> 1;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;runoob&#x27;</span>;</span><br><span class="line">?&gt;</span><br><span class="line">$ git diff</span><br><span class="line">diff --cc runoob.php</span><br><span class="line">index ac60739,b63d7d7..0000000</span><br><span class="line">--- a/runoob.php</span><br><span class="line">+++ b/runoob.php</span><br><span class="line">@@@ -1,3 -1,3 +1,4 @@@</span><br><span class="line">  &lt;?php</span><br><span class="line"> +<span class="built_in">echo</span> 1;</span><br><span class="line">+ <span class="built_in">echo</span> <span class="string">&#x27;runoob&#x27;</span>;</span><br><span class="line">  ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在 Git 中，我们可以用 git add 要告诉 Git 文件冲突已经解决</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status -s</span><br><span class="line">UU runoob.php</span><br><span class="line">$ git add runoob.php</span><br><span class="line">$ git status -s</span><br><span class="line">M  runoob.php</span><br><span class="line">$ git commit</span><br><span class="line">[master 88afe0e] Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在我们成功解决了合并中的冲突，并提交了结果。</p>
+<p>hello [<a href="http://example.com/2021/08/16/Git">http://example.com/2021/08/16/Git</a> 分支管理/](<a href="http://example.com/2021/08/16/Git">http://example.com/2021/08/16/Git</a> 分支管理/) bye</p>
+]]></content>
       <categories>
-          
-          <category> Git </category>
-          
+        <category>Git</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Git </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Git标签</title>
-      <link href="/2021/08/16/Git%E6%A0%87%E7%AD%BE/"/>
-      <url>/2021/08/16/Git%E6%A0%87%E7%AD%BE/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Git-标签"><a href="#Git-标签" class="headerlink" title="Git 标签"></a>Git 标签</h1><p>如果你达到一个重要的阶段，并希望永远记住那个特别的提交快照，你可以使用 git tag 给它打上标签。</p><p>比如说，我们想为我们的 runoob 项目发布一个”1.0”版本。 我们可以用 git tag -a v1.0 命令给最新一次提交打上（HEAD）”v1.0”的标签。</p><p>-a 选项意为”创建一个带注解的标签”。 不用 -a 选项也可以执行的，但它不会记录这标签是啥时候打的，谁打的，也不会让你添加个标签的注解。 我推荐一直创建带注解的标签。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag -a v1.0 </span><br></pre></td></tr></table></figure><p>当你执行 git tag -a 命令时，Git 会打开你的编辑器，让你写一句标签注解，就像你给提交写注解一样。</p><span id="more"></span><p>现在，注意当我们执行 git log –decorate 时，我们可以看到我们的标签了：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">*   d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">|\  </span><br><span class="line">| * 7774248 (change_site) changed the runoob.php</span><br><span class="line">* | c68142b 修改代码</span><br><span class="line">|/  </span><br><span class="line">* c1501a2 removed test.txt、add runoob.php</span><br><span class="line">* 3e92c19 add test.txt</span><br><span class="line">* 3b58100 第一次版本提交</span><br></pre></td></tr></table></figure><p>如果我们忘了给某个提交打标签，又将它发布了，我们可以给它追加标签。</p><p>例如，假设我们发布了提交 85fc7e7(上面实例最后一行)，但是那时候忘了给它打标签。 我们现在也可以：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ git tag -a v0.9 85fc7e7</span><br><span class="line">$ git <span class="built_in">log</span> --oneline --decorate --graph</span><br><span class="line">*   d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">|\  </span><br><span class="line">| * 7774248 (change_site) changed the runoob.php</span><br><span class="line">* | c68142b 修改代码</span><br><span class="line">|/  </span><br><span class="line">* c1501a2 removed test.txt、add runoob.php</span><br><span class="line">* 3e92c19 add test.txt</span><br><span class="line">* 3b58100 (tag: v0.9) 第一次版本提交</span><br></pre></td></tr></table></figure><p>如果我们要查看所有标签可以使用以下命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git tag</span><br><span class="line">v0.9</span><br><span class="line">v1.0</span><br></pre></td></tr></table></figure><p>指定标签信息命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a &lt;tagname&gt; -m <span class="string">&quot;runoob.com标签&quot;</span></span><br></pre></td></tr></table></figure><p>PGP签名标签命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -s &lt;tagname&gt; -m <span class="string">&quot;runoob.com标签&quot;</span></span><br></pre></td></tr></table></figure><p>hello <a href="http://example.com/2021/08/16/Git%E6%A0%87%E7%AD%BE/">http://example.com/2021/08/16/Git标签/</a> bye</p>]]></content>
-      
-      
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git基本操作</title>
+    <url>/2021/08/13/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h1 id="Git-基本操作"><a href="#Git-基本操作" class="headerlink" title="Git 基本操作"></a>Git 基本操作</h1><p>Git 的工作就是创建和保存你项目的快照及与之后的快照进行对比。</p>
+<p>本章将对有关创建与提交你的项目快照的命令作介绍。</p>
+<p>Git 常用的是以下 6 个命令：<strong>git clone</strong>、<strong>git push</strong>、<strong>git add</strong> 、<strong>git commit</strong>、<strong>git checkout</strong>、<strong>git pull</strong>，后面我们会详细介绍。</p>
+<span id="more"></span>
+
+<p><img src="https://www.runoob.com/wp-content/uploads/2015/02/git-command.jpg" alt="img"></p>
+<p><strong>说明：</strong></p>
+<ul>
+<li>workspace：工作区</li>
+<li>staging area：暂存区/缓存区</li>
+<li>local repository：版本库或本地仓库</li>
+<li>remote repository：远程仓库</li>
+</ul>
+<p>一个简单的操作步骤：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git init    </span><br><span class="line">$ git add .    </span><br><span class="line">$ git commit  </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>git init - 初始化仓库。</li>
+<li>git add . - 添加文件到暂存区。</li>
+<li>git commit - 将暂存区内容添加到仓库中。</li>
+</ul>
+<h3 id="创建仓库命令"><a href="#创建仓库命令" class="headerlink" title="创建仓库命令"></a>创建仓库命令</h3><p>下表列出了 git 创建仓库的命令：</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>git init</code></td>
+<td align="left">初始化仓库</td>
+</tr>
+<tr>
+<td align="left"><code>git clone</code></td>
+<td align="left">拷贝一份远程仓库，也就是下载一个项目。</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="提交与修改"><a href="#提交与修改" class="headerlink" title="提交与修改"></a>提交与修改</h2><p>Git 的工作就是创建和保存你的项目的快照及与之后的快照进行对比。</p>
+<p>下表列出了有关创建与提交你的项目的快照的命令：</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>git add</code></td>
+<td align="left">添加文件到仓库</td>
+</tr>
+<tr>
+<td align="left"><code>git status</code></td>
+<td align="left">查看仓库当前的状态，显示有变更的文件。</td>
+</tr>
+<tr>
+<td align="left"><code>git diff</code></td>
+<td align="left">比较文件的不同，即暂存区和工作区的差异。</td>
+</tr>
+<tr>
+<td align="left"><code>git commit</code></td>
+<td align="left">提交暂存区到本地仓库。</td>
+</tr>
+<tr>
+<td align="left"><code>git reset</code></td>
+<td align="left">回退版本。</td>
+</tr>
+<tr>
+<td align="left"><code>git rm</code></td>
+<td align="left">删除工作区文件。</td>
+</tr>
+<tr>
+<td align="left"><code>git mv</code></td>
+<td align="left">移动或重命名工作区文件。</td>
+</tr>
+</tbody></table>
+<h3 id="提交日志"><a href="#提交日志" class="headerlink" title="提交日志"></a>提交日志</h3><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>git log</code></td>
+<td align="left">查看历史提交记录</td>
+</tr>
+<tr>
+<td align="left"><code>git blame &lt;file&gt;</code></td>
+<td align="left">以列表形式查看指定文件的历史修改记录</td>
+</tr>
+</tbody></table>
+<h3 id="远程操作"><a href="#远程操作" class="headerlink" title="远程操作"></a>远程操作</h3><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>git remote</code></td>
+<td align="left">远程仓库操作</td>
+</tr>
+<tr>
+<td align="left"><code>git fetch</code></td>
+<td align="left">从远程获取代码库</td>
+</tr>
+<tr>
+<td align="left"><code>git pull</code></td>
+<td align="left">下载远程代码并合并</td>
+</tr>
+<tr>
+<td align="left"><code>git push</code></td>
+<td align="left">上传远程代码并合并</td>
+</tr>
+</tbody></table>
+<p>hello <a href="http://example.com/2021/08/13/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">http://example.com/2021/08/13/Git基本操作/</a> bye</p>
+]]></content>
       <categories>
-          
-          <category> Git </category>
-          
+        <category>Git</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Git </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Git分支管理</title>
-      <link href="/2021/08/16/Git%20%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/"/>
-      <url>/2021/08/16/Git%20%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Git-分支管理"><a href="#Git-分支管理" class="headerlink" title="Git 分支管理"></a>Git 分支管理</h1><p>几乎每一种版本控制系统都以某种形式支持分支。使用分支意味着你可以从开发主线上分离开来，然后在不影响主线的同时继续工作。</p><p>有人把 Git 的分支模型称为<strong>必杀技特性</strong>，而正是因为它，将 <strong>Git</strong> 从版本控制系统家族里区分出来。</p><p>创建分支命令：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch (branchname)</span><br></pre></td></tr></table></figure><p>切换分支命令:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout (branchname)</span><br></pre></td></tr></table></figure><span id="more"></span><p>当你切换分支的时候，Git 会用该分支的最后提交的快照替换你的工作目录的内容， 所以多个分支不需要多个目录。</p><p>合并分支命令:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge </span><br></pre></td></tr></table></figure><p>你可以多次合并到统一分支， 也可以选择在合并之后直接删除被并入的分支。</p><p>开始前我们先创建一个测试目录：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir gitdemo</span><br><span class="line">$ <span class="built_in">cd</span> gitdemo/</span><br><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository...</span><br><span class="line">$ touch README</span><br><span class="line">$ git add README</span><br><span class="line">$ git commit -m <span class="string">&#x27;第一次版本提交&#x27;</span></span><br><span class="line">[master (root-commit) 3b58100] 第一次版本提交</span><br><span class="line"> 1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line"> create mode 100644 README</span><br></pre></td></tr></table></figure><hr><h2 id="Git-分支管理-1"><a href="#Git-分支管理-1" class="headerlink" title="Git 分支管理"></a>Git 分支管理</h2><h3 id="列出分支"><a href="#列出分支" class="headerlink" title="列出分支"></a>列出分支</h3><p>列出分支基本命令：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure><p>没有参数时，<strong>git branch</strong> 会列出你在本地的分支。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br></pre></td></tr></table></figure><p>此例的意思就是，我们有一个叫做 <strong>master</strong> 的分支，并且该分支是当前分支。</p><p>当你执行 <strong>git init</strong> 的时候，默认情况下 Git 就会为你创建 <strong>master</strong> 分支。</p><p>如果我们要手动创建一个分支。执行 <strong>git branch (branchname)</strong> 即可。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git branch testing</span><br><span class="line">$ git branch</span><br><span class="line">* master</span><br><span class="line">  testing</span><br></pre></td></tr></table></figure><p>现在我们可以看到，有了一个新分支 <strong>testing</strong>。</p><p>当你以此方式在上次提交更新之后创建了新分支，如果后来又有更新提交， 然后又切换到了 <strong>testing</strong> 分支，Git 将还原你的工作目录到你创建分支时候的样子。</p><p>接下来我们将演示如何切换分支，我们用 git checkout (branch) 切换到我们要修改的分支。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">README</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;runoob.com&#x27;</span> &gt; test.txt</span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m <span class="string">&#x27;add test.txt&#x27;</span></span><br><span class="line">[master 3e92c19] add test.txt</span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 test.txt</span><br><span class="line">$ ls</span><br><span class="line">README        test.txt</span><br><span class="line">$ git checkout testing</span><br><span class="line">Switched to branch <span class="string">&#x27;testing&#x27;</span></span><br><span class="line">$ ls</span><br><span class="line">README</span><br></pre></td></tr></table></figure><p>当我们切换到 <strong>testing</strong> 分支的时候，我们添加的新文件 test.txt 被移除了。切换回 <strong>master</strong> 分支的时候，它们有重新出现了。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">$ ls</span><br><span class="line">README        test.txt</span><br></pre></td></tr></table></figure><p>我们也可以使用 git checkout -b (branchname) 命令来创建新分支并立即切换到该分支下，从而在该分支中操作。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b newtest</span><br><span class="line">Switched to a new branch <span class="string">&#x27;newtest&#x27;</span></span><br><span class="line">$ git rm test.txt </span><br><span class="line">rm <span class="string">&#x27;test.txt&#x27;</span></span><br><span class="line">$ ls</span><br><span class="line">README</span><br><span class="line">$ touch runoob.php</span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -am <span class="string">&#x27;removed test.txt、add runoob.php&#x27;</span></span><br><span class="line">[newtest c1501a2] removed test.txt、add runoob.php</span><br><span class="line"> 2 files changed, 1 deletion(-)</span><br><span class="line"> create mode 100644 runoob.php</span><br><span class="line"> delete mode 100644 test.txt</span><br><span class="line">$ ls</span><br><span class="line">README        runoob.php</span><br><span class="line">$ git checkout master</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">$ ls</span><br><span class="line">README        test.txt</span><br></pre></td></tr></table></figure><p>如你所见，我们创建了一个分支，在该分支的上移除了一些文件 test.txt，并添加了 runoob.php 文件，然后切换回我们的主分支，删除的 test.txt 文件又回来了，且新增加的 runoob.php 不存在主分支中。</p><p>使用分支将工作切分开来，从而让我们能够在不同开发环境中做事，并来回切换。</p><h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>删除分支命令：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d (branchname)</span><br></pre></td></tr></table></figure><p>例如我们要删除 testing 分支：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br><span class="line">  testing</span><br><span class="line">$ git branch -d testing</span><br><span class="line">Deleted branch testing (was 85fc7e7).</span><br><span class="line">$ git branch</span><br><span class="line">* master</span><br></pre></td></tr></table></figure><h3 id="分支合并"><a href="#分支合并" class="headerlink" title="分支合并"></a>分支合并</h3><p>一旦某分支有了独立内容，你终究会希望将它合并回到你的主分支。 你可以使用以下命令将任何分支合并到当前分支中去：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">git merge</span><br><span class="line">$ git branch</span><br><span class="line">* master</span><br><span class="line">  newtest</span><br><span class="line">$ ls</span><br><span class="line">README        test.txt</span><br><span class="line">$ git merge newtest</span><br><span class="line">Updating 3e92c19..c1501a2</span><br><span class="line">Fast-forward</span><br><span class="line"> runoob.php | 0</span><br><span class="line"> test.txt   | 1 -</span><br><span class="line"> 2 files changed, 1 deletion(-)</span><br><span class="line"> create mode 100644 runoob.php</span><br><span class="line"> delete mode 100644 test.txt</span><br><span class="line">$ ls</span><br><span class="line">README        runoob.php</span><br></pre></td></tr></table></figure><p>以上实例中我们将 newtest 分支合并到主分支去，test.txt 文件被删除。</p><p>合并完后就可以删除分支:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d newtest</span><br><span class="line">Deleted branch newtest (was c1501a2).</span><br></pre></td></tr></table></figure><p>删除后， 就只剩下 master 分支了：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br></pre></td></tr></table></figure><h3 id="合并冲突"><a href="#合并冲突" class="headerlink" title="合并冲突"></a>合并冲突</h3><p>合并并不仅仅是简单的文件添加、移除的操作，Git 也会合并修改。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* master</span><br><span class="line">$ cat runoob.php</span><br></pre></td></tr></table></figure><p>首先，我们创建一个叫做 change_site 的分支，切换过去，我们将 runoob.php 内容改为:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">echo &#x27;runoob&#x27;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><p>创建 change_site 分支：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b change_site</span><br><span class="line">Switched to a new branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">$ vim runoob.php</span><br><span class="line">$ head -3 runoob.php</span><br><span class="line">&lt;?php</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;runoob&#x27;</span>;</span><br><span class="line">?&gt;</span><br><span class="line">$ git commit -am <span class="string">&#x27;changed the runoob.php&#x27;</span></span><br><span class="line">[change_site 7774248] changed the runoob.php</span><br><span class="line"> 1 file changed, 3 insertions(+)</span><br><span class="line"> </span><br></pre></td></tr></table></figure><p>将修改的内容提交到 change_site 分支中。 现在，假如切换回 master 分支我们可以看内容恢复到我们修改前的(空文件，没有代码)，我们再次修改 runoob.php 文件。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line">$ cat runoob.php</span><br><span class="line">$ vim runoob.php    <span class="comment"># 修改内容如下</span></span><br><span class="line">$ cat runoob.php</span><br><span class="line">&lt;?php</span><br><span class="line"><span class="built_in">echo</span> 1;</span><br><span class="line">?&gt;</span><br><span class="line">$ git diff</span><br><span class="line">diff --git a/runoob.php b/runoob.php</span><br><span class="line">index e69de29..ac60739 100644</span><br><span class="line">--- a/runoob.php</span><br><span class="line">+++ b/runoob.php</span><br><span class="line">@@ -0,0 +1,3 @@</span><br><span class="line">+&lt;?php</span><br><span class="line">+<span class="built_in">echo</span> 1;</span><br><span class="line">+?&gt;</span><br><span class="line">$ git commit -am <span class="string">&#x27;修改代码&#x27;</span></span><br><span class="line">[master c68142b] 修改代码</span><br><span class="line"> 1 file changed, 3 insertions(+)</span><br></pre></td></tr></table></figure><p>现在这些改变已经记录到我的 “master” 分支了。接下来我们将 “change_site” 分支合并过来。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ git merge change_site</span><br><span class="line">Auto-merging runoob.php</span><br><span class="line">CONFLICT (content): Merge conflict <span class="keyword">in</span> runoob.php</span><br><span class="line">Automatic merge failed; fix conflicts and <span class="keyword">then</span> commit the result.</span><br><span class="line"></span><br><span class="line">$ cat runoob.php     <span class="comment"># 代开文件，看到冲突内容</span></span><br><span class="line">&lt;?php</span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; <span class="string">HEAD</span></span><br><span class="line"><span class="string">echo 1;</span></span><br><span class="line"><span class="string">=======</span></span><br><span class="line"><span class="string">echo &#x27;runoob&#x27;;</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;&gt;&gt;&gt;&gt; change_site</span></span><br><span class="line"><span class="string">?&gt;</span></span><br></pre></td></tr></table></figure><p>我们将前一个分支合并到 master 分支，一个合并冲突就出现了，接下来我们需要手动去修改它。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ vim runoob.php </span><br><span class="line">$ cat runoob.php</span><br><span class="line">&lt;?php</span><br><span class="line"><span class="built_in">echo</span> 1;</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;runoob&#x27;</span>;</span><br><span class="line">?&gt;</span><br><span class="line">$ git diff</span><br><span class="line">diff --cc runoob.php</span><br><span class="line">index ac60739,b63d7d7..0000000</span><br><span class="line">--- a/runoob.php</span><br><span class="line">+++ b/runoob.php</span><br><span class="line">@@@ -1,3 -1,3 +1,4 @@@</span><br><span class="line">  &lt;?php</span><br><span class="line"> +<span class="built_in">echo</span> 1;</span><br><span class="line">+ <span class="built_in">echo</span> <span class="string">&#x27;runoob&#x27;</span>;</span><br><span class="line">  ?&gt;</span><br></pre></td></tr></table></figure><p>在 Git 中，我们可以用 git add 要告诉 Git 文件冲突已经解决</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ git status -s</span><br><span class="line">UU runoob.php</span><br><span class="line">$ git add runoob.php</span><br><span class="line">$ git status -s</span><br><span class="line">M  runoob.php</span><br><span class="line">$ git commit</span><br><span class="line">[master 88afe0e] Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br></pre></td></tr></table></figure><p>现在我们成功解决了合并中的冲突，并提交了结果。</p><p>hello [<a href="http://example.com/2021/08/16/Git">http://example.com/2021/08/16/Git</a> 分支管理/](<a href="http://example.com/2021/08/16/Git">http://example.com/2021/08/16/Git</a> 分支管理/) bye</p>]]></content>
-      
-      
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git查看提交历史</title>
+    <url>/2021/08/16/Git%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2/</url>
+    <content><![CDATA[<h1 id="Git-查看提交历史"><a href="#Git-查看提交历史" class="headerlink" title="Git 查看提交历史"></a>Git 查看提交历史</h1><p>Git 提交历史一般常用两个命令：</p>
+<p><strong>git log</strong> - 查看历史提交记录。</p>
+<p><strong>git blame <file></file></strong> - 以列表形式查看指定文件的历史修改记录。</p>
+<h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h3><span id="more"></span>
+
+<p>在使用 Git 提交了若干更新之后，又或者克隆了某个项目，想回顾下提交历史，我们可以使用 <strong>git log</strong> 命令查看。</p>
+<p>针对我们前一章节的操作，使用 <strong>git log</strong> 命令列出历史提交记录如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit d5e9fc2c811e0ca2b2d28506ef7dc14171a207d9 (HEAD -&gt; master)</span><br><span class="line">Merge: c68142b 7774248</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:55:58 2019 +0800</span><br><span class="line"></span><br><span class="line">    Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line"></span><br><span class="line">commit c68142b562c260c3071754623b08e2657b4c6d5b</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:52:12 2019 +0800</span><br><span class="line"></span><br><span class="line">    修改代码</span><br><span class="line"></span><br><span class="line">commit 777424832e714cf65d3be79b50a4717aea51ab69 (change_site)</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:49:26 2019 +0800</span><br><span class="line"></span><br><span class="line">    changed the runoob.php</span><br><span class="line"></span><br><span class="line">commit c1501a244676ff55e7cccac1ecac0e18cbf6cb00</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:35:32 2019 +0800</span><br></pre></td></tr></table></figure>
+
+<p>我们可以用 –oneline 选项来查看历史记录的简洁的版本。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">c68142b 修改代码</span><br><span class="line">7774248 (change_site) changed the runoob.php</span><br><span class="line">c1501a2 removed test.txt、add runoob.php</span><br><span class="line">3e92c19 add test.txt</span><br><span class="line">3b58100 第一次版本提交</span><br></pre></td></tr></table></figure>
+
+<p>这告诉我们的是，此项目的开发历史。</p>
+<p>我们还可以用 –graph 选项，查看历史中什么时候出现了分支、合并。以下为相同的命令，开启了拓扑图选项：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*   d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">|\  </span><br><span class="line">| * 7774248 (change_site) changed the runoob.php</span><br><span class="line">* | c68142b 修改代码</span><br><span class="line">|/  </span><br><span class="line">* c1501a2 removed test.txt、add runoob.php</span><br><span class="line">* 3e92c19 add test.txt</span><br><span class="line">* 3b58100 第一次版本提交</span><br></pre></td></tr></table></figure>
+
+<p>现在我们可以更清楚明了地看到何时工作分叉、又何时归并。</p>
+<p>你也可以用 <strong>–reverse</strong> 参数来逆向显示所有日志。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --reverse --oneline</span><br><span class="line">3b58100 第一次版本提交</span><br><span class="line">3e92c19 add test.txt</span><br><span class="line">c1501a2 removed test.txt、add runoob.php</span><br><span class="line">7774248 (change_site) changed the runoob.php</span><br><span class="line">c68142b 修改代码</span><br><span class="line">d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果只想查找指定用户的提交日志可以使用命令：git log –author , 例如，比方说我们要找 Git 源码中 Linus 提交的部分：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --author=Linus --oneline -5</span><br><span class="line">81b50f3 Move <span class="string">&#x27;builtin-*&#x27;</span> into a <span class="string">&#x27;builtin/&#x27;</span> subdirectory</span><br><span class="line">3bb7256 make <span class="string">&quot;index-pack&quot;</span> a built-in</span><br><span class="line">377d027 make <span class="string">&quot;git pack-redundant&quot;</span> a built-in</span><br><span class="line">b532581 make <span class="string">&quot;git unpack-file&quot;</span> a built-in</span><br><span class="line">112dd51 make <span class="string">&quot;mktag&quot;</span> a built-in</span><br></pre></td></tr></table></figure>
+
+<p>如果你要指定日期，可以执行几个选项：–since 和 –before，但是你也可以用 –until 和 –after。</p>
+<p>例如，如果我要看 Git 项目中三周前且在四月十八日之后的所有提交，我可以执行这个（我还用了 –no-merges 选项以隐藏合并提交）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline --before=&#123;3.weeks.ago&#125; --after=&#123;2010-04-18&#125; --no-merges</span><br><span class="line">5469e2d Git 1.7.1-rc2</span><br><span class="line">d43427d Documentation/remote-helpers: Fix typos and improve language</span><br><span class="line">272a36b Fixup: Second argument may be any arbitrary string</span><br><span class="line">b6c8d2d Documentation/remote-helpers: Add invocation section</span><br><span class="line">5ce4f4e Documentation/urls: Rewrite to accomodate transport::address</span><br><span class="line">00b84e9 Documentation/remote-helpers: Rewrite description</span><br><span class="line">03aa87e Documentation: Describe other situations <span class="built_in">where</span> -z affects git diff</span><br><span class="line">77bc694 rebase-interactive: silence warning when no commits rewritten</span><br><span class="line">636db2c t3301: add tests to use --format=<span class="string">&quot;%N&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>更多 git log 命令可查看：<a href="http://git-scm.com/docs/git-log">http://git-scm.com/docs/git-log</a></p>
+<h3 id="git-blame"><a href="#git-blame" class="headerlink" title="git blame"></a>git blame</h3><p>如果要查看指定文件的修改记录可以使用 git blame 命令，格式如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git blame &lt;file&gt;</span><br></pre></td></tr></table></figure>
+
+<p>git blame 命令是以列表形式显示修改记录，如下实例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git blame README </span><br><span class="line">^d2097aa (tianqixin 2020-08-25 14:59:25 +0800 1) <span class="comment"># Runoob Git 测试</span></span><br><span class="line">db9315b0 (runoob    2020-08-25 16:00:23 +0800 2) <span class="comment"># 菜鸟教程 </span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>hello <a href="http://example.com/2021/08/16/Git%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2/">http://example.com/2021/08/16/Git查看提交历史/</a> bye</p>
+]]></content>
       <categories>
-          
-          <category> Git </category>
-          
+        <category>Git</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Git </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>版本回退</title>
-      <link href="/2021/08/16/%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80/"/>
-      <url>/2021/08/16/%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80/</url>
-      
-        <content type="html"><![CDATA[<h1 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h1><p>现在，你已经学会了修改文件，然后把修改提交到Git版本库，现在，再练习一次，修改readme.txt文件如下：</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software distributed under the GPL.</span><br></pre></td></tr></table></figure><p>然后尝试提交：</p><span id="more"></span><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git add readme.txt</span><br><span class="line">$ git commit -m <span class="string">&quot;append GPL&quot;</span></span><br><span class="line">[master 1094adb] append GPL</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br></pre></td></tr></table></figure><p>像这样，你不断对文件进行修改，然后不断提交修改到版本库里，就好比玩RPG游戏时，每通过一关就会自动把游戏状态存盘，如果某一关没过去，你还可以选择读取前一关的状态。有些时候，在打Boss之前，你会手动存盘，以便万一打Boss失败了，可以从最近的地方重新开始。Git也是一样，每当你觉得文件修改到一定程度的时候，就可以“保存一个快照”，这个快照在Git中被称为<code>commit</code>。一旦你把文件改乱了，或者误删了文件，还可以从最近的一个<code>commit</code>恢复，然后继续工作，而不是把几个月的工作成果全部丢失。</p><p>现在，我们回顾一下<code>readme.txt</code>文件一共有几个版本被提交到Git仓库里了：</p><p>版本1：wrote a readme file</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Git is a version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure><p>版本2：add distributed</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure><p>版本3：append GPL</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software distributed under the GPL.</span><br></pre></td></tr></table></figure><p>当然了，在实际工作中，我们脑子里怎么可能记得一个几千行的文件每次都改了什么内容，不然要版本控制系统干什么。版本控制系统肯定有某个命令可以告诉我们历史记录，在Git中，我们用<code>git log</code>命令查看：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit 1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -&gt; master)</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:06:15 2018 +0800</span><br><span class="line"></span><br><span class="line">    append GPL</span><br><span class="line"></span><br><span class="line">commit e475afc93c209a690c39c13a46716e8fa000c366</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:03:36 2018 +0800</span><br><span class="line"></span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 20:59:18 2018 +0800</span><br><span class="line"></span><br><span class="line">    wrote a readme file</span><br></pre></td></tr></table></figure><p><code>git log</code>命令显示从最近到最远的提交日志，我们可以看到3次提交，最近的一次是<code>append GPL</code>，上一次是<code>add distributed</code>，最早的一次是<code>wrote a readme file</code>。</p><p>如果嫌输出信息太多，看得眼花缭乱的，可以试试加上<code>--pretty=oneline</code>参数：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --pretty=oneline</span><br><span class="line">1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -&gt; master) append GPL</span><br><span class="line">e475afc93c209a690c39c13a46716e8fa000c366 add distributed</span><br><span class="line">eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0 wrote a readme file</span><br></pre></td></tr></table></figure><p>需要友情提示的是，你看到的一大串类似<code>1094adb...</code>的是<code>commit id</code>（版本号），和SVN不一样，Git的<code>commit id</code>不是1，2，3……递增的数字，而是一个SHA1计算出来的一个非常大的数字，用十六进制表示，而且你看到的<code>commit id</code>和我的肯定不一样，以你自己的为准。为什么<code>commit id</code>需要用这么一大串数字表示呢？因为Git是分布式的版本控制系统，后面我们还要研究多人在同一个版本库里工作，如果大家都用1，2，3……作为版本号，那肯定就冲突了。</p><p>好了，现在我们启动时光穿梭机，准备把<code>readme.txt</code>回退到上一个版本，也就是<code>add distributed</code>的那个版本，怎么做呢？</p><p>首先，Git必须知道当前版本是哪个版本，在Git中，用<code>HEAD</code>表示当前版本，也就是最新的提交<code>1094adb...</code>（注意我的提交ID和你的肯定不一样），上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，当然往上100个版本写100个<code>^</code>比较容易数不过来，所以写成<code>HEAD~100</code>。</p><p>现在，我们要把当前版本<code>append GPL</code>回退到上一个版本<code>add distributed</code>，就可以使用<code>git reset</code>命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br><span class="line">HEAD is now at e475afc add distributed</span><br></pre></td></tr></table></figure><p><code>--hard</code>参数有啥意义？这个后面再讲，现在你先放心使用。</p><p>看看<code>readme.txt</code>的内容是不是版本<code>add distributed</code>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat readme.txt</span><br><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure><p>果然被还原了。</p><p>还可以继续回退到上一个版本<code>wrote a readme file</code>，不过且慢，让我们用<code>git log</code>再看看现在版本库的状态：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit e475afc93c209a690c39c13a46716e8fa000c366 (HEAD -&gt; master)</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:03:36 2018 +0800</span><br><span class="line"></span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 20:59:18 2018 +0800</span><br><span class="line"></span><br><span class="line">    wrote a readme file</span><br></pre></td></tr></table></figure><p>最新的那个版本<code>append GPL</code>已经看不到了！好比你从21世纪坐时光穿梭机来到了19世纪，想再回去已经回不去了，肿么办？</p><p>办法其实还是有的，只要上面的命令行窗口还没有被关掉，你就可以顺着往上找啊找啊，找到那个<code>append GPL</code>的<code>commit id</code>是<code>1094adb...</code>，于是就可以指定回到未来的某个版本：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard 1094a</span><br><span class="line">HEAD is now at 83b0afe append GPL</span><br></pre></td></tr></table></figure><p>版本号没必要写全，前几位就可以了，Git会自动去找。当然也不能只写前一两位，因为Git可能会找到多个版本号，就无法确定是哪一个了。</p><p>再小心翼翼地看看<code>readme.txt</code>的内容：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat readme.txt</span><br><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software distributed under the GPL.</span><br></pre></td></tr></table></figure><p>果然，我胡汉三又回来了。</p><p>Git的版本回退速度非常快，因为Git在内部有个指向当前版本的<code>HEAD</code>指针，当你回退版本的时候，Git仅仅是把HEAD从指向<code>append GPL</code>：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">┌────┐</span><br><span class="line">│HEAD│</span><br><span class="line">└────┘</span><br><span class="line">   │</span><br><span class="line">   └──&gt; ○ append GPL</span><br><span class="line">        │</span><br><span class="line">        ○ add distributed</span><br><span class="line">        │</span><br><span class="line">        ○ wrote a readme file</span><br></pre></td></tr></table></figure><p>改为指向<code>add distributed</code>：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">┌────┐</span><br><span class="line">│HEAD│</span><br><span class="line">└────┘</span><br><span class="line">   │</span><br><span class="line">   │    ○ append GPL</span><br><span class="line">   │    │</span><br><span class="line">   └──&gt; ○ add distributed</span><br><span class="line">        │</span><br><span class="line">        ○ wrote a readme file</span><br></pre></td></tr></table></figure><p>然后顺便把工作区的文件更新了。所以你让<code>HEAD</code>指向哪个版本号，你就把当前版本定位在哪。</p><p>现在，你回退到了某个版本，关掉了电脑，第二天早上就后悔了，想恢复到新版本怎么办？找不到新版本的<code>commit id</code>怎么办？</p><p>在Git中，总是有后悔药可以吃的。当你用<code>$ git reset --hard HEAD^</code>回退到<code>add distributed</code>版本时，再想恢复到<code>append GPL</code>，就必须找到<code>append GPL</code>的commit id。Git提供了一个命令<code>git reflog</code>用来记录你的每一次命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">e475afc HEAD@&#123;1&#125;: reset: moving to HEAD^</span><br><span class="line">1094adb (HEAD -&gt; master) HEAD@&#123;2&#125;: commit: append GPL</span><br><span class="line">e475afc HEAD@&#123;3&#125;: commit: add distributed</span><br><span class="line">eaadf4e HEAD@&#123;4&#125;: commit (initial): wrote a readme file</span><br></pre></td></tr></table></figure><p>终于舒了口气，从输出可知，<code>append GPL</code>的commit id是<code>1094adb</code>，现在，你又可以乘坐时光机回到未来了。</p><p>hello <a href="http://example.com/2021/08/16/%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80/">http://example.com/2021/08/16/版本回退/</a> bye</p>]]></content>
-      
-      
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git标签</title>
+    <url>/2021/08/16/Git%E6%A0%87%E7%AD%BE/</url>
+    <content><![CDATA[<h1 id="Git-标签"><a href="#Git-标签" class="headerlink" title="Git 标签"></a>Git 标签</h1><p>如果你达到一个重要的阶段，并希望永远记住那个特别的提交快照，你可以使用 git tag 给它打上标签。</p>
+<p>比如说，我们想为我们的 runoob 项目发布一个”1.0”版本。 我们可以用 git tag -a v1.0 命令给最新一次提交打上（HEAD）”v1.0”的标签。</p>
+<p>-a 选项意为”创建一个带注解的标签”。 不用 -a 选项也可以执行的，但它不会记录这标签是啥时候打的，谁打的，也不会让你添加个标签的注解。 我推荐一直创建带注解的标签。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git tag -a v1.0 </span><br></pre></td></tr></table></figure>
+
+<p>当你执行 git tag -a 命令时，Git 会打开你的编辑器，让你写一句标签注解，就像你给提交写注解一样。</p>
+<span id="more"></span>
+
+<p>现在，注意当我们执行 git log –decorate 时，我们可以看到我们的标签了：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*   d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">|\  </span><br><span class="line">| * 7774248 (change_site) changed the runoob.php</span><br><span class="line">* | c68142b 修改代码</span><br><span class="line">|/  </span><br><span class="line">* c1501a2 removed test.txt、add runoob.php</span><br><span class="line">* 3e92c19 add test.txt</span><br><span class="line">* 3b58100 第一次版本提交</span><br></pre></td></tr></table></figure>
+
+<p>如果我们忘了给某个提交打标签，又将它发布了，我们可以给它追加标签。</p>
+<p>例如，假设我们发布了提交 85fc7e7(上面实例最后一行)，但是那时候忘了给它打标签。 我们现在也可以：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git tag -a v0.9 85fc7e7</span><br><span class="line">$ git <span class="built_in">log</span> --oneline --decorate --graph</span><br><span class="line">*   d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">|\  </span><br><span class="line">| * 7774248 (change_site) changed the runoob.php</span><br><span class="line">* | c68142b 修改代码</span><br><span class="line">|/  </span><br><span class="line">* c1501a2 removed test.txt、add runoob.php</span><br><span class="line">* 3e92c19 add test.txt</span><br><span class="line">* 3b58100 (tag: v0.9) 第一次版本提交</span><br></pre></td></tr></table></figure>
+
+<p>如果我们要查看所有标签可以使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git tag</span><br><span class="line">v0.9</span><br><span class="line">v1.0</span><br></pre></td></tr></table></figure>
+
+<p>指定标签信息命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git tag -a &lt;tagname&gt; -m <span class="string">&quot;runoob.com标签&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>PGP签名标签命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git tag -s &lt;tagname&gt; -m <span class="string">&quot;runoob.com标签&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+<p>hello <a href="http://example.com/2021/08/16/Git%E6%A0%87%E7%AD%BE/">http://example.com/2021/08/16/Git标签/</a> bye</p>
+]]></content>
       <categories>
-          
-          <category> Git </category>
-          
+        <category>Git</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Git </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Git基本操作</title>
-      <link href="/2021/08/13/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"/>
-      <url>/2021/08/13/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Git-基本操作"><a href="#Git-基本操作" class="headerlink" title="Git 基本操作"></a>Git 基本操作</h1><p>Git 的工作就是创建和保存你项目的快照及与之后的快照进行对比。</p><p>本章将对有关创建与提交你的项目快照的命令作介绍。</p><p>Git 常用的是以下 6 个命令：<strong>git clone</strong>、<strong>git push</strong>、<strong>git add</strong> 、<strong>git commit</strong>、<strong>git checkout</strong>、<strong>git pull</strong>，后面我们会详细介绍。</p><span id="more"></span><p><img src="https://www.runoob.com/wp-content/uploads/2015/02/git-command.jpg" alt="img"></p><p><strong>说明：</strong></p><ul><li>workspace：工作区</li><li>staging area：暂存区/缓存区</li><li>local repository：版本库或本地仓库</li><li>remote repository：远程仓库</li></ul><p>一个简单的操作步骤：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git init    </span><br><span class="line">$ git add .    </span><br><span class="line">$ git commit  </span><br></pre></td></tr></table></figure><ul><li>git init - 初始化仓库。</li><li>git add . - 添加文件到暂存区。</li><li>git commit - 将暂存区内容添加到仓库中。</li></ul><h3 id="创建仓库命令"><a href="#创建仓库命令" class="headerlink" title="创建仓库命令"></a>创建仓库命令</h3><p>下表列出了 git 创建仓库的命令：</p><table><thead><tr><th align="left">命令</th><th align="left">说明</th></tr></thead><tbody><tr><td align="left"><code>git init</code></td><td align="left">初始化仓库</td></tr><tr><td align="left"><code>git clone</code></td><td align="left">拷贝一份远程仓库，也就是下载一个项目。</td></tr></tbody></table><hr><h2 id="提交与修改"><a href="#提交与修改" class="headerlink" title="提交与修改"></a>提交与修改</h2><p>Git 的工作就是创建和保存你的项目的快照及与之后的快照进行对比。</p><p>下表列出了有关创建与提交你的项目的快照的命令：</p><table><thead><tr><th align="left">命令</th><th align="left">说明</th></tr></thead><tbody><tr><td align="left"><code>git add</code></td><td align="left">添加文件到仓库</td></tr><tr><td align="left"><code>git status</code></td><td align="left">查看仓库当前的状态，显示有变更的文件。</td></tr><tr><td align="left"><code>git diff</code></td><td align="left">比较文件的不同，即暂存区和工作区的差异。</td></tr><tr><td align="left"><code>git commit</code></td><td align="left">提交暂存区到本地仓库。</td></tr><tr><td align="left"><code>git reset</code></td><td align="left">回退版本。</td></tr><tr><td align="left"><code>git rm</code></td><td align="left">删除工作区文件。</td></tr><tr><td align="left"><code>git mv</code></td><td align="left">移动或重命名工作区文件。</td></tr></tbody></table><h3 id="提交日志"><a href="#提交日志" class="headerlink" title="提交日志"></a>提交日志</h3><table><thead><tr><th align="left">命令</th><th align="left">说明</th></tr></thead><tbody><tr><td align="left"><code>git log</code></td><td align="left">查看历史提交记录</td></tr><tr><td align="left"><code>git blame &lt;file&gt;</code></td><td align="left">以列表形式查看指定文件的历史修改记录</td></tr></tbody></table><h3 id="远程操作"><a href="#远程操作" class="headerlink" title="远程操作"></a>远程操作</h3><table><thead><tr><th align="left">命令</th><th align="left">说明</th></tr></thead><tbody><tr><td align="left"><code>git remote</code></td><td align="left">远程仓库操作</td></tr><tr><td align="left"><code>git fetch</code></td><td align="left">从远程获取代码库</td></tr><tr><td align="left"><code>git pull</code></td><td align="left">下载远程代码并合并</td></tr><tr><td align="left"><code>git push</code></td><td align="left">上传远程代码并合并</td></tr></tbody></table><p>hello <a href="http://example.com/2021/08/13/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">http://example.com/2021/08/13/Git基本操作/</a> bye</p>]]></content>
-      
-      
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo部署报错Spawn failed及解决方案</title>
+    <url>/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn%20failed%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<p>原文链接:<a href="https://perry96.com/archives/882898e3.html">https://perry96.com/archives/882898e3.html</a></p>
+<p>许可协议:署名-非商业性使用-禁止演绎 4.0 国际 转载请保留原文链接及作者。</p>
+<h2 id="Hexo部署报错Spawn-failed及解决方案"><a href="#Hexo部署报错Spawn-failed及解决方案" class="headerlink" title="Hexo部署报错Spawn failed及解决方案"></a>Hexo部署报错Spawn failed及解决方案</h2><h2 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1.问题描述"></a>1.问题描述</h2><p>今天下午在使用<code>hexo d -g</code>命令进行博客部署时遇到了名为<code>Spawn failed</code>的报错，具体信息见下图。</p>
+<h2 id="2-问题分析和解决"><a href="#2-问题分析和解决" class="headerlink" title="2.问题分析和解决"></a>2.问题分析和解决</h2><span id="more"></span>
+
+<h3 id="2-1-问题原因"><a href="#2-1-问题原因" class="headerlink" title="2.1 问题原因"></a>2.1 问题原因</h3><p>在网上通过简单的查询之后发现问题出在<code>.deploy_git</code>文件夹中，这个文件夹是<code>hexo</code>框架渲染生成的所有文件的一个本地<code>git</code>仓库，<code>hexo d</code>命令就是将整个<code>.deploy_git</code>文件夹的内容push到GitHub上的。</p>
+<p>网上的一个解决方案是将GitHub上的xxx.github.io仓库克隆下来并改名成<code>.deploy_git</code>来替换原来的，这种改名方式在Windows系统中是无法完成的。简单分析这种方法的原理无非就是将<code>.deploy_git</code>的内容回滚到和GitHub上同步的状态。</p>
+<p>结合刚刚的分析，不妨打开<code>.deploy_git\.git\logs</code>路径下的HEAD查看一下仓库的状态历史(红线范围内的记录是我在第一次报错之后的多次无脑尝试，可以忽视)。</p>
+<p>再打开GitHub上的提交记录可以发现最近的时间点是12:51:46。</p>
+<p>所以可以知道是那些多余本地提交导致了报错。</p>
+<h3 id="2-2-问题解决"><a href="#2-2-问题解决" class="headerlink" title="2.2 问题解决"></a>2.2 问题解决</h3><p>现在的解决思路就是将本地仓库的状态进行回滚，对应的git命令如下。</p>
+<p>git reset –hard commitId<br>–hard强制将缓存区和工作目录都同步到你指定的<code>commitId</code>所对应的提交。<br>执行之后HEAD多了下面的一条记录（圈出的那一串数字就是我自己仓库中12:51:46时间对应的commit的ID号）。</p>
+<p>重新执行hexo d -g部署博客，发现问题成功解决。</p>
+<p>hello [<a href="http://example.com/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn">http://example.com/2021/08/09/Hexo部署报错Spawn</a> failed及解决方案/](<a href="http://example.com/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn">http://example.com/2021/08/09/Hexo部署报错Spawn</a> failed及解决方案/) bye</p>
+]]></content>
       <categories>
-          
-          <category> Git </category>
-          
+        <category>测试功能</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Git </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>如何在 ASP.NET Core 中 使用 cookies</title>
-      <link href="/2021/08/11/cookies/"/>
-      <url>/2021/08/11/cookies/</url>
-      
-        <content type="html"><![CDATA[<p>.net core下可以使用普通的cookie也可以使用加密的cookie，普通的cookie的使用</p><p>需要继承Controller里使用</p><p>写入Cookie </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Response.Cookies.Append(&quot;password&quot;, &quot;123456&quot;);</span><br></pre></td></tr></table></figure><p>读取Cookie</p><span id="more"></span><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string s;</span><br><span class="line"></span><br><span class="line">Request.Cookies.TryGetValue(&quot;password&quot;, out s);</span><br></pre></td></tr></table></figure><p>删除Cookie</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Response.Cookies.Delete(key)</span><br></pre></td></tr></table></figure><p>这里注意下，写人和删除操作是Response，读取和删除是Request</p><p>还有需要注意点是，如果要单独写个类的话一定需要继承Controller才可以使用不然操作不了Cookie,并不像.net framework那样可以通过httpcontext.current来操作cookie,这点要注意我刚开始自定义了一个cookie操作类就碰到这个问题了。</p><p>hello <a href="http://example.com/2021/08/11/cookies/">http://example.com/2021/08/11/cookies/</a> bye</p>]]></content>
-      
-      
+      <tags>
+        <tag>报错解决方案</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何在 ASP.NET Core 中 使用 cookies</title>
+    <url>/2021/08/11/cookies/</url>
+    <content><![CDATA[<p>.net core下可以使用普通的cookie也可以使用加密的cookie，普通的cookie的使用</p>
+<p>需要继承Controller里使用</p>
+<p>写入Cookie </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Response.Cookies.Append(&quot;password&quot;, &quot;123456&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>读取Cookie</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string s;</span><br><span class="line"></span><br><span class="line">Request.Cookies.TryGetValue(&quot;password&quot;, out s);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>删除Cookie</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Response.Cookies.Delete(key)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里注意下，写人和删除操作是Response，读取和删除是Request</p>
+<p>还有需要注意点是，如果要单独写个类的话一定需要继承Controller才可以使用不然操作不了Cookie,并不像.net framework那样可以通过httpcontext.current来操作cookie,这点要注意我刚开始自定义了一个cookie操作类就碰到这个问题了。</p>
+<p>hello <a href="http://example.com/2021/08/11/cookies/">http://example.com/2021/08/11/cookies/</a> bye</p>
+]]></content>
       <categories>
-          
-          <category> 问题解答 </category>
-          
+        <category>问题解答</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> ASP.NET Core </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hexo部署报错Spawn failed及解决方案</title>
-      <link href="/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn%20failed%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-      <url>/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn%20failed%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
-      
-        <content type="html"><![CDATA[<p>原文链接:<a href="https://perry96.com/archives/882898e3.html">https://perry96.com/archives/882898e3.html</a></p><p>许可协议:署名-非商业性使用-禁止演绎 4.0 国际 转载请保留原文链接及作者。</p><h2 id="Hexo部署报错Spawn-failed及解决方案"><a href="#Hexo部署报错Spawn-failed及解决方案" class="headerlink" title="Hexo部署报错Spawn failed及解决方案"></a>Hexo部署报错Spawn failed及解决方案</h2><h2 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1.问题描述"></a>1.问题描述</h2><p>今天下午在使用<code>hexo d -g</code>命令进行博客部署时遇到了名为<code>Spawn failed</code>的报错，具体信息见下图。</p><h2 id="2-问题分析和解决"><a href="#2-问题分析和解决" class="headerlink" title="2.问题分析和解决"></a>2.问题分析和解决</h2><span id="more"></span><h3 id="2-1-问题原因"><a href="#2-1-问题原因" class="headerlink" title="2.1 问题原因"></a>2.1 问题原因</h3><p>在网上通过简单的查询之后发现问题出在<code>.deploy_git</code>文件夹中，这个文件夹是<code>hexo</code>框架渲染生成的所有文件的一个本地<code>git</code>仓库，<code>hexo d</code>命令就是将整个<code>.deploy_git</code>文件夹的内容push到GitHub上的。</p><p>网上的一个解决方案是将GitHub上的xxx.github.io仓库克隆下来并改名成<code>.deploy_git</code>来替换原来的，这种改名方式在Windows系统中是无法完成的。简单分析这种方法的原理无非就是将<code>.deploy_git</code>的内容回滚到和GitHub上同步的状态。</p><p>结合刚刚的分析，不妨打开<code>.deploy_git\.git\logs</code>路径下的HEAD查看一下仓库的状态历史(红线范围内的记录是我在第一次报错之后的多次无脑尝试，可以忽视)。</p><p>再打开GitHub上的提交记录可以发现最近的时间点是12:51:46。</p><p>所以可以知道是那些多余本地提交导致了报错。</p><h3 id="2-2-问题解决"><a href="#2-2-问题解决" class="headerlink" title="2.2 问题解决"></a>2.2 问题解决</h3><p>现在的解决思路就是将本地仓库的状态进行回滚，对应的git命令如下。</p><p>git reset –hard commitId<br>–hard强制将缓存区和工作目录都同步到你指定的<code>commitId</code>所对应的提交。<br>执行之后HEAD多了下面的一条记录（圈出的那一串数字就是我自己仓库中12:51:46时间对应的commit的ID号）。</p><p>重新执行hexo d -g部署博客，发现问题成功解决。</p><p>hello [<a href="http://example.com/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn">http://example.com/2021/08/09/Hexo部署报错Spawn</a> failed及解决方案/](<a href="http://example.com/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn">http://example.com/2021/08/09/Hexo部署报错Spawn</a> failed及解决方案/) bye</p>]]></content>
-      
-      
+      <tags>
+        <tag>ASP.NET Core</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/06/20/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>hello <a href="http://example.com/2021/06/20/hello-world/">http://example.com/2021/06/20/hello-world/</a> bye</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>图片测试</title>
+    <url>/2021/08/06/post-title-with-whitespace/</url>
+    <content><![CDATA[<p><img src="/2021/08/06/post-title-with-whitespace/%E5%A4%AA%E9%98%B3.jpg"></p>
+<span id="more"></span>
+
+<p><img src="/2021/08/06/post-title-with-whitespace/us2021_main-1.jpg"></p>
+<p><img src="/2021/08/06/post-title-with-whitespace/%E7%89%B9%E7%A9%BA%E6%9C%BA.jpg"></p>
+<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E5%A5%A5%E7%89%B9%E6%9B%BC,%E6%8D%B7%E5%BE%B7%E5%A5%A5%E7%89%B9%E6%9B%BC,%E8%B5%9B%E7%BD%97%E5%A5%A5%E7%89%B9%E6%9B%BC.png"></p>
+<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B0%8F%E9%98%9F.png"></p>
+<p>hello <a href="http://example.com/2021/08/06/post-title-with-whitespace/">http://example.com/2021/08/06/post-title-with-whitespace/</a> bye</p>
+]]></content>
+      <tags>
+        <tag>测试功能</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>致家长的一封信</title>
+    <url>/2021/08/09/test/</url>
+    <content><![CDATA[<p>致家长的一封信</p>
+<p>尊敬的家长、亲爱的同学们：</p>
+<p>  当前，电信网络新型犯罪活动猖獗、诈骗案件呈高发趋势，受害人被骗案值大。为了您的财产安全，请认真阅读此信，以增强防范意识和能力，有效保护您的宝贵财产。同时，希望您将此信的内容转告您的家人、亲友和同事、邻居，以此形成坚实的社会防范基石，切实杜绝受害，有效遏制此类犯罪发生。</p>
+<p>目前，电信诈骗犯罪的作案形式和手段主要包括:</p>
+<span id="more"></span>
+
+<p>1、犯罪嫌疑人采用拨打电话的形式，冒充电信、税务、公检法机关工作人员进行诈骗。</p>
+<p>2、冒充QQ好友、微信好友进行诈骗。</p>
+<p>3、冒充消防、武警给受害人打电话，以购买帐篷、床等物品的方式诈骗定金。</p>
+<p>4、通过打电话或发送短信以“你猜我是谁”等语言骗取事主信任、谎称出差办事、嫖娼或赌博被抓、家人住院等理由冒充熟人进行诈骗。</p>
+<p>5、虚构绑架事实诈骗。嫌疑人给事主打电话，谎称事主孩子等亲属被其绑架进行诈骗。</p>
+<p>6、开设虚假网站、网上钓鱼诈骗。通过开设网址与真实网站极为相似的虚假网上银行、网络交易平台、手机充值网址等进行诈骗。等等……</p>
+<p>在此提醒广大家长朋友：</p>
+<p>1.保持清醒头脑，遇到可疑的人或事要冷静分析,不轻信，不盲动，以免财物损失。</p>
+<p>2.做好个人和家庭信息资料的保密工作,不要随便泄露自己和家中的电话号码。</p>
+<p>3.不管遇到任何原因、理由要求为家人、亲友寄钱、寄物的短信或电话，一定要提高警惕，通过各种途径调查证实是否属实,以防受骗。</p>
+<p>4.目前网上商务环境复杂,以及网上安全法律法规的不完善,使得犯罪分子可以低成本地进行各种网络违法犯罪活动为财物安全计，建议尽量不要到网上订机票、火车票等，特别是需预先付款的购物，一定要特别谨慎,三思而行。</p>
+<p>5.不贪。要坚信:“没有免费的午餐”，“天上不会掉馅饼”。这样无论诱惑多大，都不会为其所动。</p>
+<p>温馨提示：在做好自身防范的同时，积极向周围的亲人、朋友做好宣传，特别是易受骗群体要注意提醒。切勿上当受骗! 诈骗手段多种多样,变化多端。谨记不转账、不汇款、多核实,防骗反诈,保护好自身和家庭的和谐平安。</p>
+<p>学生签字：         家长签字：</p>
+<p>2021年6月28日</p>
+<p>hello <a href="http://example.com/2021/08/09/test/">http://example.com/2021/08/09/test/</a> bye</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>版本回退</title>
+    <url>/2021/08/16/%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80/</url>
+    <content><![CDATA[<h1 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h1><p>现在，你已经学会了修改文件，然后把修改提交到Git版本库，现在，再练习一次，修改readme.txt文件如下：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software distributed under the GPL.</span><br></pre></td></tr></table></figure>
+
+<p>然后尝试提交：</p>
+<span id="more"></span>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git add readme.txt</span><br><span class="line">$ git commit -m <span class="string">&quot;append GPL&quot;</span></span><br><span class="line">[master 1094adb] append GPL</span><br><span class="line"> 1 file changed, 1 insertion(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+
+<p>像这样，你不断对文件进行修改，然后不断提交修改到版本库里，就好比玩RPG游戏时，每通过一关就会自动把游戏状态存盘，如果某一关没过去，你还可以选择读取前一关的状态。有些时候，在打Boss之前，你会手动存盘，以便万一打Boss失败了，可以从最近的地方重新开始。Git也是一样，每当你觉得文件修改到一定程度的时候，就可以“保存一个快照”，这个快照在Git中被称为<code>commit</code>。一旦你把文件改乱了，或者误删了文件，还可以从最近的一个<code>commit</code>恢复，然后继续工作，而不是把几个月的工作成果全部丢失。</p>
+<p>现在，我们回顾一下<code>readme.txt</code>文件一共有几个版本被提交到Git仓库里了：</p>
+<p>版本1：wrote a readme file</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Git is a version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure>
+
+<p>版本2：add distributed</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure>
+
+<p>版本3：append GPL</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software distributed under the GPL.</span><br></pre></td></tr></table></figure>
+
+<p>当然了，在实际工作中，我们脑子里怎么可能记得一个几千行的文件每次都改了什么内容，不然要版本控制系统干什么。版本控制系统肯定有某个命令可以告诉我们历史记录，在Git中，我们用<code>git log</code>命令查看：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit 1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -&gt; master)</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:06:15 2018 +0800</span><br><span class="line"></span><br><span class="line">    append GPL</span><br><span class="line"></span><br><span class="line">commit e475afc93c209a690c39c13a46716e8fa000c366</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:03:36 2018 +0800</span><br><span class="line"></span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 20:59:18 2018 +0800</span><br><span class="line"></span><br><span class="line">    wrote a readme file</span><br></pre></td></tr></table></figure>
+
+<p><code>git log</code>命令显示从最近到最远的提交日志，我们可以看到3次提交，最近的一次是<code>append GPL</code>，上一次是<code>add distributed</code>，最早的一次是<code>wrote a readme file</code>。</p>
+<p>如果嫌输出信息太多，看得眼花缭乱的，可以试试加上<code>--pretty=oneline</code>参数：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --pretty=oneline</span><br><span class="line">1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -&gt; master) append GPL</span><br><span class="line">e475afc93c209a690c39c13a46716e8fa000c366 add distributed</span><br><span class="line">eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0 wrote a readme file</span><br></pre></td></tr></table></figure>
+
+<p>需要友情提示的是，你看到的一大串类似<code>1094adb...</code>的是<code>commit id</code>（版本号），和SVN不一样，Git的<code>commit id</code>不是1，2，3……递增的数字，而是一个SHA1计算出来的一个非常大的数字，用十六进制表示，而且你看到的<code>commit id</code>和我的肯定不一样，以你自己的为准。为什么<code>commit id</code>需要用这么一大串数字表示呢？因为Git是分布式的版本控制系统，后面我们还要研究多人在同一个版本库里工作，如果大家都用1，2，3……作为版本号，那肯定就冲突了。</p>
+<p>好了，现在我们启动时光穿梭机，准备把<code>readme.txt</code>回退到上一个版本，也就是<code>add distributed</code>的那个版本，怎么做呢？</p>
+<p>首先，Git必须知道当前版本是哪个版本，在Git中，用<code>HEAD</code>表示当前版本，也就是最新的提交<code>1094adb...</code>（注意我的提交ID和你的肯定不一样），上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，当然往上100个版本写100个<code>^</code>比较容易数不过来，所以写成<code>HEAD~100</code>。</p>
+<p>现在，我们要把当前版本<code>append GPL</code>回退到上一个版本<code>add distributed</code>，就可以使用<code>git reset</code>命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br><span class="line">HEAD is now at e475afc add distributed</span><br></pre></td></tr></table></figure>
+
+<p><code>--hard</code>参数有啥意义？这个后面再讲，现在你先放心使用。</p>
+<p>看看<code>readme.txt</code>的内容是不是版本<code>add distributed</code>：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat readme.txt</span><br><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software.</span><br></pre></td></tr></table></figure>
+
+<p>果然被还原了。</p>
+<p>还可以继续回退到上一个版本<code>wrote a readme file</code>，不过且慢，让我们用<code>git log</code>再看看现在版本库的状态：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit e475afc93c209a690c39c13a46716e8fa000c366 (HEAD -&gt; master)</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 21:03:36 2018 +0800</span><br><span class="line"></span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0</span><br><span class="line">Author: Michael Liao &lt;askxuefeng@gmail.com&gt;</span><br><span class="line">Date:   Fri May 18 20:59:18 2018 +0800</span><br><span class="line"></span><br><span class="line">    wrote a readme file</span><br></pre></td></tr></table></figure>
+
+<p>最新的那个版本<code>append GPL</code>已经看不到了！好比你从21世纪坐时光穿梭机来到了19世纪，想再回去已经回不去了，肿么办？</p>
+<p>办法其实还是有的，只要上面的命令行窗口还没有被关掉，你就可以顺着往上找啊找啊，找到那个<code>append GPL</code>的<code>commit id</code>是<code>1094adb...</code>，于是就可以指定回到未来的某个版本：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reset --hard 1094a</span><br><span class="line">HEAD is now at 83b0afe append GPL</span><br></pre></td></tr></table></figure>
+
+<p>版本号没必要写全，前几位就可以了，Git会自动去找。当然也不能只写前一两位，因为Git可能会找到多个版本号，就无法确定是哪一个了。</p>
+<p>再小心翼翼地看看<code>readme.txt</code>的内容：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat readme.txt</span><br><span class="line">Git is a distributed version control system.</span><br><span class="line">Git is free software distributed under the GPL.</span><br></pre></td></tr></table></figure>
+
+<p>果然，我胡汉三又回来了。</p>
+<p>Git的版本回退速度非常快，因为Git在内部有个指向当前版本的<code>HEAD</code>指针，当你回退版本的时候，Git仅仅是把HEAD从指向<code>append GPL</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌────┐</span><br><span class="line">│HEAD│</span><br><span class="line">└────┘</span><br><span class="line">   │</span><br><span class="line">   └──&gt; ○ append GPL</span><br><span class="line">        │</span><br><span class="line">        ○ add distributed</span><br><span class="line">        │</span><br><span class="line">        ○ wrote a readme file</span><br></pre></td></tr></table></figure>
+
+<p>改为指向<code>add distributed</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">┌────┐</span><br><span class="line">│HEAD│</span><br><span class="line">└────┘</span><br><span class="line">   │</span><br><span class="line">   │    ○ append GPL</span><br><span class="line">   │    │</span><br><span class="line">   └──&gt; ○ add distributed</span><br><span class="line">        │</span><br><span class="line">        ○ wrote a readme file</span><br></pre></td></tr></table></figure>
+
+<p>然后顺便把工作区的文件更新了。所以你让<code>HEAD</code>指向哪个版本号，你就把当前版本定位在哪。</p>
+<p>现在，你回退到了某个版本，关掉了电脑，第二天早上就后悔了，想恢复到新版本怎么办？找不到新版本的<code>commit id</code>怎么办？</p>
+<p>在Git中，总是有后悔药可以吃的。当你用<code>$ git reset --hard HEAD^</code>回退到<code>add distributed</code>版本时，再想恢复到<code>append GPL</code>，就必须找到<code>append GPL</code>的commit id。Git提供了一个命令<code>git reflog</code>用来记录你的每一次命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">e475afc HEAD@&#123;1&#125;: reset: moving to HEAD^</span><br><span class="line">1094adb (HEAD -&gt; master) HEAD@&#123;2&#125;: commit: append GPL</span><br><span class="line">e475afc HEAD@&#123;3&#125;: commit: add distributed</span><br><span class="line">eaadf4e HEAD@&#123;4&#125;: commit (initial): wrote a readme file</span><br></pre></td></tr></table></figure>
+
+<p>终于舒了口气，从输出可知，<code>append GPL</code>的commit id是<code>1094adb</code>，现在，你又可以乘坐时光机回到未来了。</p>
+<p>hello <a href="http://example.com/2021/08/16/%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80/">http://example.com/2021/08/16/版本回退/</a> bye</p>
+]]></content>
       <categories>
-          
-          <category> 测试功能 </category>
-          
+        <category>Git</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 报错解决方案 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>致家长的一封信</title>
-      <link href="/2021/08/09/test/"/>
-      <url>/2021/08/09/test/</url>
-      
-        <content type="html"><![CDATA[<p>致家长的一封信</p><p>尊敬的家长、亲爱的同学们：</p><p>  当前，电信网络新型犯罪活动猖獗、诈骗案件呈高发趋势，受害人被骗案值大。为了您的财产安全，请认真阅读此信，以增强防范意识和能力，有效保护您的宝贵财产。同时，希望您将此信的内容转告您的家人、亲友和同事、邻居，以此形成坚实的社会防范基石，切实杜绝受害，有效遏制此类犯罪发生。</p><p>目前，电信诈骗犯罪的作案形式和手段主要包括:</p><span id="more"></span><p>1、犯罪嫌疑人采用拨打电话的形式，冒充电信、税务、公检法机关工作人员进行诈骗。</p><p>2、冒充QQ好友、微信好友进行诈骗。</p><p>3、冒充消防、武警给受害人打电话，以购买帐篷、床等物品的方式诈骗定金。</p><p>4、通过打电话或发送短信以“你猜我是谁”等语言骗取事主信任、谎称出差办事、嫖娼或赌博被抓、家人住院等理由冒充熟人进行诈骗。</p><p>5、虚构绑架事实诈骗。嫌疑人给事主打电话，谎称事主孩子等亲属被其绑架进行诈骗。</p><p>6、开设虚假网站、网上钓鱼诈骗。通过开设网址与真实网站极为相似的虚假网上银行、网络交易平台、手机充值网址等进行诈骗。等等……</p><p>在此提醒广大家长朋友：</p><p>1.保持清醒头脑，遇到可疑的人或事要冷静分析,不轻信，不盲动，以免财物损失。</p><p>2.做好个人和家庭信息资料的保密工作,不要随便泄露自己和家中的电话号码。</p><p>3.不管遇到任何原因、理由要求为家人、亲友寄钱、寄物的短信或电话，一定要提高警惕，通过各种途径调查证实是否属实,以防受骗。</p><p>4.目前网上商务环境复杂,以及网上安全法律法规的不完善,使得犯罪分子可以低成本地进行各种网络违法犯罪活动为财物安全计，建议尽量不要到网上订机票、火车票等，特别是需预先付款的购物，一定要特别谨慎,三思而行。</p><p>5.不贪。要坚信:“没有免费的午餐”，“天上不会掉馅饼”。这样无论诱惑多大，都不会为其所动。</p><p>温馨提示：在做好自身防范的同时，积极向周围的亲人、朋友做好宣传，特别是易受骗群体要注意提醒。切勿上当受骗! 诈骗手段多种多样,变化多端。谨记不转账、不汇款、多核实,防骗反诈,保护好自身和家庭的和谐平安。</p><p>学生签字：         家长签字：</p><p>2021年6月28日</p><p>hello <a href="http://example.com/2021/08/09/test/">http://example.com/2021/08/09/test/</a> bye</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>阅读全文测试</title>
-      <link href="/2021/08/08/%E9%98%85%E8%AF%BB%E5%85%A8%E6%96%87%E6%B5%8B%E8%AF%95/"/>
-      <url>/2021/08/08/%E9%98%85%E8%AF%BB%E5%85%A8%E6%96%87%E6%B5%8B%E8%AF%95/</url>
-      
-        <content type="html"><![CDATA[<h3 id="广播剧"><a href="#广播剧" class="headerlink" title="广播剧"></a>广播剧</h3><p>泽塔还未进入宇宙警备队，十分崇拜赛罗奥特曼，请求赛罗收他为徒，虽然赛罗 [2] 认为泽塔的能力不够，但赛罗还是非常认可泽塔的热血精神和求知欲望，教给泽塔许多知识，其中<a href="https://baike.baidu.com/item/%E5%88%A9%E5%B8%83%E7%89%B9%E5%A5%A5%E7%89%B9%E6%9B%BC/19814809">利布特奥特曼</a>、<a href="https://baike.baidu.com/item/%E7%88%B1%E8%BF%AA%E5%A5%A5%E7%89%B9%E6%9B%BC/285184">爱迪奥特曼</a>、<a href="https://baike.baidu.com/item/%E6%A2%A6%E6%AF%94%E4%BC%98%E6%96%AF%E5%A5%A5%E7%89%B9%E6%9B%BC/2684129">梦比优斯奥特曼</a>等奥特战士也给了泽塔不少的学习帮助。</p><p>在<a href="https://baike.baidu.com/item/%E5%B8%8C%E5%8D%A1%E5%88%A9%E5%A5%A5%E7%89%B9%E6%9B%BC/6527825">希卡利奥特曼</a>研制新的升华器时，泽塔被赛罗推荐成为升华器的实验者。</p><p>泽塔在通过宇宙警备队的录取考试时，赛罗亲自担任实战部分的测试考官，泽塔不是赛罗的对手，但他勇往直前、坚持不懈的精神折服了各个考官，于是<a href="https://baike.baidu.com/item/%E4%BD%90%E8%8F%B2/8772827">佐菲</a>批准泽塔通过考试，泽塔从此正式成为宇宙警备队的队员。</p><span id="more"></span><h3 id="巨大的阴谋"><a href="#巨大的阴谋" class="headerlink" title="巨大的阴谋"></a>巨大的阴谋</h3><p>泽塔为了磨炼战斗技巧而在奥特竞技场里接受<a href="https://baike.baidu.com/item/%E6%A2%A6%E6%AF%94%E4%BC%98%E6%96%AF/3802272">梦比优斯</a>的训练，并首次遇到<a href="https://baike.baidu.com/item/%E6%B3%B0%E8%BF%A6/55625133">泰迦</a>。</p><p>在<a href="https://baike.baidu.com/item/%E5%B0%A4%E8%8E%89%E5%AE%89/4646716">尤莉安</a>和爱迪遭到杰顿军团的袭击时，参与救援行动。但由于泽塔急躁冒进，缺乏战友的配合，被<a href="https://baike.baidu.com/item/%E6%9D%B0%E9%A1%BF/1682096">杰顿</a>军团痛击，被赛罗训斥后在一旁观战，由此领悟了团队精神的重要性。在前辈泰迦的指导下，泽塔与三人小队合作成功将<a href="https://baike.baidu.com/item/%E5%AE%87%E5%AE%99%E6%81%90%E9%AD%94%E4%BA%BA%E6%9D%B0%E7%89%B9/24414695">宇宙恐魔人杰特</a>和杰顿军团消灭。</p><p>后收到了希卡利的消息：<a href="https://baike.baidu.com/item/%E7%9B%96%E5%86%85%E4%BC%BD%E5%8F%A4/50838802">盖内伽古</a>侵入光之国，将备用的奥特泽塔升华器和奥特勋章抢走。泽塔独自追了上去，赛罗紧随而来。</p><h3 id="泽塔奥特曼TV"><a href="#泽塔奥特曼TV" class="headerlink" title="泽塔奥特曼TV"></a>泽塔奥特曼TV</h3><p>泽塔和赛罗一同对盖内伽古展开追击。泽塔接收到赛罗持有的泽塔升华器和变身成阿尔法装甲需要的奥特勋章后，赛罗被盖内伽古吐出的四次元怪兽布鲁顿卷进四次元空间。泽塔一路追击到地球，和驾驶赛文加的防卫军“军械库”的成员<a href="https://baike.baidu.com/item/%E5%A4%8F%E5%B7%9D%E9%81%A5%E8%BE%89/50127636">夏川遥辉</a>对战盖内伽古。泽塔战败，遥辉也因此死去。为了能继续战斗，泽塔和遥辉提合为一体，遥辉变身为阿尔法装甲形态，击杀了盖内伽古。</p><p>虽然和遥辉一起战斗，击退了众多怪兽和宇宙人，保护了人们。但他们却不知道这一切都是寄宿在盖内伽古的<a href="https://baike.baidu.com/item/%E8%B5%9B%E9%9B%B7%E5%B8%83%E6%B4%9B/50839628">赛雷布洛</a>的文明自灭游戏计划的范围内。在他的附体的军械库高官栗山长官的引导下，地球人为了超越奥特战士而不断开发出特空机，而其杰作是装载D4的4号机：奥特人造机甲赛罗。赛雷布洛操控奥特人造机甲赛罗吸收地球上的怪兽、贝利亚勋章和怪兽勋章，异变进化成的机甲歼灭兽<a href="https://baike.baidu.com/item/%E5%BE%B7%E6%96%AF%E7%89%B9%E9%B2%81%E5%A4%9A%E6%96%AF/55478720">德斯特鲁多斯</a>，泽塔前去迎战，但战败，后泽塔使用德尔塔天爪和贝利亚黄昏再次迎战，但无法将其彻底击败。最后在军械库的各位的鼓励下，以原始形态打败了德斯特鲁多斯，挫败了赛雷布洛的计划。</p><p>泽塔和遥辉离开地球，前往宇宙旅行，寻找恶魔碎片，帮助人们。</p><h3 id="赛文加格斗"><a href="#赛文加格斗" class="headerlink" title="赛文加格斗"></a>赛文加格斗</h3><p>赛文加陷入了困境。泽塔出现，打败了怪兽。</p><h3 id="特利迦"><a href="#特利迦" class="headerlink" title="特利迦"></a>特利迦</h3><p>与遥辉一起见到了变身特利迦奥特曼的真中剑悟。</p><p>hello <a href="http://example.com/2021/08/08/%E9%98%85%E8%AF%BB%E5%85%A8%E6%96%87%E6%B5%8B%E8%AF%95/">http://example.com/2021/08/08/阅读全文测试/</a> bye</p>]]></content>
-      
-      
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>阅读全文测试</title>
+    <url>/2021/08/08/%E9%98%85%E8%AF%BB%E5%85%A8%E6%96%87%E6%B5%8B%E8%AF%95/</url>
+    <content><![CDATA[<h3 id="广播剧"><a href="#广播剧" class="headerlink" title="广播剧"></a>广播剧</h3><p>泽塔还未进入宇宙警备队，十分崇拜赛罗奥特曼，请求赛罗收他为徒，虽然赛罗 [2] 认为泽塔的能力不够，但赛罗还是非常认可泽塔的热血精神和求知欲望，教给泽塔许多知识，其中<a href="https://baike.baidu.com/item/%E5%88%A9%E5%B8%83%E7%89%B9%E5%A5%A5%E7%89%B9%E6%9B%BC/19814809">利布特奥特曼</a>、<a href="https://baike.baidu.com/item/%E7%88%B1%E8%BF%AA%E5%A5%A5%E7%89%B9%E6%9B%BC/285184">爱迪奥特曼</a>、<a href="https://baike.baidu.com/item/%E6%A2%A6%E6%AF%94%E4%BC%98%E6%96%AF%E5%A5%A5%E7%89%B9%E6%9B%BC/2684129">梦比优斯奥特曼</a>等奥特战士也给了泽塔不少的学习帮助。</p>
+<p>在<a href="https://baike.baidu.com/item/%E5%B8%8C%E5%8D%A1%E5%88%A9%E5%A5%A5%E7%89%B9%E6%9B%BC/6527825">希卡利奥特曼</a>研制新的升华器时，泽塔被赛罗推荐成为升华器的实验者。</p>
+<p>泽塔在通过宇宙警备队的录取考试时，赛罗亲自担任实战部分的测试考官，泽塔不是赛罗的对手，但他勇往直前、坚持不懈的精神折服了各个考官，于是<a href="https://baike.baidu.com/item/%E4%BD%90%E8%8F%B2/8772827">佐菲</a>批准泽塔通过考试，泽塔从此正式成为宇宙警备队的队员。</p>
+<span id="more"></span>
+
+<h3 id="巨大的阴谋"><a href="#巨大的阴谋" class="headerlink" title="巨大的阴谋"></a>巨大的阴谋</h3><p>泽塔为了磨炼战斗技巧而在奥特竞技场里接受<a href="https://baike.baidu.com/item/%E6%A2%A6%E6%AF%94%E4%BC%98%E6%96%AF/3802272">梦比优斯</a>的训练，并首次遇到<a href="https://baike.baidu.com/item/%E6%B3%B0%E8%BF%A6/55625133">泰迦</a>。</p>
+<p>在<a href="https://baike.baidu.com/item/%E5%B0%A4%E8%8E%89%E5%AE%89/4646716">尤莉安</a>和爱迪遭到杰顿军团的袭击时，参与救援行动。但由于泽塔急躁冒进，缺乏战友的配合，被<a href="https://baike.baidu.com/item/%E6%9D%B0%E9%A1%BF/1682096">杰顿</a>军团痛击，被赛罗训斥后在一旁观战，由此领悟了团队精神的重要性。在前辈泰迦的指导下，泽塔与三人小队合作成功将<a href="https://baike.baidu.com/item/%E5%AE%87%E5%AE%99%E6%81%90%E9%AD%94%E4%BA%BA%E6%9D%B0%E7%89%B9/24414695">宇宙恐魔人杰特</a>和杰顿军团消灭。</p>
+<p>后收到了希卡利的消息：<a href="https://baike.baidu.com/item/%E7%9B%96%E5%86%85%E4%BC%BD%E5%8F%A4/50838802">盖内伽古</a>侵入光之国，将备用的奥特泽塔升华器和奥特勋章抢走。泽塔独自追了上去，赛罗紧随而来。</p>
+<h3 id="泽塔奥特曼TV"><a href="#泽塔奥特曼TV" class="headerlink" title="泽塔奥特曼TV"></a>泽塔奥特曼TV</h3><p>泽塔和赛罗一同对盖内伽古展开追击。泽塔接收到赛罗持有的泽塔升华器和变身成阿尔法装甲需要的奥特勋章后，赛罗被盖内伽古吐出的四次元怪兽布鲁顿卷进四次元空间。泽塔一路追击到地球，和驾驶赛文加的防卫军“军械库”的成员<a href="https://baike.baidu.com/item/%E5%A4%8F%E5%B7%9D%E9%81%A5%E8%BE%89/50127636">夏川遥辉</a>对战盖内伽古。泽塔战败，遥辉也因此死去。为了能继续战斗，泽塔和遥辉提合为一体，遥辉变身为阿尔法装甲形态，击杀了盖内伽古。</p>
+<p>虽然和遥辉一起战斗，击退了众多怪兽和宇宙人，保护了人们。但他们却不知道这一切都是寄宿在盖内伽古的<a href="https://baike.baidu.com/item/%E8%B5%9B%E9%9B%B7%E5%B8%83%E6%B4%9B/50839628">赛雷布洛</a>的文明自灭游戏计划的范围内。在他的附体的军械库高官栗山长官的引导下，地球人为了超越奥特战士而不断开发出特空机，而其杰作是装载D4的4号机：奥特人造机甲赛罗。赛雷布洛操控奥特人造机甲赛罗吸收地球上的怪兽、贝利亚勋章和怪兽勋章，异变进化成的机甲歼灭兽<a href="https://baike.baidu.com/item/%E5%BE%B7%E6%96%AF%E7%89%B9%E9%B2%81%E5%A4%9A%E6%96%AF/55478720">德斯特鲁多斯</a>，泽塔前去迎战，但战败，后泽塔使用德尔塔天爪和贝利亚黄昏再次迎战，但无法将其彻底击败。最后在军械库的各位的鼓励下，以原始形态打败了德斯特鲁多斯，挫败了赛雷布洛的计划。</p>
+<p>泽塔和遥辉离开地球，前往宇宙旅行，寻找恶魔碎片，帮助人们。</p>
+<h3 id="赛文加格斗"><a href="#赛文加格斗" class="headerlink" title="赛文加格斗"></a>赛文加格斗</h3><p>赛文加陷入了困境。泽塔出现，打败了怪兽。</p>
+<h3 id="特利迦"><a href="#特利迦" class="headerlink" title="特利迦"></a>特利迦</h3><p>与遥辉一起见到了变身特利迦奥特曼的真中剑悟。</p>
+<p>hello <a href="http://example.com/2021/08/08/%E9%98%85%E8%AF%BB%E5%85%A8%E6%96%87%E6%B5%8B%E8%AF%95/">http://example.com/2021/08/08/阅读全文测试/</a> bye</p>
+]]></content>
       <categories>
-          
-          <category> 测试功能 </category>
-          
+        <category>测试功能</category>
       </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>图片测试</title>
-      <link href="/2021/08/06/post-title-with-whitespace/"/>
-      <url>/2021/08/06/post-title-with-whitespace/</url>
-      
-        <content type="html"><![CDATA[<p><img src="/2021/08/06/post-title-with-whitespace/%E5%A4%AA%E9%98%B3.jpg"></p><span id="more"></span><p><img src="/2021/08/06/post-title-with-whitespace/us2021_main-1.jpg"></p><p><img src="/2021/08/06/post-title-with-whitespace/%E7%89%B9%E7%A9%BA%E6%9C%BA.jpg"></p><p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E5%A5%A5%E7%89%B9%E6%9B%BC,%E6%8D%B7%E5%BE%B7%E5%A5%A5%E7%89%B9%E6%9B%BC,%E8%B5%9B%E7%BD%97%E5%A5%A5%E7%89%B9%E6%9B%BC.png"></p><p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B0%8F%E9%98%9F.png"></p><p>hello <a href="http://example.com/2021/08/06/post-title-with-whitespace/">http://example.com/2021/08/06/post-title-with-whitespace/</a> bye</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 测试功能 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/2021/06/20/hello-world/"/>
-      <url>/2021/06/20/hello-world/</url>
-      
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p><p>hello <a href="http://example.com/2021/06/20/hello-world/">http://example.com/2021/06/20/hello-world/</a> bye</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-  
-  
+  </entry>
 </search>
