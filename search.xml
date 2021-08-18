@@ -84,12 +84,13 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git status -s</span><br><span class="line">UU runoob.php</span><br><span class="line">$ git add runoob.php</span><br><span class="line">$ git status -s</span><br><span class="line">M  runoob.php</span><br><span class="line">$ git commit</span><br><span class="line">[master 88afe0e] Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <p>现在我们成功解决了合并中的冲突，并提交了结果。</p>
+<p>hello [<a href="http://example.com/2021/08/16/Git">http://example.com/2021/08/16/Git</a> 分支管理/](<a href="http://example.com/2021/08/16/Git">http://example.com/2021/08/16/Git</a> 分支管理/) bye</p>
 ]]></content>
       <categories>
-        <category>git</category>
+        <category>Git</category>
       </categories>
       <tags>
-        <tag>git</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -212,12 +213,13 @@
 <td align="left">上传远程代码并合并</td>
 </tr>
 </tbody></table>
+<p>hello <a href="http://example.com/2021/08/13/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">http://example.com/2021/08/13/Git基本操作/</a> bye</p>
 ]]></content>
       <categories>
-        <category>git</category>
+        <category>Git</category>
       </categories>
       <tags>
-        <tag>git</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -257,12 +259,15 @@
 <p>git blame 命令是以列表形式显示修改记录，如下实例：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git blame README </span><br><span class="line">^d2097aa (tianqixin 2020-08-25 14:59:25 +0800 1) <span class="comment"># Runoob Git 测试</span></span><br><span class="line">db9315b0 (runoob    2020-08-25 16:00:23 +0800 2) <span class="comment"># 菜鸟教程 </span></span><br></pre></td></tr></table></figure>
 
+
+
+<p>hello <a href="http://example.com/2021/08/16/Git%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2/">http://example.com/2021/08/16/Git查看提交历史/</a> bye</p>
 ]]></content>
       <categories>
-        <category>git</category>
+        <category>Git</category>
       </categories>
       <tags>
-        <tag>git</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -291,12 +296,15 @@
 
 <p>PGP签名标签命令：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git tag -s &lt;tagname&gt; -m <span class="string">&quot;runoob.com标签&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+<p>hello <a href="http://example.com/2021/08/16/Git%E6%A0%87%E7%AD%BE/">http://example.com/2021/08/16/Git标签/</a> bye</p>
 ]]></content>
       <categories>
-        <category>git</category>
+        <category>Git</category>
       </categories>
       <tags>
-        <tag>git</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -315,6 +323,7 @@
 <h3 id="2-2-问题解决"><a href="#2-2-问题解决" class="headerlink" title="2.2 问题解决"></a>2.2 问题解决</h3><p>现在的解决思路就是将本地仓库的状态进行回滚，对应的git命令如下。</p>
 <p>git reset –hard commitId<br>–hard强制将缓存区和工作目录都同步到你指定的<code>commitId</code>所对应的提交。<br>执行之后HEAD多了下面的一条记录（圈出的那一串数字就是我自己仓库中12:51:46时间对应的commit的ID号）。</p>
 <p>重新执行hexo d -g部署博客，发现问题成功解决。</p>
+<p>hello [<a href="http://example.com/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn">http://example.com/2021/08/09/Hexo部署报错Spawn</a> failed及解决方案/](<a href="http://example.com/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn">http://example.com/2021/08/09/Hexo部署报错Spawn</a> failed及解决方案/) bye</p>
 ]]></content>
       <categories>
         <category>测试功能</category>
@@ -345,6 +354,7 @@
 
 <p>这里注意下，写人和删除操作是Response，读取和删除是Request</p>
 <p>还有需要注意点是，如果要单独写个类的话一定需要继承Controller才可以使用不然操作不了Cookie,并不像.net framework那样可以通过httpcontext.current来操作cookie,这点要注意我刚开始自定义了一个cookie操作类就碰到这个问题了。</p>
+<p>hello <a href="http://example.com/2021/08/11/cookies/">http://example.com/2021/08/11/cookies/</a> bye</p>
 ]]></content>
       <categories>
         <category>问题解答</category>
@@ -369,6 +379,7 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>hello <a href="http://example.com/2021/06/20/hello-world/">http://example.com/2021/06/20/hello-world/</a> bye</p>
 ]]></content>
   </entry>
   <entry>
@@ -381,6 +392,7 @@
 <p><img src="/2021/08/06/post-title-with-whitespace/%E7%89%B9%E7%A9%BA%E6%9C%BA.jpg"></p>
 <p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E5%A5%A5%E7%89%B9%E6%9B%BC,%E6%8D%B7%E5%BE%B7%E5%A5%A5%E7%89%B9%E6%9B%BC,%E8%B5%9B%E7%BD%97%E5%A5%A5%E7%89%B9%E6%9B%BC.png"></p>
 <p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B0%8F%E9%98%9F.png"></p>
+<p>hello <a href="http://example.com/2021/08/06/post-title-with-whitespace/">http://example.com/2021/08/06/post-title-with-whitespace/</a> bye</p>
 ]]></content>
       <tags>
         <tag>测试功能</tag>
@@ -410,6 +422,7 @@
 <p>温馨提示：在做好自身防范的同时，积极向周围的亲人、朋友做好宣传，特别是易受骗群体要注意提醒。切勿上当受骗! 诈骗手段多种多样,变化多端。谨记不转账、不汇款、多核实,防骗反诈,保护好自身和家庭的和谐平安。</p>
 <p>学生签字：         家长签字：</p>
 <p>2021年6月28日</p>
+<p>hello <a href="http://example.com/2021/08/09/test/">http://example.com/2021/08/09/test/</a> bye</p>
 ]]></content>
   </entry>
   <entry>
@@ -442,8 +455,6 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --pretty=oneline</span><br><span class="line">1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -&gt; master) append GPL</span><br><span class="line">e475afc93c209a690c39c13a46716e8fa000c366 add distributed</span><br><span class="line">eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0 wrote a readme file</span><br></pre></td></tr></table></figure>
 
 <p>需要友情提示的是，你看到的一大串类似<code>1094adb...</code>的是<code>commit id</code>（版本号），和SVN不一样，Git的<code>commit id</code>不是1，2，3……递增的数字，而是一个SHA1计算出来的一个非常大的数字，用十六进制表示，而且你看到的<code>commit id</code>和我的肯定不一样，以你自己的为准。为什么<code>commit id</code>需要用这么一大串数字表示呢？因为Git是分布式的版本控制系统，后面我们还要研究多人在同一个版本库里工作，如果大家都用1，2，3……作为版本号，那肯定就冲突了。</p>
-<p>每提交一个新版本，实际上Git就会把它们自动串成一条时间线。如果使用可视化工具查看Git历史，就可以更清楚地看到提交历史的时间线：</p>
-<p><img src="https://www.liaoxuefeng.com/files/attachments/919019707114272/0" alt="git-log-timeline"></p>
 <p>好了，现在我们启动时光穿梭机，准备把<code>readme.txt</code>回退到上一个版本，也就是<code>add distributed</code>的那个版本，怎么做呢？</p>
 <p>首先，Git必须知道当前版本是哪个版本，在Git中，用<code>HEAD</code>表示当前版本，也就是最新的提交<code>1094adb...</code>（注意我的提交ID和你的肯定不一样），上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，当然往上100个版本写100个<code>^</code>比较容易数不过来，所以写成<code>HEAD~100</code>。</p>
 <p>现在，我们要把当前版本<code>append GPL</code>回退到上一个版本<code>add distributed</code>，就可以使用<code>git reset</code>命令：</p>
@@ -478,12 +489,13 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">e475afc HEAD@&#123;1&#125;: reset: moving to HEAD^</span><br><span class="line">1094adb (HEAD -&gt; master) HEAD@&#123;2&#125;: commit: append GPL</span><br><span class="line">e475afc HEAD@&#123;3&#125;: commit: add distributed</span><br><span class="line">eaadf4e HEAD@&#123;4&#125;: commit (initial): wrote a readme file</span><br></pre></td></tr></table></figure>
 
 <p>终于舒了口气，从输出可知，<code>append GPL</code>的commit id是<code>1094adb</code>，现在，你又可以乘坐时光机回到未来了。</p>
+<p>hello <a href="http://example.com/2021/08/16/%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80/">http://example.com/2021/08/16/版本回退/</a> bye</p>
 ]]></content>
       <categories>
-        <category>git</category>
+        <category>Git</category>
       </categories>
       <tags>
-        <tag>git</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -502,6 +514,7 @@
 <p>泽塔和遥辉离开地球，前往宇宙旅行，寻找恶魔碎片，帮助人们。</p>
 <h3 id="赛文加格斗"><a href="#赛文加格斗" class="headerlink" title="赛文加格斗"></a>赛文加格斗</h3><p>赛文加陷入了困境。泽塔出现，打败了怪兽。</p>
 <h3 id="特利迦"><a href="#特利迦" class="headerlink" title="特利迦"></a>特利迦</h3><p>与遥辉一起见到了变身特利迦奥特曼的真中剑悟。</p>
+<p>hello <a href="http://example.com/2021/08/08/%E9%98%85%E8%AF%BB%E5%85%A8%E6%96%87%E6%B5%8B%E8%AF%95/">http://example.com/2021/08/08/阅读全文测试/</a> bye</p>
 ]]></content>
       <categories>
         <category>测试功能</category>
