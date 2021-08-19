@@ -266,30 +266,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo部署报错Spawn failed及解决方案</title>
-    <url>/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn%20failed%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
-    <content><![CDATA[<p>原文链接:<a href="https://perry96.com/archives/882898e3.html">https://perry96.com/archives/882898e3.html</a></p>
-<p>许可协议:署名-非商业性使用-禁止演绎 4.0 国际 转载请保留原文链接及作者。</p>
-<h2 id="Hexo部署报错Spawn-failed及解决方案"><a href="#Hexo部署报错Spawn-failed及解决方案" class="headerlink" title="Hexo部署报错Spawn failed及解决方案"></a>Hexo部署报错Spawn failed及解决方案</h2><h2 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1.问题描述"></a>1.问题描述</h2><p>今天下午在使用<code>hexo d -g</code>命令进行博客部署时遇到了名为<code>Spawn failed</code>的报错，具体信息见下图。</p>
-<h2 id="2-问题分析和解决"><a href="#2-问题分析和解决" class="headerlink" title="2.问题分析和解决"></a>2.问题分析和解决</h2><span id="more"></span>
-
-<h3 id="2-1-问题原因"><a href="#2-1-问题原因" class="headerlink" title="2.1 问题原因"></a>2.1 问题原因</h3><p>在网上通过简单的查询之后发现问题出在<code>.deploy_git</code>文件夹中，这个文件夹是<code>hexo</code>框架渲染生成的所有文件的一个本地<code>git</code>仓库，<code>hexo d</code>命令就是将整个<code>.deploy_git</code>文件夹的内容push到GitHub上的。</p>
-<p>网上的一个解决方案是将GitHub上的xxx.github.io仓库克隆下来并改名成<code>.deploy_git</code>来替换原来的，这种改名方式在Windows系统中是无法完成的。简单分析这种方法的原理无非就是将<code>.deploy_git</code>的内容回滚到和GitHub上同步的状态。</p>
-<p>结合刚刚的分析，不妨打开<code>.deploy_git\.git\logs</code>路径下的HEAD查看一下仓库的状态历史(红线范围内的记录是我在第一次报错之后的多次无脑尝试，可以忽视)。</p>
-<p>再打开GitHub上的提交记录可以发现最近的时间点是12:51:46。</p>
-<p>所以可以知道是那些多余本地提交导致了报错。</p>
-<h3 id="2-2-问题解决"><a href="#2-2-问题解决" class="headerlink" title="2.2 问题解决"></a>2.2 问题解决</h3><p>现在的解决思路就是将本地仓库的状态进行回滚，对应的git命令如下。</p>
-<p>git reset –hard commitId<br>–hard强制将缓存区和工作目录都同步到你指定的<code>commitId</code>所对应的提交。<br>执行之后HEAD多了下面的一条记录（圈出的那一串数字就是我自己仓库中12:51:46时间对应的commit的ID号）。</p>
-<p>重新执行hexo d -g部署博客，发现问题成功解决。</p>
-]]></content>
-      <categories>
-        <category>测试功能</category>
-      </categories>
-      <tags>
-        <tag>报错解决方案</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git标签</title>
     <url>/2021/08/16/Git%E6%A0%87%E7%AD%BE/</url>
     <content><![CDATA[<h1 id="Git-标签"><a href="#Git-标签" class="headerlink" title="Git 标签"></a>Git 标签</h1><p>如果你达到一个重要的阶段，并希望永远记住那个特别的提交快照，你可以使用 git tag 给它打上标签。</p>
@@ -321,6 +297,30 @@
       </categories>
       <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo部署报错Spawn failed及解决方案</title>
+    <url>/2021/08/09/Hexo%E9%83%A8%E7%BD%B2%E6%8A%A5%E9%94%99Spawn%20failed%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+    <content><![CDATA[<p>原文链接:<a href="https://perry96.com/archives/882898e3.html">https://perry96.com/archives/882898e3.html</a></p>
+<p>许可协议:署名-非商业性使用-禁止演绎 4.0 国际 转载请保留原文链接及作者。</p>
+<h2 id="Hexo部署报错Spawn-failed及解决方案"><a href="#Hexo部署报错Spawn-failed及解决方案" class="headerlink" title="Hexo部署报错Spawn failed及解决方案"></a>Hexo部署报错Spawn failed及解决方案</h2><h2 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1.问题描述"></a>1.问题描述</h2><p>今天下午在使用<code>hexo d -g</code>命令进行博客部署时遇到了名为<code>Spawn failed</code>的报错，具体信息见下图。</p>
+<h2 id="2-问题分析和解决"><a href="#2-问题分析和解决" class="headerlink" title="2.问题分析和解决"></a>2.问题分析和解决</h2><span id="more"></span>
+
+<h3 id="2-1-问题原因"><a href="#2-1-问题原因" class="headerlink" title="2.1 问题原因"></a>2.1 问题原因</h3><p>在网上通过简单的查询之后发现问题出在<code>.deploy_git</code>文件夹中，这个文件夹是<code>hexo</code>框架渲染生成的所有文件的一个本地<code>git</code>仓库，<code>hexo d</code>命令就是将整个<code>.deploy_git</code>文件夹的内容push到GitHub上的。</p>
+<p>网上的一个解决方案是将GitHub上的xxx.github.io仓库克隆下来并改名成<code>.deploy_git</code>来替换原来的，这种改名方式在Windows系统中是无法完成的。简单分析这种方法的原理无非就是将<code>.deploy_git</code>的内容回滚到和GitHub上同步的状态。</p>
+<p>结合刚刚的分析，不妨打开<code>.deploy_git\.git\logs</code>路径下的HEAD查看一下仓库的状态历史(红线范围内的记录是我在第一次报错之后的多次无脑尝试，可以忽视)。</p>
+<p>再打开GitHub上的提交记录可以发现最近的时间点是12:51:46。</p>
+<p>所以可以知道是那些多余本地提交导致了报错。</p>
+<h3 id="2-2-问题解决"><a href="#2-2-问题解决" class="headerlink" title="2.2 问题解决"></a>2.2 问题解决</h3><p>现在的解决思路就是将本地仓库的状态进行回滚，对应的git命令如下。</p>
+<p>git reset –hard commitId<br>–hard强制将缓存区和工作目录都同步到你指定的<code>commitId</code>所对应的提交。<br>执行之后HEAD多了下面的一条记录（圈出的那一串数字就是我自己仓库中12:51:46时间对应的commit的ID号）。</p>
+<p>重新执行hexo d -g部署博客，发现问题成功解决。</p>
+]]></content>
+      <categories>
+        <category>测试功能</category>
+      </categories>
+      <tags>
+        <tag>报错解决方案</tag>
       </tags>
   </entry>
   <entry>
@@ -372,6 +372,21 @@
 ]]></content>
   </entry>
   <entry>
+    <title>图片测试</title>
+    <url>/2021/08/06/post-title-with-whitespace/</url>
+    <content><![CDATA[<p><img src="/2021/08/06/post-title-with-whitespace/%E5%A4%AA%E9%98%B3.jpg"></p>
+<span id="more"></span>
+
+<p><img src="/2021/08/06/post-title-with-whitespace/us2021_main-1.jpg"></p>
+<p><img src="/2021/08/06/post-title-with-whitespace/%E7%89%B9%E7%A9%BA%E6%9C%BA.jpg"></p>
+<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E5%A5%A5%E7%89%B9%E6%9B%BC,%E6%8D%B7%E5%BE%B7%E5%A5%A5%E7%89%B9%E6%9B%BC,%E8%B5%9B%E7%BD%97%E5%A5%A5%E7%89%B9%E6%9B%BC.png"></p>
+<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B0%8F%E9%98%9F.png"></p>
+]]></content>
+      <tags>
+        <tag>测试功能</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>致家长的一封信</title>
     <url>/2021/08/09/test/</url>
     <content><![CDATA[<p>致家长的一封信</p>
@@ -398,18 +413,87 @@
 ]]></content>
   </entry>
   <entry>
-    <title>图片测试</title>
-    <url>/2021/08/06/post-title-with-whitespace/</url>
-    <content><![CDATA[<p><img src="/2021/08/06/post-title-with-whitespace/%E5%A4%AA%E9%98%B3.jpg"></p>
+    <title>七个改变我生活的 Git 小技巧 | Linux 中国</title>
+    <url>/2021/08/19/%E4%B8%83%E4%B8%AA%E6%94%B9%E5%8F%98%E6%88%91%E7%94%9F%E6%B4%BB%E7%9A%84%20Git%20%E5%B0%8F%E6%8A%80%E5%B7%A7%20%20Linux%20%E4%B8%AD%E5%9B%BD/</url>
+    <content><![CDATA[<h2 id="七个改变我生活的-Git-小技巧-Linux-中国"><a href="#七个改变我生活的-Git-小技巧-Linux-中国" class="headerlink" title="七个改变我生活的 Git 小技巧 | Linux 中国"></a>七个改变我生活的 Git 小技巧 | Linux 中国</h2><p>Git 是当前最流行最普遍的版本控制系统之一，它被应用于私有系统和公开网站上各种各样的开发工作。不论我变得对 Git 有多熟悉，似乎总有些功能等待着被发掘。下面分享下和 Git 相关的改变我工作方式的一些小技巧。</p>
+<p>1、Git 中的自动纠错</p>
+<p>我们每个人都不时在输入时犯拼写错误，但是如果你使能了 Git 的自动纠错功能，你就能让 Git 自动纠正一些输入错误的子命令。</p>
 <span id="more"></span>
 
-<p><img src="/2021/08/06/post-title-with-whitespace/us2021_main-1.jpg"></p>
-<p><img src="/2021/08/06/post-title-with-whitespace/%E7%89%B9%E7%A9%BA%E6%9C%BA.jpg"></p>
-<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E5%A5%A5%E7%89%B9%E6%9B%BC,%E6%8D%B7%E5%BE%B7%E5%A5%A5%E7%89%B9%E6%9B%BC,%E8%B5%9B%E7%BD%97%E5%A5%A5%E7%89%B9%E6%9B%BC.png"></p>
-<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B0%8F%E9%98%9F.png"></p>
+<p>假如你想用命令 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">git status</a> 来检查状态，但是你恰巧错误地输入了 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">git stats</a>。通常情况下，Git 会告诉你 ‘stats’ 不是个有效的命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git statsgit: ‘stats’ is not a git <span class="built_in">command</span>. See ‘git --<span class="built_in">help</span>’</span><br><span class="line">The most similar <span class="built_in">command</span> isstatus</span><br></pre></td></tr></table></figure>
+
+<p>为了避免类似情形，只需要在你的 Git 配置中使能自动纠错功能。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global help.autocorrect 1</span><br></pre></td></tr></table></figure>
+
+<p>如果你只想对当前的仓库生效，就省略掉选项 <code>--global</code>。</p>
+<p>这个命令会使能自动纠错功能。在相应的 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">Git 官方文档</a> 中可以看到这个命令的详细说明，但是试着敲一下上面的错误命令会使你对这个设置干了什么有个直观的了解：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git statsgit: ‘stats’ is not a git <span class="built_in">command</span>. See ‘git --<span class="built_in">help</span>’</span><br><span class="line">On branch masterYour branch is up to date with ‘origin/master’</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，Git 直接运行了它建议命令的第一个，也就是 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">git status</a>，而不是给你展示它所建议的子命令。</p>
+<p>2、对提交进行计数</p>
+<p>需要对提交进行计数的原因有很多。例如，一些开发人员利用提交计数来判断什么时候递增工程构建序号，也有一些开发人员用提交计数来对项目进展取得一个整体上的感观。</p>
+<p>对提交进行计数相当简单而且直接，下面就是相应的 Git 命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git rev-list --count branch-name</span><br></pre></td></tr></table></figure>
+
+<p>在上述命令中，参数 <code>branch-name</code> 必须是一个你当前仓库里的有效分支名。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git rev-list –count master32$ git rev-list –count dev34</span><br></pre></td></tr></table></figure>
+
+<p>3、仓库优化</p>
+<p>你的代码仓库不仅对你来说很宝贵，对你所在的组织也一样。通过少数几个惯例你就能使自己的仓库整洁并且保持最新。<a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">使用 .gitignore 文件</a> 就是这些最好的惯例之一。通过使用这个文件你可以告诉 Git 不要保存一些不需要记录的文件，如二进制文件、临时文件等等。</p>
+<p>当然，你还可以使用 Git 的垃圾回收来进一步优化你的仓库。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git gc --prune=now --aggressive</span><br></pre></td></tr></table></figure>
+
+<p>这个命令在你和你的团队经常使用 <code>pull</code> 或者 <code>push</code> 操作的时候很有帮助。</p>
+<p>它是一个内部工具，能清理掉你的仓库里没法访问或者说“空悬”的 Git 对象。</p>
+<p>4、给未追踪的文件来个备份</p>
+<p>大多数时候，删除所有未追踪的文件是安全的。但很多时候也有这么一种场景，你想删掉这些未追踪的文件同时也想做个备份防止以后需要用到。</p>
+<p>Git 组合一些 Bash 命令和管道操作，可以让你可以很容易地给那些未追踪的文件创建 zip 压缩包。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git ls-files --others --exclude-standard -z </span><br><span class="line">|\  xargs -0 tar rvf ~/backup-untracked.zip</span><br></pre></td></tr></table></figure>
+
+<p>上面的命令就生成了一个名字为 <code>backup-untracked.zip</code> 的压缩包文件（当然，在 <code>.gitignore</code> 里面忽略了的文件不会包含在内）。</p>
+<p>5、了解你的 .git 文件夹</p>
+<p>每个仓库都有一个 <code>.git</code> 文件夹，它是一个特殊的隐藏文件夹。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ls -a. … .git</span><br></pre></td></tr></table></figure>
+
+<p>Git 主要通过两个东西来工作：</p>
+<p>\1. 当前工作树（你当前检出的文件状态）</p>
+<p>\2. 你的 Git 仓库的文件夹（准确地说，包含版本信息的 <code>.git</code> 文件夹的位置）</p>
+<p>这个文件夹存储了所有参考信息和一些其他的如配置、仓库数据、HEAD 状态、日志等更多诸如此类的重要细节。</p>
+<p>一旦你删除了这个文件夹，尽管你的源码没被删，但是类似你的工程历史记录等远程信息就没有了。删除这个文件夹意味着你的工程（至少本地的复制）不再在版本控制的范畴之内了。这也就意味着你没法追踪你的修改；你没法从远程仓拉取或推送到远程仓了。</p>
+<p>通常而言，你需要或者应当对你的 <code>.git</code> 文件夹的操作并不多。它是被 Git 管理的，而且大多数时候是一个禁区。然而，在这个文件夹内还是有一些有趣的工件，比如说当前的 HEAD 状态在内的就在其中。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat .git/HEADref: refs/heads/master</span><br></pre></td></tr></table></figure>
+
+<p>它也隐含着对你仓库地描述：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat .git/description</span><br></pre></td></tr></table></figure>
+
+<p>这是一个未命名的仓库；通过编辑文件 ‘description’ 可以给这个仓库命名。</p>
+<p>Git 钩子文件夹连同一些钩子文件例子也在这里。参考这些例子你就能知道 Git 钩子能干什么了。当然，你也可以 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">参考这个 Seth Kenlon 写的 Git 钩子介绍</a>。</p>
+<p>6、浏览另一个分支的文件</p>
+<p>有时，你会想要浏览另一个分支下某个文件的内容。这其实用一个简单的 Git 命令就可以实现，甚至都不用切换分支。</p>
+<p>设想你有一个命名为 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">README.md</a> 的文件，并且它在 <code>main</code> 分支上。当前你正工作在一个名为 <code>dev</code> 的分支。</p>
+<p>用下面的 Git 命令，在终端上就行。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git show main:README.md</span><br></pre></td></tr></table></figure>
+
+<p>一旦你执行这个命令，你就能在你的终端上看到 <code>main</code> 分支上该文件的内容。</p>
+<p>7、Git 中的搜索</p>
+<p>用一个简单的命令你就能在 Git 中像专业人士一样搜索了。更有甚者，尽管你不确定你的修改在哪次提交或者哪个分支上，你依然能搜索。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git rev-list --all | xargs git grep -F <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>例如，假设你想在你的仓库中搜索字符串 <code>“font-size: 52 px;&quot;</code> ：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git rev-list –all | xargs </span><br><span class="line">git grep -F ‘font-size: 52 px;’</span><br><span class="line">F3022…9e12:HtmlTemplate/style.css: font-size: 52 px;</span><br><span class="line">E9211…8244:RR.Web/Content/style/style.css: font-size: 52 px;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>试试这些小技巧</p>
+<p>我希望这些小技巧对你是有用的，或者增加你的生产力或者节省你的大量时间。</p>
+<p>你也有一些喜欢的 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">Git 技巧</a> 吗？在评论区分享吧。</p>
 ]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
       <tags>
-        <tag>测试功能</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -476,90 +560,6 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">e475afc HEAD@&#123;1&#125;: reset: moving to HEAD^</span><br><span class="line">1094adb (HEAD -&gt; master) HEAD@&#123;2&#125;: commit: append GPL</span><br><span class="line">e475afc HEAD@&#123;3&#125;: commit: add distributed</span><br><span class="line">eaadf4e HEAD@&#123;4&#125;: commit (initial): wrote a readme file</span><br></pre></td></tr></table></figure>
 
 <p>终于舒了口气，从输出可知，<code>append GPL</code>的commit id是<code>1094adb</code>，现在，你又可以乘坐时光机回到未来了。</p>
-]]></content>
-      <categories>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>七个改变我生活的 Git 小技巧 | Linux 中国</title>
-    <url>/2021/08/19/%E4%B8%83%E4%B8%AA%E6%94%B9%E5%8F%98%E6%88%91%E7%94%9F%E6%B4%BB%E7%9A%84%20Git%20%E5%B0%8F%E6%8A%80%E5%B7%A7%20%20Linux%20%E4%B8%AD%E5%9B%BD/</url>
-    <content><![CDATA[<h2 id="七个改变我生活的-Git-小技巧-Linux-中国"><a href="#七个改变我生活的-Git-小技巧-Linux-中国" class="headerlink" title="七个改变我生活的 Git 小技巧 | Linux 中国"></a>七个改变我生活的 Git 小技巧 | Linux 中国</h2><p>Git 是当前最流行最普遍的版本控制系统之一，它被应用于私有系统和公开网站上各种各样的开发工作。不论我变得对 Git 有多熟悉，似乎总有些功能等待着被发掘。下面分享下和 Git 相关的改变我工作方式的一些小技巧。</p>
-<p>1、Git 中的自动纠错</p>
-<p>我们每个人都不时在输入时犯拼写错误，但是如果你使能了 Git 的自动纠错功能，你就能让 Git 自动纠正一些输入错误的子命令。</p>
-<p>假如你想用命令 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">git status</a> 来检查状态，但是你恰巧错误地输入了 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">git stats</a>。通常情况下，Git 会告诉你 ‘stats’ 不是个有效的命令：</p>
-<span id="more"></span>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git statsgit: ‘stats’ is not a git <span class="built_in">command</span>. See ‘git --<span class="built_in">help</span>’.The most similar <span class="built_in">command</span> isstatus</span><br></pre></td></tr></table></figure>
-
-<p>为了避免类似情形，只需要在你的 Git 配置中使能自动纠错功能。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global help.autocorrect 1</span><br></pre></td></tr></table></figure>
-
-<p>如果你只想对当前的仓库生效，就省略掉选项 <code>--global</code>。</p>
-<p>这个命令会使能自动纠错功能。在相应的 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">Git 官方文档</a> 中可以看到这个命令的详细说明，但是试着敲一下上面的错误命令会使你对这个设置干了什么有个直观的了解：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git statsgit: ‘stats’ is not a git <span class="built_in">command</span>. See ‘git --<span class="built_in">help</span>’.On branch masterYour branch is up to date with ‘origin/master’.nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
-
-<p>在上面的例子中，Git 直接运行了它建议命令的第一个，也就是 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">git status</a>，而不是给你展示它所建议的子命令。</p>
-<p>2、对提交进行计数</p>
-<p>需要对提交进行计数的原因有很多。例如，一些开发人员利用提交计数来判断什么时候递增工程构建序号，也有一些开发人员用提交计数来对项目进展取得一个整体上的感观。</p>
-<p>对提交进行计数相当简单而且直接，下面就是相应的 Git 命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git rev-list --count branch-name</span><br></pre></td></tr></table></figure>
-
-<p>在上述命令中，参数 <code>branch-name</code> 必须是一个你当前仓库里的有效分支名。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git rev-list –count master32$ git rev-list –count dev34</span><br></pre></td></tr></table></figure>
-
-<p>3、仓库优化</p>
-<p>你的代码仓库不仅对你来说很宝贵，对你所在的组织也一样。通过少数几个惯例你就能使自己的仓库整洁并且保持最新。<a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">使用 .gitignore 文件</a> 就是这些最好的惯例之一。通过使用这个文件你可以告诉 Git 不要保存一些不需要记录的文件，如二进制文件、临时文件等等。</p>
-<p>当然，你还可以使用 Git 的垃圾回收来进一步优化你的仓库。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git gc --prune=now --aggressive</span><br></pre></td></tr></table></figure>
-
-<p>这个命令在你和你的团队经常使用 <code>pull</code> 或者 <code>push</code> 操作的时候很有帮助。</p>
-<p>它是一个内部工具，能清理掉你的仓库里没法访问或者说“空悬”的 Git 对象。</p>
-<p>4、给未追踪的文件来个备份</p>
-<p>大多数时候，删除所有未追踪的文件是安全的。但很多时候也有这么一种场景，你想删掉这些未追踪的文件同时也想做个备份防止以后需要用到。</p>
-<p>Git 组合一些 Bash 命令和管道操作，可以让你可以很容易地给那些未追踪的文件创建 zip 压缩包。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git ls-files --others --exclude-standard -z |\  xargs -0 tar rvf ~/backup-untracked.zip</span><br></pre></td></tr></table></figure>
-
-<p>上面的命令就生成了一个名字为 <code>backup-untracked.zip</code> 的压缩包文件（当然，在 <code>.gitignore</code> 里面忽略了的文件不会包含在内）。</p>
-<p>5、了解你的 .git 文件夹</p>
-<p>每个仓库都有一个 <code>.git</code> 文件夹，它是一个特殊的隐藏文件夹。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ls -a. … .git</span><br></pre></td></tr></table></figure>
-
-<p>Git 主要通过两个东西来工作：</p>
-<p>\1. 当前工作树（你当前检出的文件状态）</p>
-<p>\2. 你的 Git 仓库的文件夹（准确地说，包含版本信息的 <code>.git</code> 文件夹的位置）</p>
-<p>这个文件夹存储了所有参考信息和一些其他的如配置、仓库数据、HEAD 状态、日志等更多诸如此类的重要细节。</p>
-<p>一旦你删除了这个文件夹，尽管你的源码没被删，但是类似你的工程历史记录等远程信息就没有了。删除这个文件夹意味着你的工程（至少本地的复制）不再在版本控制的范畴之内了。这也就意味着你没法追踪你的修改；你没法从远程仓拉取或推送到远程仓了。</p>
-<p>通常而言，你需要或者应当对你的 <code>.git</code> 文件夹的操作并不多。它是被 Git 管理的，而且大多数时候是一个禁区。然而，在这个文件夹内还是有一些有趣的工件，比如说当前的 HEAD 状态在内的就在其中。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat .git/HEADref: refs/heads/master</span><br></pre></td></tr></table></figure>
-
-<p>它也隐含着对你仓库地描述：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat .git/description</span><br></pre></td></tr></table></figure>
-
-<p>这是一个未命名的仓库；通过编辑文件 ‘description’ 可以给这个仓库命名。</p>
-<p>Git 钩子文件夹连同一些钩子文件例子也在这里。参考这些例子你就能知道 Git 钩子能干什么了。当然，你也可以 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">参考这个 Seth Kenlon 写的 Git 钩子介绍</a>。</p>
-<p>6、浏览另一个分支的文件</p>
-<p>有时，你会想要浏览另一个分支下某个文件的内容。这其实用一个简单的 Git 命令就可以实现，甚至都不用切换分支。</p>
-<p>设想你有一个命名为 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">README.md</a> 的文件，并且它在 <code>main</code> 分支上。当前你正工作在一个名为 <code>dev</code> 的分支。</p>
-<p>用下面的 Git 命令，在终端上就行。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git show main:README.md</span><br></pre></td></tr></table></figure>
-
-<p>一旦你执行这个命令，你就能在你的终端上看到 <code>main</code> 分支上该文件的内容。</p>
-<p>7、Git 中的搜索</p>
-<p>用一个简单的命令你就能在 Git 中像专业人士一样搜索了。更有甚者，尽管你不确定你的修改在哪次提交或者哪个分支上，你依然能搜索。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git rev-list --all | xargs git grep -F <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>例如，假设你想在你的仓库中搜索字符串 <code>“font-size: 52 px;&quot;</code> ：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git rev-list –all | xargs git grep -F ‘font-size: 52 px;’F3022…9e12:HtmlTemplate/style.css: font-size: 52 px;E9211…8244:RR.Web/Content/style/style.css: font-size: 52 px;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>试试这些小技巧</p>
-<p>我希望这些小技巧对你是有用的，或者增加你的生产力或者节省你的大量时间。</p>
-<p>你也有一些喜欢的 <a href="https://mp.weixin.qq.com/s?subscene=88&__biz=MjM5NjQ4MjYwMQ==&mid=2664636554&idx=1&sn=63c52c375e2f7f9d43bbc15917abbcff&chksm=bdcf1bcc8ab892da7177f64fab2c4af7c3242fe6d8963d71710bfac33d24fa759b71d70eeb39&scene=7&key=1a66bed12d95e93a998292d4c26528c7c810b61a30812a1e3ce71f7f3e7007c0f3e73bfcfe3daa43268cd3efa9df5e037d197b60f08f7aab5b46b66b861c11151cf3a83fd445fb816bf2349eceb5d36b46735fdc1ee1b422307e23334f65cfb11491b23ca59f1c0becb57c73f45a34979dad44dbfffb8f8ba6f1e8f7590f48cc&ascene=0&uin=MTc2NDQ5MDA3OA==&devicetype=Windows+10+x64&version=63030073&lang=zh_CN&exportkey=A/a8nJmlaA+xDW5OScmE4oM=&pass_ticket=oc7nwsar2ESzd9pt/qMT18r3h6Na0KBE7ITx33AFtk2Ebs7F8RAPx7yvKj8VkvjD&wx_header=0&fontgear=2">Git 技巧</a> 吗？在评论区分享吧。</p>
 ]]></content>
       <categories>
         <category>Git</category>
