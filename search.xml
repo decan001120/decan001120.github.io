@@ -324,36 +324,6 @@
       </tags>
   </entry>
   <entry>
-    <title>如何在 ASP.NET Core 中 使用 cookies</title>
-    <url>/2021/08/11/cookies/</url>
-    <content><![CDATA[<p>.net core下可以使用普通的cookie也可以使用加密的cookie，普通的cookie的使用</p>
-<p>需要继承Controller里使用</p>
-<p>写入Cookie </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Response.Cookies.Append(&quot;password&quot;, &quot;123456&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>读取Cookie</p>
-<span id="more"></span>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string s;</span><br><span class="line"></span><br><span class="line">Request.Cookies.TryGetValue(&quot;password&quot;, out s);</span><br></pre></td></tr></table></figure>
-
-
-
-<p>删除Cookie</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Response.Cookies.Delete(key)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这里注意下，写人和删除操作是Response，读取和删除是Request</p>
-<p>还有需要注意点是，如果要单独写个类的话一定需要继承Controller才可以使用不然操作不了Cookie,并不像.net framework那样可以通过httpcontext.current来操作cookie,这点要注意我刚开始自定义了一个cookie操作类就碰到这个问题了。</p>
-]]></content>
-      <categories>
-        <category>问题解答</category>
-      </categories>
-      <tags>
-        <tag>ASP.NET Core</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello World</title>
     <url>/2021/06/20/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -494,6 +464,36 @@
       </categories>
       <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何在 ASP.NET Core 中 使用 cookies</title>
+    <url>/2021/08/11/cookies/</url>
+    <content><![CDATA[<p>.net core下可以使用普通的cookie也可以使用加密的cookie，普通的cookie的使用</p>
+<p>需要继承Controller里使用</p>
+<p>写入Cookie </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Response.Cookies.Append(&quot;password&quot;, &quot;123456&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>读取Cookie</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string s;</span><br><span class="line"></span><br><span class="line">Request.Cookies.TryGetValue(&quot;password&quot;, out s);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>删除Cookie</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Response.Cookies.Delete(key)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里注意下，写人和删除操作是Response，读取和删除是Request</p>
+<p>还有需要注意点是，如果要单独写个类的话一定需要继承Controller才可以使用不然操作不了Cookie,并不像.net framework那样可以通过httpcontext.current来操作cookie,这点要注意我刚开始自定义了一个cookie操作类就碰到这个问题了。</p>
+]]></content>
+      <categories>
+        <category>问题解答</category>
+      </categories>
+      <tags>
+        <tag>ASP.NET Core</tag>
       </tags>
   </entry>
   <entry>
