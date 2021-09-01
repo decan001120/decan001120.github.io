@@ -221,51 +221,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Git查看提交历史</title>
-    <url>/2021/08/16/Git%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2/</url>
-    <content><![CDATA[<h1 id="Git-查看提交历史"><a href="#Git-查看提交历史" class="headerlink" title="Git 查看提交历史"></a>Git 查看提交历史</h1><p>Git 提交历史一般常用两个命令：</p>
-<p><strong>git log</strong> - 查看历史提交记录。</p>
-<p><strong>git blame <file></file></strong> - 以列表形式查看指定文件的历史修改记录。</p>
-<h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h3><span id="more"></span>
-
-<p>在使用 Git 提交了若干更新之后，又或者克隆了某个项目，想回顾下提交历史，我们可以使用 <strong>git log</strong> 命令查看。</p>
-<p>针对我们前一章节的操作，使用 <strong>git log</strong> 命令列出历史提交记录如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit d5e9fc2c811e0ca2b2d28506ef7dc14171a207d9 (HEAD -&gt; master)</span><br><span class="line">Merge: c68142b 7774248</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:55:58 2019 +0800</span><br><span class="line"></span><br><span class="line">    Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line"></span><br><span class="line">commit c68142b562c260c3071754623b08e2657b4c6d5b</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:52:12 2019 +0800</span><br><span class="line"></span><br><span class="line">    修改代码</span><br><span class="line"></span><br><span class="line">commit 777424832e714cf65d3be79b50a4717aea51ab69 (change_site)</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:49:26 2019 +0800</span><br><span class="line"></span><br><span class="line">    changed the runoob.php</span><br><span class="line"></span><br><span class="line">commit c1501a244676ff55e7cccac1ecac0e18cbf6cb00</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:35:32 2019 +0800</span><br></pre></td></tr></table></figure>
-
-<p>我们可以用 –oneline 选项来查看历史记录的简洁的版本。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">c68142b 修改代码</span><br><span class="line">7774248 (change_site) changed the runoob.php</span><br><span class="line">c1501a2 removed test.txt、add runoob.php</span><br><span class="line">3e92c19 add test.txt</span><br><span class="line">3b58100 第一次版本提交</span><br></pre></td></tr></table></figure>
-
-<p>这告诉我们的是，此项目的开发历史。</p>
-<p>我们还可以用 –graph 选项，查看历史中什么时候出现了分支、合并。以下为相同的命令，开启了拓扑图选项：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*   d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">|\  </span><br><span class="line">| * 7774248 (change_site) changed the runoob.php</span><br><span class="line">* | c68142b 修改代码</span><br><span class="line">|/  </span><br><span class="line">* c1501a2 removed test.txt、add runoob.php</span><br><span class="line">* 3e92c19 add test.txt</span><br><span class="line">* 3b58100 第一次版本提交</span><br></pre></td></tr></table></figure>
-
-<p>现在我们可以更清楚明了地看到何时工作分叉、又何时归并。</p>
-<p>你也可以用 <strong>–reverse</strong> 参数来逆向显示所有日志。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --reverse --oneline</span><br><span class="line">3b58100 第一次版本提交</span><br><span class="line">3e92c19 add test.txt</span><br><span class="line">c1501a2 removed test.txt、add runoob.php</span><br><span class="line">7774248 (change_site) changed the runoob.php</span><br><span class="line">c68142b 修改代码</span><br><span class="line">d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>如果只想查找指定用户的提交日志可以使用命令：git log –author , 例如，比方说我们要找 Git 源码中 Linus 提交的部分：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --author=Linus --oneline -5</span><br><span class="line">81b50f3 Move <span class="string">&#x27;builtin-*&#x27;</span> into a <span class="string">&#x27;builtin/&#x27;</span> subdirectory</span><br><span class="line">3bb7256 make <span class="string">&quot;index-pack&quot;</span> a built-in</span><br><span class="line">377d027 make <span class="string">&quot;git pack-redundant&quot;</span> a built-in</span><br><span class="line">b532581 make <span class="string">&quot;git unpack-file&quot;</span> a built-in</span><br><span class="line">112dd51 make <span class="string">&quot;mktag&quot;</span> a built-in</span><br></pre></td></tr></table></figure>
-
-<p>如果你要指定日期，可以执行几个选项：–since 和 –before，但是你也可以用 –until 和 –after。</p>
-<p>例如，如果我要看 Git 项目中三周前且在四月十八日之后的所有提交，我可以执行这个（我还用了 –no-merges 选项以隐藏合并提交）：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline --before=&#123;3.weeks.ago&#125; --after=&#123;2010-04-18&#125; --no-merges</span><br><span class="line">5469e2d Git 1.7.1-rc2</span><br><span class="line">d43427d Documentation/remote-helpers: Fix typos and improve language</span><br><span class="line">272a36b Fixup: Second argument may be any arbitrary string</span><br><span class="line">b6c8d2d Documentation/remote-helpers: Add invocation section</span><br><span class="line">5ce4f4e Documentation/urls: Rewrite to accomodate transport::address</span><br><span class="line">00b84e9 Documentation/remote-helpers: Rewrite description</span><br><span class="line">03aa87e Documentation: Describe other situations <span class="built_in">where</span> -z affects git diff</span><br><span class="line">77bc694 rebase-interactive: silence warning when no commits rewritten</span><br><span class="line">636db2c t3301: add tests to use --format=<span class="string">&quot;%N&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>更多 git log 命令可查看：<a href="http://git-scm.com/docs/git-log">http://git-scm.com/docs/git-log</a></p>
-<h3 id="git-blame"><a href="#git-blame" class="headerlink" title="git blame"></a>git blame</h3><p>如果要查看指定文件的修改记录可以使用 git blame 命令，格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git blame &lt;file&gt;</span><br></pre></td></tr></table></figure>
-
-<p>git blame 命令是以列表形式显示修改记录，如下实例：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git blame README </span><br><span class="line">^d2097aa (tianqixin 2020-08-25 14:59:25 +0800 1) <span class="comment"># Runoob Git 测试</span></span><br><span class="line">db9315b0 (runoob    2020-08-25 16:00:23 +0800 2) <span class="comment"># 菜鸟教程 </span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git标签</title>
     <url>/2021/08/16/Git%E6%A0%87%E7%AD%BE/</url>
     <content><![CDATA[<h1 id="Git-标签"><a href="#Git-标签" class="headerlink" title="Git 标签"></a>Git 标签</h1><p>如果你达到一个重要的阶段，并希望永远记住那个特别的提交快照，你可以使用 git tag 给它打上标签。</p>
@@ -297,6 +252,21 @@
       </categories>
       <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图片测试</title>
+    <url>/2021/08/06/post-title-with-whitespace/</url>
+    <content><![CDATA[<p><img src="/2021/08/06/post-title-with-whitespace/%E5%A4%AA%E9%98%B3.jpg"></p>
+<span id="more"></span>
+
+<p><img src="/2021/08/06/post-title-with-whitespace/us2021_main-1.jpg"></p>
+<p><img src="/2021/08/06/post-title-with-whitespace/%E7%89%B9%E7%A9%BA%E6%9C%BA.jpg"></p>
+<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E5%A5%A5%E7%89%B9%E6%9B%BC,%E6%8D%B7%E5%BE%B7%E5%A5%A5%E7%89%B9%E6%9B%BC,%E8%B5%9B%E7%BD%97%E5%A5%A5%E7%89%B9%E6%9B%BC.png"></p>
+<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B0%8F%E9%98%9F.png"></p>
+]]></content>
+      <tags>
+        <tag>测试功能</tag>
       </tags>
   </entry>
   <entry>
@@ -342,18 +312,33 @@
 ]]></content>
   </entry>
   <entry>
-    <title>图片测试</title>
-    <url>/2021/08/06/post-title-with-whitespace/</url>
-    <content><![CDATA[<p><img src="/2021/08/06/post-title-with-whitespace/%E5%A4%AA%E9%98%B3.jpg"></p>
+    <title>如何在 ASP.NET Core 中 使用 cookies</title>
+    <url>/2021/08/11/cookies/</url>
+    <content><![CDATA[<p>.net core下可以使用普通的cookie也可以使用加密的cookie，普通的cookie的使用</p>
+<p>需要继承Controller里使用</p>
+<p>写入Cookie </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Response.Cookies.Append(&quot;password&quot;, &quot;123456&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>读取Cookie</p>
 <span id="more"></span>
 
-<p><img src="/2021/08/06/post-title-with-whitespace/us2021_main-1.jpg"></p>
-<p><img src="/2021/08/06/post-title-with-whitespace/%E7%89%B9%E7%A9%BA%E6%9C%BA.jpg"></p>
-<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E5%A5%A5%E7%89%B9%E6%9B%BC,%E6%8D%B7%E5%BE%B7%E5%A5%A5%E7%89%B9%E6%9B%BC,%E8%B5%9B%E7%BD%97%E5%A5%A5%E7%89%B9%E6%9B%BC.png"></p>
-<p><img src="/2021/08/06/post-title-with-whitespace/%E6%B3%BD%E5%A1%94%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B0%8F%E9%98%9F.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string s;</span><br><span class="line"></span><br><span class="line">Request.Cookies.TryGetValue(&quot;password&quot;, out s);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>删除Cookie</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Response.Cookies.Delete(key)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里注意下，写人和删除操作是Response，读取和删除是Request</p>
+<p>还有需要注意点是，如果要单独写个类的话一定需要继承Controller才可以使用不然操作不了Cookie,并不像.net framework那样可以通过httpcontext.current来操作cookie,这点要注意我刚开始自定义了一个cookie操作类就碰到这个问题了。</p>
 ]]></content>
+      <categories>
+        <category>问题解答</category>
+      </categories>
       <tags>
-        <tag>测试功能</tag>
+        <tag>ASP.NET Core</tag>
       </tags>
   </entry>
   <entry>
@@ -381,6 +366,51 @@
 <p>学生签字：         家长签字：</p>
 <p>2021年6月28日</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Git查看提交历史</title>
+    <url>/2021/08/16/Git%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2/</url>
+    <content><![CDATA[<h1 id="Git-查看提交历史"><a href="#Git-查看提交历史" class="headerlink" title="Git 查看提交历史"></a>Git 查看提交历史</h1><p>Git 提交历史一般常用两个命令：</p>
+<p><strong>git log</strong> - 查看历史提交记录。</p>
+<p><strong>git blame <file></file></strong> - 以列表形式查看指定文件的历史修改记录。</p>
+<h3 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h3><span id="more"></span>
+
+<p>在使用 Git 提交了若干更新之后，又或者克隆了某个项目，想回顾下提交历史，我们可以使用 <strong>git log</strong> 命令查看。</p>
+<p>针对我们前一章节的操作，使用 <strong>git log</strong> 命令列出历史提交记录如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span></span><br><span class="line">commit d5e9fc2c811e0ca2b2d28506ef7dc14171a207d9 (HEAD -&gt; master)</span><br><span class="line">Merge: c68142b 7774248</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:55:58 2019 +0800</span><br><span class="line"></span><br><span class="line">    Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line"></span><br><span class="line">commit c68142b562c260c3071754623b08e2657b4c6d5b</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:52:12 2019 +0800</span><br><span class="line"></span><br><span class="line">    修改代码</span><br><span class="line"></span><br><span class="line">commit 777424832e714cf65d3be79b50a4717aea51ab69 (change_site)</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:49:26 2019 +0800</span><br><span class="line"></span><br><span class="line">    changed the runoob.php</span><br><span class="line"></span><br><span class="line">commit c1501a244676ff55e7cccac1ecac0e18cbf6cb00</span><br><span class="line">Author: runoob &lt;<span class="built_in">test</span>@runoob.com&gt;</span><br><span class="line">Date:   Fri May 3 15:35:32 2019 +0800</span><br></pre></td></tr></table></figure>
+
+<p>我们可以用 –oneline 选项来查看历史记录的简洁的版本。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">$ git <span class="built_in">log</span> --oneline</span><br><span class="line">d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">c68142b 修改代码</span><br><span class="line">7774248 (change_site) changed the runoob.php</span><br><span class="line">c1501a2 removed test.txt、add runoob.php</span><br><span class="line">3e92c19 add test.txt</span><br><span class="line">3b58100 第一次版本提交</span><br></pre></td></tr></table></figure>
+
+<p>这告诉我们的是，此项目的开发历史。</p>
+<p>我们还可以用 –graph 选项，查看历史中什么时候出现了分支、合并。以下为相同的命令，开启了拓扑图选项：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*   d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br><span class="line">|\  </span><br><span class="line">| * 7774248 (change_site) changed the runoob.php</span><br><span class="line">* | c68142b 修改代码</span><br><span class="line">|/  </span><br><span class="line">* c1501a2 removed test.txt、add runoob.php</span><br><span class="line">* 3e92c19 add test.txt</span><br><span class="line">* 3b58100 第一次版本提交</span><br></pre></td></tr></table></figure>
+
+<p>现在我们可以更清楚明了地看到何时工作分叉、又何时归并。</p>
+<p>你也可以用 <strong>–reverse</strong> 参数来逆向显示所有日志。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --reverse --oneline</span><br><span class="line">3b58100 第一次版本提交</span><br><span class="line">3e92c19 add test.txt</span><br><span class="line">c1501a2 removed test.txt、add runoob.php</span><br><span class="line">7774248 (change_site) changed the runoob.php</span><br><span class="line">c68142b 修改代码</span><br><span class="line">d5e9fc2 (HEAD -&gt; master) Merge branch <span class="string">&#x27;change_site&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果只想查找指定用户的提交日志可以使用命令：git log –author , 例如，比方说我们要找 Git 源码中 Linus 提交的部分：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --author=Linus --oneline -5</span><br><span class="line">81b50f3 Move <span class="string">&#x27;builtin-*&#x27;</span> into a <span class="string">&#x27;builtin/&#x27;</span> subdirectory</span><br><span class="line">3bb7256 make <span class="string">&quot;index-pack&quot;</span> a built-in</span><br><span class="line">377d027 make <span class="string">&quot;git pack-redundant&quot;</span> a built-in</span><br><span class="line">b532581 make <span class="string">&quot;git unpack-file&quot;</span> a built-in</span><br><span class="line">112dd51 make <span class="string">&quot;mktag&quot;</span> a built-in</span><br></pre></td></tr></table></figure>
+
+<p>如果你要指定日期，可以执行几个选项：–since 和 –before，但是你也可以用 –until 和 –after。</p>
+<p>例如，如果我要看 Git 项目中三周前且在四月十八日之后的所有提交，我可以执行这个（我还用了 –no-merges 选项以隐藏合并提交）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --oneline --before=&#123;3.weeks.ago&#125; --after=&#123;2010-04-18&#125; --no-merges</span><br><span class="line">5469e2d Git 1.7.1-rc2</span><br><span class="line">d43427d Documentation/remote-helpers: Fix typos and improve language</span><br><span class="line">272a36b Fixup: Second argument may be any arbitrary string</span><br><span class="line">b6c8d2d Documentation/remote-helpers: Add invocation section</span><br><span class="line">5ce4f4e Documentation/urls: Rewrite to accomodate transport::address</span><br><span class="line">00b84e9 Documentation/remote-helpers: Rewrite description</span><br><span class="line">03aa87e Documentation: Describe other situations <span class="built_in">where</span> -z affects git diff</span><br><span class="line">77bc694 rebase-interactive: silence warning when no commits rewritten</span><br><span class="line">636db2c t3301: add tests to use --format=<span class="string">&quot;%N&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>更多 git log 命令可查看：<a href="http://git-scm.com/docs/git-log">http://git-scm.com/docs/git-log</a></p>
+<h3 id="git-blame"><a href="#git-blame" class="headerlink" title="git blame"></a>git blame</h3><p>如果要查看指定文件的修改记录可以使用 git blame 命令，格式如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git blame &lt;file&gt;</span><br></pre></td></tr></table></figure>
+
+<p>git blame 命令是以列表形式显示修改记录，如下实例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git blame README </span><br><span class="line">^d2097aa (tianqixin 2020-08-25 14:59:25 +0800 1) <span class="comment"># Runoob Git 测试</span></span><br><span class="line">db9315b0 (runoob    2020-08-25 16:00:23 +0800 2) <span class="comment"># 菜鸟教程 </span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
   </entry>
   <entry>
     <title>七个改变我生活的 Git 小技巧 | Linux 中国</title>
@@ -467,33 +497,33 @@
       </tags>
   </entry>
   <entry>
-    <title>如何在 ASP.NET Core 中 使用 cookies</title>
-    <url>/2021/08/11/cookies/</url>
-    <content><![CDATA[<p>.net core下可以使用普通的cookie也可以使用加密的cookie，普通的cookie的使用</p>
-<p>需要继承Controller里使用</p>
-<p>写入Cookie </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Response.Cookies.Append(&quot;password&quot;, &quot;123456&quot;);</span><br></pre></td></tr></table></figure>
+    <title>别名</title>
+    <url>/2021/09/01/%E5%88%AB%E5%90%8D/</url>
+    <content><![CDATA[<h2 id="Git-别名"><a href="#Git-别名" class="headerlink" title="Git 别名"></a>Git 别名</h2><p>在我们结束本章 Git 基础之前，正好有一个小技巧可以使你的 Git 体验更简单、容易、熟悉：别名。 我们不会在之后的章节中引用到或假定你使用过它们，但是你大概应该知道如何使用它们。</p>
+<p>Git 并不会在你输入部分命令时自动推断出你想要的命令。 如果不想每次都输入完整的 Git 命令，可以通过 <code>git config</code> 文件来轻松地为每一个命令设置一个别名。 这里有一些例子你可以试试：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global alias.co checkout</span><br><span class="line">$ git config --global alias.br branch</span><br><span class="line">$ git config --global alias.ci commit</span><br><span class="line">$ git config --global alias.st status</span><br></pre></td></tr></table></figure>
 
-<p>读取Cookie</p>
-<span id="more"></span>
+<p>这意味着，当要输入 <code>git commit</code> 时，只需要输入 <code>git ci</code>。 随着你继续不断地使用 Git，可能也会经常使用其他命令，所以创建别名时不要犹豫。</p>
+<p>在创建你认为应该存在的命令时这个技术会很有用。 例如，为了解决取消暂存文件的易用性问题，可以向 Git 中添加你自己的取消暂存别名：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global alias.unstage <span class="string">&#x27;reset HEAD --&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string s;</span><br><span class="line"></span><br><span class="line">Request.Cookies.TryGetValue(&quot;password&quot;, out s);</span><br></pre></td></tr></table></figure>
+<p>这会使下面的两个命令等价：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git unstage fileA</span><br><span class="line">$ git reset HEAD -- fileA</span><br></pre></td></tr></table></figure>
 
+<p>这样看起来更清楚一些。 通常也会添加一个 <code>last</code> 命令，像这样：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global alias.last <span class="string">&#x27;log -1 HEAD&#x27;</span></span><br></pre></td></tr></table></figure>
 
+<p>这样，可以轻松地看到最后一次提交：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git last</span><br><span class="line">commit 66938dae3329c7aebe598c2246a8e6af90d04646</span><br><span class="line">Author: Josh Goebel &lt;dreamer3@example.com&gt;</span><br><span class="line">Date:   Tue Aug 26 19:48:51 2008 +0800</span><br><span class="line"></span><br><span class="line">    <span class="built_in">test</span> <span class="keyword">for</span> current head</span><br><span class="line"></span><br><span class="line">    Signed-off-by: Scott Chacon &lt;schacon@example.com&gt;</span><br></pre></td></tr></table></figure>
 
-<p>删除Cookie</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Response.Cookies.Delete(key)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这里注意下，写人和删除操作是Response，读取和删除是Request</p>
-<p>还有需要注意点是，如果要单独写个类的话一定需要继承Controller才可以使用不然操作不了Cookie,并不像.net framework那样可以通过httpcontext.current来操作cookie,这点要注意我刚开始自定义了一个cookie操作类就碰到这个问题了。</p>
+<p>可以看出，Git 只是简单地将别名替换为对应的命令。 然而，你可能想要执行外部命令，而不是一个 Git 子命令。 如果是那样的话，可以在命令前面加入 <code>!</code> 符号。 如果你自己要写一些与 Git 仓库协作的工具的话，那会很有用。 我们现在演示将 <code>git visual</code> 定义为 <code>gitk</code> 的别名：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global alias.visual <span class="string">&#x27;!gitk&#x27;</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>问题解答</category>
+        <category>Git</category>
       </categories>
       <tags>
-        <tag>ASP.NET Core</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
